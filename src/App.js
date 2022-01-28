@@ -29,7 +29,7 @@ function App() {
               />
             </Routes>
           </BrowserRouter>
-        </React.Fragment>
+      </React.Fragment>
   );
 }
 
