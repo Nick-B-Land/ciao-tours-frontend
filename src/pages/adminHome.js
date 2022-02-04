@@ -1,6 +1,9 @@
 import React, { Component, useState, useEffect } from 'react';
+import '../style/stylesheet.css';
 import EmployeeCard from '../components/employeeCard';
 import employeeController from '../controllers/employeeController';
+import TopNav from '../components/topNav';
+import BottomAdminNav from '../components/bottomAdminNav';
 
 class AdminHome extends Component {
     constructor(props){
@@ -35,16 +38,33 @@ class AdminHome extends Component {
         })
     }
 
+    
     render() { 
-
+        var adminName = 'Administrator';
         return (
-            <div className='container'>
-                <div className='row'>
-                    <div className='col'>
-                        <h1>Admin Home Page</h1>
-                    </div>
+            <div className='container-fluid p-0 adminHomePage'>
+                <div className='row d-flex'>
+                    <TopNav />
+                    <BottomAdminNav />
                 </div>
-                {this.state.employeesLoaded ? this.renderEmployees() : <h3>Loading</h3>}
+                <div className='row'>
+                    <div className='col-2'>
+                    </div>
+                    <div className='col-8 innerAdmin'>
+                        <div className='row'>
+                            <div className='col min-vh-100'>
+                                <h1>Welcome, {adminName}</h1>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <div className='col-2'></div>
+                            <div className='col'></div>
+                        </div>
+                    </div>
+                    <div className='col-2'></div>
+                </div>
+
+                {/* {this.state.employeesLoaded ? this.renderEmployees() : <h3>Loading</h3>} */}
             </div>
         );
     }
