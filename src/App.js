@@ -10,13 +10,12 @@ function App() {
   return (
     <React.Fragment>
           <BrowserRouter>
-            <TopNav />
             <Routes>
               <Route
                 exact
-                path="/"
+                path="/login"
                 element={<LoginPage />}
-              />
+              />  
               <Route
                 exact
                 path="/admin"
@@ -24,7 +23,7 @@ function App() {
               />
               <Route
                 exact
-                path="/employee"
+                path="/"
                 element={<EmployeeHome />}
               />
             </Routes>

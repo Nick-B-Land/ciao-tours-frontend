@@ -1,0 +1,44 @@
+body {
+    background-color: #faf2db;
+}
+
+.loginBG {
+    width: 100%;
+    height: 100vh;
+    opacity: 0.6;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-image: url("../style/Login\ BG.jpg");
+    
+}
+
+.basicNavBar {
+    background-color: #fffef9;
+}
+
+.loginscreen {
+    height: 100vh;
+}
+
+.adminHomePage {
+    background-image: url("../style/Admin\ Home\ BG.jpg");    /*Photo source: https://unsplash.com/photos/0Bs3et8FYyg*/
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.employeeHomePage {
+    background-image: url("../style/Employee\ Home\ BG.jpg");    /*Photo source: https://unsplash.com/photos/xWZa0GYCMbo*/
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.innerAdmin {
+    background-color: #faf2db;
+}
