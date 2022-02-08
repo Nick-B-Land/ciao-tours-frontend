@@ -5,6 +5,8 @@ import LoginPage from './pages/loginPage';
 import AdminHome from './pages/adminHome';
 import EmployeeHome from './pages/employeeHome';
 import AdminEmployees from "./pages/adminEmployees";
+import AdminReports from "./pages/adminReports";
+import Information from "./pages/information";
 
 function App() {
   return (
@@ -28,8 +30,18 @@ function App() {
               />
               <Route
                 exact
-                path="/"
+                path="/adminEmployees"
                 element={<AdminEmployees />}
+              />
+              <Route
+                exact
+                path="/adminReports"
+                element={<AdminReports />}
+              />
+              <Route
+                exact
+                path="/"
+                element={<Information />}
               />
             </Routes>
           </BrowserRouter>
