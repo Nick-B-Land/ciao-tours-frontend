@@ -2,6 +2,10 @@ body {
     background-color: #faf2db;
 }
 
+* {
+    font-family: 'Roboto Slab', serif;
+}
+
 .loginBG {
     width: 100%;
     height: 100vh;
@@ -41,4 +45,80 @@ body {
 
 .innerAdmin {
     background-color: #faf2db;
+}
+
+.adminContent {
+    margin: 10px;
+}
+
+.flaggedDays {
+    background-color: #faf2db;
+    border: 1px solid #dfc36f;
+    border-radius: 15px;
+    width: 75%;
+    height: 35%;
+    float: left;
+}
+
+.todaysDate {
+    background-color: #faf2db;
+    border: 1px solid #dfc36f;
+    border-radius: 15px;
+    width: 20%;
+    height: 35%;
+    float: right;
+}
+
+.listOfEmp {
+    background-color: #faf2db;
+    border: 1px solid #dfc36f;
+    border-radius: 15px;
+    width: 45%;
+    height: 35%;
+    float: left;
+}
+
+.empty {
+    background-color: #faf2db;
+    border: 1px solid #dfc36f;
+    border-radius: 15px;
+    width: 50%;
+    height: 35%;
+    float: right;
+}
+
+.flaggedDays, .todaysDate, .listOfEmp, .empty {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 15px;
+}
+
+.flaggedDays h2, .todaysDate h2, .listOfEmp h2 {
+    text-align: center;
+}
+
+.flaggedDays table, .listOfEmp table {
+    width: 100%;
+}
+
+.todaysDate {
+    text-align: center;
+}
+
+.curMonth {
+    font-size: 45px;
+    margin: 0;
+}
+
+.curDay {
+    font-size: 110px;
+    margin: 0;
+    line-height: 110px;
+}
+
+.curYear {
+    font-size: 45px;
+    margin: 0;
 }

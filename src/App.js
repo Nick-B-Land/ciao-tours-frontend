@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import TopNav from './components/topNav';
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from './pages/loginPage';
 import AdminHome from './pages/adminHome';
