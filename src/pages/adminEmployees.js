@@ -4,11 +4,10 @@ import TopNav from '../components/topNav';
 import BottomAdminNav from '../components/bottomAdminNav';
 
 class AdminEmployees extends Component {
-    
     render() { 
-
+        var employeeName = 'Ashley Drinkill';
         return (
-            <div className='container-fluid p-0 adminHomePage'>
+            <div className='container-fluid p-0 adminEmployeesPage'>
                 <div className='row d-flex'>
                     <TopNav />
                     <BottomAdminNav />
@@ -16,10 +15,10 @@ class AdminEmployees extends Component {
                 <div className='row'>
                     <div className='col-2'>
                     </div>
-                    <div className='col-8 innerAdmin'>
+                    <div className='col-8 min-vh-100 innerAdmin'>
                         <div className='row'>
-                            <div className='col min-vh-100 adminContent'>
-                                <h1>I can't see anything</h1>
+                            <div className='employeeHeader'>
+                                <h1>List Of Employees</h1>
                             </div>
                         </div>
                         <div className='row'>

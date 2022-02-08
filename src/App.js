@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from './pages/loginPage';
 import AdminHome from './pages/adminHome';
 import EmployeeHome from './pages/employeeHome';
+import AdminEmployees from "./pages/adminEmployees";
 
 function App() {
   return (
@@ -22,8 +23,13 @@ function App() {
               />
               <Route
                 exact
-                path="/"
+                path="/employee"
                 element={<EmployeeHome />}
+              />
+              <Route
+                exact
+                path="/"
+                element={<AdminEmployees />}
               />
             </Routes>
           </BrowserRouter>
