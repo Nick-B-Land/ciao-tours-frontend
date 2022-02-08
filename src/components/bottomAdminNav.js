@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import AdminEmployees from '../pages/adminEmployees';
 
 class BottomAdminNav extends Component {
     render() { 
@@ -10,7 +11,7 @@ class BottomAdminNav extends Component {
                         <a className='nav-link'><Link to="/Home">Home</Link></a>
                     </li>
                     <li className='nav-item'>
-                        <a className='nav-link'>Employees</a>
+                        <a className='nav-link'><Link to="/Employees">Employees</Link></a>
                     </li>
                     <li className='nav-item'>
                         <a className='nav-link'>Reports</a>
