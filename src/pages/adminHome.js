@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import '../style/stylesheet.css';
 import EmployeeCard from '../components/employeeCard';
 import employeeController from '../controllers/employeeController';
-import TopNav from '../components/topNav';
+import TopAdminNav from '../components/topAdminNav';
 import BottomAdminNav from '../components/bottomAdminNav';
 
 class AdminHome extends Component {
@@ -49,7 +49,7 @@ class AdminHome extends Component {
         return (
             <div className='container-fluid p-0 adminHomePage'>
                 <div className='row d-flex'>
-                    <TopNav />
+                    <TopAdminNav />
                     <BottomAdminNav />
                 </div>
                 <div className='row'>
@@ -76,7 +76,7 @@ class AdminHome extends Component {
                                         <tbody>
                                             <tr>
                                                 <td>Francis Mack</td>
-                                                <td>Jan 10</td>
+                                                <td className='flagDate'>Jan 10</td>
                                                 <td>Unsure if hours are correct</td>
                                                 <td><button>Resolve</button></td>
                                             </tr>
