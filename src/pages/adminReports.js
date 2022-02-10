@@ -3,9 +3,9 @@ import '../style/stylesheet.css';
 import TopNav from '../components/topNav';
 import BottomAdminNav from '../components/bottomAdminNav';
 
-class AdminEmployees extends Component {
+class AdminReports extends Component {
     render() {
-        return (
+        return(
             <div className='container-fluid p-0 adminEmployeesPage'>
                 <div className='row d-flex'>
                     <TopNav />
@@ -16,8 +16,8 @@ class AdminEmployees extends Component {
                     </div>
                     <div className='col-8 min-vh-100 innerAdmin'>
                         <div className='row'>
-                            <div className='employeeHeader'>
-                                <h1>List Of Employees</h1>
+                            <div className='d-flex justify-content-center mainHeaders'>
+                                <h1>Reports</h1>
                             </div>
                         </div>
                         <div className='row'>
@@ -31,5 +31,5 @@ class AdminEmployees extends Component {
         );
     }
 }
- 
-export default AdminEmployees;
+
+export default AdminReports;
