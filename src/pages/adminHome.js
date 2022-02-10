@@ -6,7 +6,7 @@ import TopAdminNav from '../components/topAdminNav';
 import BottomAdminNav from '../components/bottomAdminNav';
 
 class AdminHome extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             employeeList: [],
@@ -17,8 +17,8 @@ class AdminHome extends Component {
     componentDidMount() {
         employeeController.getEmployees().then(
             employees => {
-                
-                this.setState({employeeList: employees.data, employeesLoaded: true});
+
+                this.setState({ employeeList: employees.data, employeesLoaded: true });
 
             }
         );
@@ -27,20 +27,20 @@ class AdminHome extends Component {
     renderEmployees = () => {
         console.log("render Employees fired");
         console.log(this.state.employeeList);
-        return this.state.employeeList.map( e => {
+        return this.state.employeeList.map(e => {
 
-                <EmployeeCard 
-                key={e.id} 
-                firstName={e.firstName} 
-                lastName = {e.lastName} 
-                jobTitle = {e.jobTitle} 
-                />
+            <EmployeeCard
+                key={e.id}
+                firstName={e.firstName}
+                lastName={e.lastName}
+                jobTitle={e.jobTitle}
+            />
         })
     }
-    
-    render() { 
+
+    render() {
         var adminName = 'Administrator';
-        var monthName = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+        var monthName = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
         var current = new Date();
         var month = `${monthName[current.getMonth()]}`;
         var day = `${current.getDate()}`;
@@ -53,75 +53,82 @@ class AdminHome extends Component {
                     <BottomAdminNav />
                 </div>
                 <div className='row'>
-                    <div className='col-2'>
-                    </div>
+                    <div className='col-2'></div>
                     <div className='col-8 innerAdmin'>
                         <div className='row'>
-                            <div className='col min-vh-100 adminContent'>
-                                
-                                <h1>Welcome, {adminName}</h1>
-                                
-                                <div className='flaggedDays'>
-                                    <h2>Flagged Days</h2>
-                                    <p>Below is a list of days or expenses that have been flagged.</p>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Date</th>
-                                                <th>Issue</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Francis Mack</td>
-                                                <td className='flagDate'>Jan 10</td>
-                                                <td>Unsure if hours are correct</td>
-                                                <td><button>Resolve</button></td>
-                                            </tr>
-                                        </tbody>
-                                       
-                                    </table>
-                                </div>
-                                
-                                <div className='todaysDate'>
-                                    <h2>Today's Date</h2>
-                                    <p className='curMonth'>{month}</p>
-                                    <p className='curDay'>{day}</p>
-                                    <p className='curYear'>{year}</p>
-                                </div>
+                            <div className='col mt-2 min-vh-100'>
 
-                                <div className='listOfEmp'>
-                                    <h2>List of Employees</h2>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Hours</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Francis Mack</td>
-                                                <td>22</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <h1 className='mb-2'>Welcome, {adminName}</h1>
+
+                                <div className='container'>
+                                    <div className='row'>
+                                        <div className='col-md-9 p-2'>
+                                            <div className='p-3 bg-white pb-4 border rounded-3'>
+                                                <h2 className='text-center'>Flagged Days</h2>
+                                                <p>Below is a list of days or expenses that have been flagged.</p>
+                                                <table className="table">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Date</th>
+                                                            <th scope="col">Issue</th>
+                                                            <th scope="col">Action</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+
+                                                            <td scope="row">Francis Mack</td>
+                                                            <td>Jan 10</td>
+                                                            <td>Unsure if hours are correct</td>
+                                                            <td><button type="button" class="btn btn-warning btn-sm">Resolve</button></td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                        <div className='col-md-3 p-2 text-center'>
+                                            <div className='p-3 bg-white border rounded-3'>
+                                                <h6>Today's Date</h6>
+                                                <p className='h2 m-0'>{month}</p>
+                                                <p className='display-1 m-0'>{day}</p>
+                                                <p className='h2 m-0'>{year}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='row'>
+                                        <div className='col-md-6 p-2'>
+                                            <div className='p-3 bg-white border rounded-3'>
+                                                <h2>List of Employees</h2>
+                                                <table className="table">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Hours</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+
+                                                            <td scope="row">Francis Mack</td>
+                                                            <td>22</td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div className='empty'>
-
-                                </div>
-
                             </div>
                         </div>
-                        <div className='row'>
-                            <div className='col-2'></div>
-                            <div className='col'></div>
-                        </div>
                     </div>
-                    <div className='col-2'></div>
                 </div>
 
                 {/* {this.state.employeesLoaded ? this.renderEmployees() : <h3>Loading</h3>} */}
@@ -129,5 +136,5 @@ class AdminHome extends Component {
         );
     }
 }
- 
+
 export default AdminHome;
