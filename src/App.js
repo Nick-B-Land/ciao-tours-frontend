@@ -7,6 +7,7 @@ import EmployeeHome from './pages/employeeHome';
 import AdminEmployees from "./pages/adminEmployees";
 import AdminReports from "./pages/adminReports";
 import Information from "./pages/information";
+import NewEmployee from "./pages/newEmployee";
 
 function App() {
   return (
@@ -32,6 +33,11 @@ function App() {
                 exact
                 path="/adminEmployees"
                 element={<AdminEmployees />}
+              />
+              <Route
+                exact
+                path="/newEmployee"
+                element={<NewEmployee />}
               />
               <Route
                 exact
