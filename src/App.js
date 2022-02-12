@@ -16,7 +16,7 @@ function App() {
             <Routes>
               <Route
                 exact
-                path="/login"
+                path="/"
                 element={<LoginPage />}
               />  
               <Route
@@ -46,7 +46,7 @@ function App() {
               />
               <Route
                 exact
-                path="/"
+                path="/information"
                 element={<Information />}
               />
             </Routes>
