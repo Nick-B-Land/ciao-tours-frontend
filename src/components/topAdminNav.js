@@ -15,7 +15,7 @@ class TopAdminNav extends Component {
                         <input className="form-check-input m-1" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
                         <label className="form-check-label" for="flexSwitchCheckDefault">Employee View</label>
                     </div>
-                    <a className='d-flex align-items-center' ><Link to="/login">Logout</Link></a>
+                    <a className='d-flex align-items-center' ><Link to="/loginPage">Logout</Link></a>
                 </div>
             </div>
         );

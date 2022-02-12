@@ -4,6 +4,9 @@ import EmployeeCard from '../components/employeeCard';
 import employeeController from '../controllers/employeeController';
 import TopAdminNav from '../components/topAdminNav';
 import BottomAdminNav from '../components/bottomAdminNav';
+import FlaggedDay from '../components/flaggedDay';
+import EmployeeHours from '../components/employeeHours';
+import { Link } from 'react-router-dom';
 
 class AdminHome extends Component {
     constructor(props) {
@@ -11,6 +14,7 @@ class AdminHome extends Component {
         this.state = {
             employeeList: [],
             employeesLoaded: false
+
         };
     }
 
@@ -59,7 +63,6 @@ class AdminHome extends Component {
                             <div className='col mt-2 min-vh-100'>
 
                                 <h1 className='mb-2'>Welcome, {adminName}</h1>
-
                                 <div className='container'>
                                     <div className='row'>
                                         <div className='col-md-9 p-2'>
@@ -78,14 +81,18 @@ class AdminHome extends Component {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-
-                                                            <td scope="row">Francis Mack</td>
-                                                            <td>Jan 10</td>
-                                                            <td>Unsure if hours are correct</td>
-                                                            <td><button type="button" class="btn btn-warning btn-sm">Resolve</button></td>
-
-                                                        </tr>
+                                                        <FlaggedDay
+                                                            firstName="Francis"
+                                                            lastName="Mack"
+                                                            date="Jan 10"
+                                                            issue="Unsure if hours are correct"
+                                                        />
+                                                        <FlaggedDay
+                                                            firstName="Adrian"
+                                                            lastName="Smith"
+                                                            date="February 8"
+                                                            issue="Unsure if hours are correct"
+                                                        />
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -114,14 +121,30 @@ class AdminHome extends Component {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-
-                                                            <td scope="row">Francis Mack</td>
-                                                            <td>22</td>
-
-                                                        </tr>
+                                                        <EmployeeHours
+                                                            firstName="Francis"
+                                                            lastName="Mack"
+                                                            hours="22"
+                                                        />
+                                                        <EmployeeHours
+                                                            firstName="Adrian"
+                                                            lastName="Smith"
+                                                            hours="27"
+                                                        />
                                                     </tbody>
                                                 </table>
+                                            </div>
+                                        </div>
+                                        <div className='col-md-6 p-2'>
+                                            <div className='p-3 bg-white border rounded-3'>
+                                                <div className='d-flex justify-content-center'>
+                                                    <Link to="/newEmployee">
+                                                        <button type="button" className="btn btn-success btn-lg p-5 pt-2 pb-2">
+                                                            <h2>Add New Employee</h2>
+                                                        </button>
+                                                    </Link>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../style/stylesheet.css';
-import TopNav from '../components/topNav';
+import TopAdminNav from '../components/topAdminNav';
 import BottomAdminNav from '../components/bottomAdminNav';
 
 class AdminReports extends Component {
@@ -8,7 +8,7 @@ class AdminReports extends Component {
         return(
             <div className='container-fluid p-0 adminEmployeesPage'>
                 <div className='row d-flex'>
-                    <TopNav />
+                    <TopAdminNav />
                     <BottomAdminNav />
                 </div>
                 <div className='row'>

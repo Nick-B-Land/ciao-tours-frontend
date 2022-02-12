@@ -16,13 +16,8 @@ class NewEmployee extends Component {
                     </div>
                     <div className='col-8 min-vh-100 innerAdmin'>
                         <div className='row'>
-                            <div>
+                            <div className='col mt-2 min-vh-100'>
                                 <h1>New Employee</h1>
-                            </div>
-                        </div>
-                        <div className='row'>
-                            <div className='col'>
-
                             </div>
                         </div>
                     </div>

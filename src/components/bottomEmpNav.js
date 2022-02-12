@@ -8,7 +8,7 @@ class BottomEmpNav extends Component {
             <div className='row border basicNavBar'>
                 <ul className='nav nav-pills  nav-fill'>
                     <li className='nav-item'>
-                        <a className='nav-link'><Link to="/Home">Home</Link></a>
+                        <a className='nav-link'><Link to="/employee">Home</Link></a>
                     </li>
                     <li className='nav-item'>
                         <a className='nav-link'>Payroll Calendar</a>

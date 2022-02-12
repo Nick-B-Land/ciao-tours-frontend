@@ -65,3 +65,24 @@ body {
 .mainHeaders {
     color: #5b642c;
 }
+  
+.accordion-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+    background-color: #faf2db;
+}
+
+.accordion-title:hover {
+    background-color: #f8e6ae;
+}
+
+.accordion-title,
+.accordion-content {
+    padding: 1rem;
+}
+
+.accordion-content {
+    background-color: white;
+}
