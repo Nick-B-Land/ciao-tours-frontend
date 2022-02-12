@@ -7,6 +7,7 @@ import BottomAdminNav from '../components/bottomAdminNav';
 import FlaggedDay from '../components/flaggedDay';
 import EmployeeHours from '../components/employeeHours';
 import { Link } from 'react-router-dom';
+import { empHoursData, flaggedDayData } from '../components/data';
 
 class AdminHome extends Component {
     constructor(props) {
@@ -61,7 +62,6 @@ class AdminHome extends Component {
                     <div className='col-8 innerAdmin'>
                         <div className='row'>
                             <div className='col mt-2 min-vh-100'>
-
                                 <h1 className='mb-2'>Welcome, {adminName}</h1>
                                 <div className='container'>
                                     <div className='row'>
@@ -72,31 +72,24 @@ class AdminHome extends Component {
                                                 <table className="table">
                                                     <thead>
                                                         <tr>
-
                                                             <th scope="col">Name</th>
                                                             <th scope="col">Date</th>
                                                             <th scope="col">Issue</th>
                                                             <th scope="col">Action</th>
-
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <FlaggedDay
-                                                            firstName="Francis"
-                                                            lastName="Mack"
-                                                            date="Jan 10"
-                                                            issue="Unsure if hours are correct"
-                                                        />
-                                                        <FlaggedDay
-                                                            firstName="Adrian"
-                                                            lastName="Smith"
-                                                            date="February 8"
-                                                            issue="Unsure if hours are correct"
-                                                        />
+                                                        {flaggedDayData.map(({ firstName, lastName, date, issue }) => (
+                                                            <FlaggedDay
+                                                                firstName={firstName}
+                                                                lastName={lastName}
+                                                                date={date}
+                                                                issue={issue}
+                                                            />
+                                                        ))}
                                                     </tbody>
                                                 </table>
                                             </div>
-
                                         </div>
                                         <div className='col-md-3 p-2 text-center'>
                                             <div className='p-3 bg-white border rounded-3'>
@@ -114,23 +107,18 @@ class AdminHome extends Component {
                                                 <table className="table">
                                                     <thead>
                                                         <tr>
-
                                                             <th scope="col">Name</th>
                                                             <th scope="col">Hours</th>
-
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <EmployeeHours
-                                                            firstName="Francis"
-                                                            lastName="Mack"
-                                                            hours="22"
-                                                        />
-                                                        <EmployeeHours
-                                                            firstName="Adrian"
-                                                            lastName="Smith"
-                                                            hours="27"
-                                                        />
+                                                        {empHoursData.map(({ firstName, lastName, hours }) => (
+                                                            <EmployeeHours
+                                                                firstName={firstName}
+                                                                lastName={lastName}
+                                                                hours={hours}
+                                                            />
+                                                        ))}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -144,7 +132,6 @@ class AdminHome extends Component {
                                                         </button>
                                                     </Link>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>

@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
+import '../style/stylesheet.css';
 
-class FlaggedDay extends Component {
-
-    
-    render() {
-
-        return (
-            <>
-                <tr>
-                    <td>{this.props.firstName} {this.props.lastName}</td>
-                    <td>{this.props.date}</td>
-                    <td>{this.props.issue}</td>
-                    <td><button type="button" className="btn btn-warning btn-sm">Resolve</button></td>
-                </tr>
-            </>
-
-        );
-    }
-}
+const FlaggedDay = ({ firstName, lastName, date, issue }) => {
+    return (
+        <tr>
+            <td>{firstName} {lastName}</td>
+            <td>{date}</td>
+            <td>{issue}</td>
+            <td><button type="button" className="btn btn-warning btn-sm">Resolve</button></td>
+        </tr>
+    );
+};
 
 export default FlaggedDay;
