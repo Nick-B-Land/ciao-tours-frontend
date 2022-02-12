@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
+import '../style/stylesheet.css';
 
-class EmployeeHours extends Component {
-
-    
-    render() {
-
-        return (
-            <>
-                <tr>
-                    <td>{this.props.firstName} {this.props.lastName}</td>
-                    <td>{this.props.hours}</td>
-                </tr>
-            </>
-
-        );
-    }
-}
+const EmployeeHours = ({ firstName, lastName, hours }) => {
+    return (
+        <tr>
+            <td>{firstName} {lastName}</td>
+            <td>{hours}</td>
+        </tr>
+    );
+};
 
 export default EmployeeHours;

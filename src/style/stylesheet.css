@@ -66,23 +66,35 @@ body {
     color: #5b642c;
 }
   
-.accordion-title {
+.accordion {
+    padding: 0;
+}
+
+.accordion-item {
+    list-style: none;
+}
+
+.accordion-toggle {
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    cursor: pointer;
     background-color: #faf2db;
+    padding: 1em;
+    color: #5B642C;
 }
-
-.accordion-title:hover {
-    background-color: #f8e6ae;
+.accordion-toggle:hover {
+    background-color: #f8edcb;
 }
-
-.accordion-title,
-.accordion-content {
-    padding: 1rem;
+.accordion-toggle h3 {
+    margin: 0;
 }
-
 .accordion-content {
     background-color: white;
+    padding: 1em;
+}
+
+.accordion-content p {
+    margin: 0;
+    margin-left: 2em;
 }
