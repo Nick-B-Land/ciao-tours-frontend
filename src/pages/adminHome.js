@@ -171,7 +171,6 @@ class AdminHome extends Component {
 						</div>
 					</div>
 				</div>
-
 				{/* {this.state.employeesLoaded ? this.renderEmployees() : <h3>Loading</h3>} */}
 			</div>
 		);

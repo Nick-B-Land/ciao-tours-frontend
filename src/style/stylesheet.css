@@ -67,6 +67,17 @@ body {
     
 }
 
+.PrimaryButton {
+    border: solid #F84111;
+    background-color: #F84111;
+}
+
+.SecondaryButton {
+    border: solid #F8BF4D;
+    background-color: #F8BF4D;
+}
+
+
 .innnerInfo {
     margin-top: 20px;
     color: #5b642c;

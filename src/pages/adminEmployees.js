@@ -6,6 +6,7 @@ import Accordion from "../components/accordion";
 import { accordionData } from "../components/data";
 import loginController from "../controllers/loginController";
 import employeeController from "../controllers/employeeController";
+import { Link } from 'react-router-dom';
 
 class AdminEmployees extends Component {
 	constructor(props) {
@@ -42,7 +43,11 @@ class AdminEmployees extends Component {
 								<h1>List Of Employees</h1>
 							</div>
 						</div>
-
+						<div className="row">
+							<div className="col d-flex justify-content-center p-4">
+								<Link to='/newEmployee'><button className="btn btn-lg PrimaryButton" type='button'>Create New Employee</button></Link>
+							</div>
+						</div>
 						<div className="row">
 							<div className="col p-0">
 								<div>

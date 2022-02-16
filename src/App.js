@@ -10,6 +10,7 @@ import AdminEmployees from "./pages/adminEmployees";
 import AdminReports from "./pages/adminReports";
 import Information from "./pages/information";
 import LoginWrapper from "./functionalComponents/loginWrapper";
+import NewEmployee from './pages/newEmployee';
 function App() {
 	return (
 		<React.Fragment>
@@ -23,6 +24,7 @@ function App() {
 					<Route exact path="/myinfo" element={<Myinfo />} />
 					<Route exact path="/editEmployeeInfo" element={<EditMyinfo />} />
 					<Route exact path="/" element={<Information />} />
+					<Route exact path="/newEmployee" element={<NewEmployee />} />
 				</Routes>
 			</BrowserRouter>
 		</React.Fragment>
