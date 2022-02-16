@@ -4,10 +4,7 @@ import EmployeeCard from "../components/employeeCard";
 import employeeController from "../controllers/employeeController";
 import TopAdminNav from "../components/topAdminNav";
 import BottomAdminNav from "../components/bottomAdminNav";
-import FlaggedDay from "../components/flaggedDay";
-import EmployeeHours from "../components/employeeHours";
-import { Link } from "react-router-dom";
-import { empHoursData, flaggedDayData } from "../components/data";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class AdminHome extends Component {
 	constructor(props) {

@@ -56,7 +56,7 @@ class LoginPage extends Component {
 								<div className="row">
 									<div className="col d-flex flex-column">
 										<div className="mx-auto">
-											<img className="mx-auto" src={logo} />
+											<img className="mx-auto" src={logo} alt="logo" />
 										</div>
 										<div className="p-2 mx-auto">Login</div>
 										<div className="row">
