@@ -25,9 +25,18 @@ class AdminHome extends Component {
 
                 this.setState({ employeeList: employees.data, employeesLoaded: true });
 
-            }
-        );
-    }
+	renderEmployees = () => {
+		console.log("render Employees fired");
+		console.log(this.state.employeeList);
+		return this.state.employeeList.map((e) => {
+			<EmployeeCard
+				key={e.id}
+				firstName={e.firstName}
+				lastName={e.lastName}
+				jobTitle={e.jobTitle}
+			/>;
+		});
+	};
 
     renderEmployees = () => {
         console.log("render Employees fired");
