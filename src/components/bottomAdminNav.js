@@ -9,7 +9,7 @@ class BottomAdminNav extends Component {
 				<ul className="nav nav-pills  nav-fill">
 					<li className="nav-item">
 						<a className="nav-link">
-							<Link to="/Home">Home</Link>
+							<Link to="/admin">Home</Link>
 						</a>
 					</li>
 					<li className="nav-item">
