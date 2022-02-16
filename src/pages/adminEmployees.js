@@ -17,9 +17,15 @@ class AdminEmployees extends Component {
 	}
 
 	componentDidMount = () => {
-		this.setState({ employeeList: this.getEmployees() });
+		// this.setState({ employeeList: this.getEmployees() });
 
-		console.log(this.state.employeeList);
+		employeeController.getEmployees().then((employees) => {
+			this.setState({ employeeList: employees.data, employeesLoaded: true });
+			console.log(this.state.employeeList);
+		});
+
+		document.cookie = "name = nick;";
+		console.log(document.cookie);
 	};
 
 	getEmployees = async () => {

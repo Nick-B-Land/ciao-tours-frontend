@@ -26,12 +26,11 @@ class LoginPage extends Component {
 			this.state.username,
 			this.state.password
 		);
-		console.log(response.data);
+		console.log(response);
 
 		if (response.status === 200) {
 			console.log("logged in");
 			let employeeTypes = response.data.roles;
-			console.log(employeeTypes);
 
 			if (employeeTypes.includes("ROLE_EMPLOYEE")) {
 				this.props.navigate("/employee");
