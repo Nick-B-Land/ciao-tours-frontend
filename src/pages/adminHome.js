@@ -4,10 +4,10 @@ import EmployeeCard from "../components/employeeCard";
 import employeeController from "../controllers/employeeController";
 import TopAdminNav from "../components/topAdminNav";
 import BottomAdminNav from "../components/bottomAdminNav";
-import FlaggedDay from '../components/flaggedDay.js';
-import EmployeeHours from '../components/employeeHours';
-import { Link } from 'react-router-dom';
-import { flaggedDayData, empHoursData } from '../components/data';
+import FlaggedDay from "../components/flaggedDay.js";
+import EmployeeHours from "../components/employeeHours";
+import { Link } from "react-router-dom";
+import { flaggedDayData, empHoursData } from "../components/data";
 
 class AdminHome extends Component {
 	constructor(props) {
@@ -157,7 +157,7 @@ class AdminHome extends Component {
 													<Link to="/newEmployee">
 														<button
 															type="button"
-															className="btn btn-success btn-lg p-5 pt-2 pb-2"
+															className="btn PrimaryButton btn-lg p-5 pt-2 pb-2"
 														>
 															<h2>Add New Employee</h2>
 														</button>

@@ -262,13 +262,15 @@ class NewEmployee extends Component {
 										Go Back
 									</button>
 								</Link>
-								<button
-									type="button"
-									className="btn btn-small PrimaryButton"
-									onClick={this.handleNewEmployee}
-								>
-									Submit New Employee
-								</button>
+								<Link to="/adminEmployees">
+									<button
+										type="button"
+										className="btn btn-small PrimaryButton"
+										onClick={this.handleNewEmployee}
+									>
+										Submit New Employee
+									</button>
+								</Link>
 							</div>
 						</div>
 					</div>

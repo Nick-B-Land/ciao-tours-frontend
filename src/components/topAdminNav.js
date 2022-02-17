@@ -15,7 +15,7 @@ class TopAdminNav extends Component {
                     </label> */}
 					<p className="switchLabel">Employee View</p>
 					<a className="d-flex align-items-center">
-						<Link to="/login">Logout</Link>
+						<Link to="/">Logout</Link>
 					</a>
 				</div>
 			</div>

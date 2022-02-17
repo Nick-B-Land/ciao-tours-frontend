@@ -87,7 +87,7 @@ class LoginPage extends Component {
 												<div>
 													<button
 														onClick={this.handleLogin}
-														className="btn btn-dark"
+														className="btn PrimaryButton"
 													>
 														Login
 													</button>
