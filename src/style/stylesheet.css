@@ -54,7 +54,7 @@ body {
 	background-image: url("../style/EmployeeListBG.jpg"); /*Photo source: https://unsplash.com/photos/6-aOgypz3lA*/
 	width: 100%;
 	height: 100vh;
-	overflow: hidden;
+	overflow: scroll;
 	background-size: cover;
 	background-position: center;
 }

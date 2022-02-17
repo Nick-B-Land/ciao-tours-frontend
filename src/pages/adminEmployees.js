@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import "../style/stylesheet.css";
 import BottomAdminNav from "../components/bottomAdminNav";
 import TopAdminNav from "../components/topAdminNav";
-import Accordion from "../components/accordion";
-import { accordionData } from "../components/data";
-import loginController from "../controllers/loginController";
 import employeeController from "../controllers/employeeController";
 import { Link } from "react-router-dom";
+import EmployeeCard from "../components/employeeCard";
 
 class AdminEmployees extends Component {
 	constructor(props) {
@@ -61,14 +59,21 @@ class AdminEmployees extends Component {
 									<ul className="accordion">
 										{this.state.employeesLoaded
 											? this.state.employeeList.map((e) => (
-													<Accordion
+													<EmployeeCard
 														key={e.employeeId}
-														empName={e.firstName + " " + e.lastName}
+														empId={e.employeeId}
+														fName={e.firstName}
+														lName={e.lastName}
 														email={e.emailAddress}
-														type={e.employeeStartDate}
-														location={e.employeeEndDate}
-														hourlyRate={e.hourlyRate}
-														preferredCurrency={e.city}
+														city={e.city}
+														address={e.address}
+														startDate={e.employeeStartDate}
+														endDate={e.employeeEndDate}
+														hourlyRate={e.hourlyWage}
+														monthlySal={e.monthlySalary}
+														bankAccount={e.bankAccountNumber}
+														institutionId={e.institutionId}
+														transitId={e.transitId}
 													/>
 											  ))
 											: "Loading"}
