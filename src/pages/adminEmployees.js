@@ -6,7 +6,7 @@ import Accordion from "../components/accordion";
 import { accordionData } from "../components/data";
 import loginController from "../controllers/loginController";
 import employeeController from "../controllers/employeeController";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 class AdminEmployees extends Component {
 	constructor(props) {
@@ -19,14 +19,11 @@ class AdminEmployees extends Component {
 
 	componentDidMount = () => {
 		// this.setState({ employeeList: this.getEmployees() });
-
+		// console.log(this.state.employeeList);
 		employeeController.getEmployees().then((employees) => {
 			this.setState({ employeeList: employees.data, employeesLoaded: true });
 			console.log(this.state.employeeList);
 		});
-
-		document.cookie = "name = nick;";
-		console.log(document.cookie);
 	};
 
 	getEmployees = async () => {
@@ -51,32 +48,30 @@ class AdminEmployees extends Component {
 						</div>
 						<div className="row">
 							<div className="col d-flex justify-content-center p-4">
-								<Link to='/newEmployee'><button className="btn btn-lg PrimaryButton" type='button'>Create New Employee</button></Link>
+								<Link to="/newEmployee">
+									<button className="btn btn-lg PrimaryButton" type="button">
+										Create New Employee
+									</button>
+								</Link>
 							</div>
 						</div>
 						<div className="row">
 							<div className="col p-0">
 								<div>
 									<ul className="accordion">
-										{accordionData.map(
-											({
-												empName,
-												email,
-												type,
-												location,
-												hourlyRate,
-												preferredCurrency,
-											}) => (
-												<Accordion
-													empName={empName}
-													email={email}
-													type={type}
-													location={location}
-													hourlyRate={hourlyRate}
-													preferredCurrency={preferredCurrency}
-												/>
-											)
-										)}
+										{this.state.employeesLoaded
+											? this.state.employeeList.map((e) => (
+													<Accordion
+														key={e.employeeId}
+														empName={e.firstName + " " + e.lastName}
+														email={e.emailAddress}
+														type={e.employeeStartDate}
+														location={e.employeeEndDate}
+														hourlyRate={e.hourlyRate}
+														preferredCurrency={e.city}
+													/>
+											  ))
+											: "Loading"}
 									</ul>
 								</div>
 							</div>
