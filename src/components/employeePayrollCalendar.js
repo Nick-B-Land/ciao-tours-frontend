@@ -168,6 +168,9 @@ class EmployeePayrollCalender extends Component {
 							/>
 						);
 					})}
+					{[...Array(7 - extraDays)].map((e) => {
+						return <div className="col"></div>;
+					})}
 				</div>
 			</>
 		);
