@@ -12,6 +12,13 @@ class EmployeePayroll extends Component {
 		};
 	}
 
+	componentDidMount = () => {
+		this.setState({
+			selectedMonth: new Date().getMonth(),
+			selectedYear: new Date().getFullYear(),
+		});
+	};
+
 	handleMonthChange = (e) => {
 		this.setState({ selectedMonth: e.target.value });
 	};
@@ -32,6 +39,7 @@ class EmployeePayroll extends Component {
 						<select
 							className="form-select w-50"
 							onChange={this.handleYearChange}
+							value={this.state.selectedYear}
 						>
 							<option value={2020}>2020</option>
 							<option value={2021}>2021</option>
@@ -44,6 +52,7 @@ class EmployeePayroll extends Component {
 						<select
 							className="form-select w-50"
 							onChange={this.handleMonthChange}
+							value={this.state.selectedMonth}
 						>
 							<option value={0}>January</option>
 							<option value={1}>Febuary</option>
