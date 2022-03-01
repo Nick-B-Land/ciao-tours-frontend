@@ -10,6 +10,7 @@ import AdminReports from "./pages/adminReports";
 import Information from "./pages/information";
 import LoginWrapper from "./functionalComponents/loginWrapper";
 import NewEmployeeWrapper from "./functionalComponents/newEmployeeWrapper";
+import EmployeePayroll from "./pages/employeePayroll";
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 					<Route exact path="/" element={<LoginWrapper />} />
 					<Route exact path="/admin" element={<AdminHome />} />
 					<Route exact path="/employee" element={<EmployeeHome />} />
+					<Route exact path="/employeePayroll" element={<EmployeePayroll />} />
 					<Route exact path="/adminEmployees" element={<AdminEmployees />} />
 					<Route exact path="/adminReports" element={<AdminReports />} />
 					<Route exact path="/myinfo" element={<Myinfo />} />
