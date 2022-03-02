@@ -110,7 +110,7 @@ class EmployeePayrollCalender extends Component {
 		return (
 			<>
 				<div className="row">
-					{[...Array(7)].map((e) => {
+					{[...Array(7)].map(() => {
 						return (
 							<PayrollCalenderDay
 								key={numDays}
@@ -169,7 +169,7 @@ class EmployeePayrollCalender extends Component {
 						);
 					})}
 					{[...Array(7 - extraDays)].map((e) => {
-						return <div className="col"></div>;
+						return <div key={extraDays--} className="col"></div>;
 					})}
 				</div>
 			</>
@@ -178,7 +178,6 @@ class EmployeePayrollCalender extends Component {
 
 	renderCalender = () => {
 		if (this.state.daysInMonth % 7 === 0) {
-			console.log("Render calender fired");
 			return this.renderFourWeeks();
 		} else {
 			return this.renderFiveWeeks();

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Myinfo from "./pages/employeeInfo";
@@ -12,25 +12,69 @@ import LoginWrapper from "./functionalComponents/loginWrapper";
 import NewEmployeeWrapper from "./functionalComponents/newEmployeeWrapper";
 import EmployeePayroll from "./pages/employeePayroll";
 
-function App() {
-	return (
-		<React.Fragment>
-			<BrowserRouter>
-				<Routes>
-					<Route exact path="/" element={<LoginWrapper />} />
-					<Route exact path="/admin" element={<AdminHome />} />
-					<Route exact path="/employee" element={<EmployeeHome />} />
-					<Route exact path="/employeePayroll" element={<EmployeePayroll />} />
-					<Route exact path="/adminEmployees" element={<AdminEmployees />} />
-					<Route exact path="/adminReports" element={<AdminReports />} />
-					<Route exact path="/myinfo" element={<Myinfo />} />
-					<Route exact path="/editEmployeeInfo" element={<EditMyinfo />} />
-					<Route exact path="/employeeInfo" element={<Information />} />
-					<Route exact path="/newEmployee" element={<NewEmployeeWrapper />} />
-				</Routes>
-			</BrowserRouter>
-		</React.Fragment>
-	);
+class App extends Component {
+	render() {
+		return (
+			<React.Fragment>
+				<BrowserRouter>
+					<Routes>
+						<Route
+							exact
+							path="/"
+							element={<LoginWrapper currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/admin"
+							element={<AdminHome currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/employee"
+							element={<EmployeeHome currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/employeePayroll"
+							element={<EmployeePayroll currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/adminEmployees"
+							element={<AdminEmployees currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/adminReports"
+							element={<AdminReports currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/myinfo"
+							element={<Myinfo currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/editEmployeeInfo"
+							element={<EditMyinfo currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/employeeInfo"
+							element={<Information currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/newEmployee"
+							element={
+								<NewEmployeeWrapper currentUser={this.props.currentUser} />
+							}
+						/>
+					</Routes>
+				</BrowserRouter>
+			</React.Fragment>
+		);
+	}
 }
 
 export default App;

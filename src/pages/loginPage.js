@@ -30,12 +30,20 @@ class LoginPage extends Component {
 
 		if (response.status === 200) {
 			console.log("logged in");
+
+			this.props.currentUser.Set(
+				response.data.employeeID,
+				response.data.username,
+				response.data.roles
+			);
+
 			let employeeTypes = response.data.roles;
 
 			if (employeeTypes.includes("ROLE_EMPLOYEE")) {
 				this.props.navigate("/employee");
 			} else {
 				this.props.navigate("/admin");
+				console.log(this.props.currentUser);
 			}
 		} else {
 			console.log("could not log in");

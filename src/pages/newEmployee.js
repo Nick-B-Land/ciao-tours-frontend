@@ -98,7 +98,7 @@ class NewEmployee extends Component {
 		//should add own handler for this, but roles need more front end work in general
 		//should select and add roles from predefined list, this is hacky way for now
 		//can only add one role via this method
-		this.setState({ roles: this.state.roles.push(this.state.roleText) });
+		this.setState({ roles: [...this.state.roles, this.state.roleText] });
 
 		let employeeObj = {
 			employeeId: "",

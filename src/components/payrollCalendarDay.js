@@ -15,10 +15,18 @@ class PayrollCalenderDay extends Component {
 	};
 
 	render() {
-		console.log("calender day rendered");
 		return (
 			<div className="col">
-				<h3>Date: {this.state.calenderDay.getDate()}</h3>
+				<div className="row">
+					<div className="col">
+						<h3>Date: {this.state.calenderDay.getDate()}</h3>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col">
+						<p>Events go here</p>
+					</div>
+				</div>
 			</div>
 		);
 	}

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TopNav from "../components/topNav";
 import BottomEmpNav from "../components/bottomEmpNav";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
@@ -9,7 +8,7 @@ class EmployeeHome extends Component {
 		return (
 			<div className="container-fluid p-0 employeeHomePage">
 				<div className="row d-flex">
-					<TopNavWrapper />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomEmpNav />
 				</div>
 				<div className="row">
