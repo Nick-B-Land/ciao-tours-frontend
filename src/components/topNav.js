@@ -10,6 +10,7 @@ class TopNav extends Component {
 
 		if (response.status === 200) {
 			console.log("logged out");
+			this.props.currentUser.Clear();
 			this.props.navigate("/");
 		} else {
 			console.log("logout failed (this is weird)");

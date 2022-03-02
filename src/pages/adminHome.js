@@ -75,7 +75,7 @@ class AdminHome extends Component {
 		return (
 			<div className="container-fluid p-0 adminHomePage">
 				<div className="row d-flex">
-					<TopAdminNav />
+					<TopAdminNav currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">
