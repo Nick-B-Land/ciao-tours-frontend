@@ -38,7 +38,6 @@ body {
 	background-image: url("../style/EmployeeHomeBG.jpg"); /*Photo source: https://unsplash.com/photos/xWZa0GYCMbo*/
 	width: 100%;
 	height: 100vh;
-	overflow: hidden;
 	background-size: cover;
 	background-position: center;
 }
@@ -321,4 +320,8 @@ input:checked + .slider:before {
 .accordion-content p {
 	margin: 0;
 	margin-left: 2em;
+}
+
+.calenderDay {
+	cursor: pointer;
 }

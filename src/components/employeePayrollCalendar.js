@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import PayrollCalenderDay from "./payrollCalendarDay";
 
+//
 // props
 // selectedYear - year in number format
 // selectedMonth - month in js date index format
+// selectedDay - day selected from user input in js date format
+// payrollData - array of payroll data object for currently selected payroll
+// handleSelectedDay - function to set selected calendar day in employeePayroll
 //
 
 class EmployeePayrollCalender extends Component {
@@ -15,6 +19,12 @@ class EmployeePayrollCalender extends Component {
 	}
 
 	componentDidMount = () => {
+		// console.log(
+		// 	"calendar props - year: " +
+		// 		this.props.selectedYear +
+		// 		" month: " +
+		// 		this.props.selectedMonth
+		// );
 		this.setState({
 			daysInMonth: this.getDaysInMonth(
 				new Date(this.props.selectedYear, this.props.selectedMonth)
@@ -46,6 +56,8 @@ class EmployeePayrollCalender extends Component {
 		).getDate();
 	};
 
+	//this and renderFiveWeeks should be optimized into one function
+	//lots of redundant code here, just did it cheap and easy for prototyping
 	renderFourWeeks = () => {
 		let numDays = 1;
 
@@ -59,6 +71,9 @@ class EmployeePayrollCalender extends Component {
 								year={this.props.selectedYear}
 								month={this.props.selectedMonth}
 								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
 							/>
 						);
 					})}
@@ -71,6 +86,9 @@ class EmployeePayrollCalender extends Component {
 								year={this.props.selectedYear}
 								month={this.props.selectedMonth}
 								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
 							/>
 						);
 					})}
@@ -83,6 +101,9 @@ class EmployeePayrollCalender extends Component {
 								year={this.props.selectedYear}
 								month={this.props.selectedMonth}
 								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
 							/>
 						);
 					})}
@@ -95,6 +116,9 @@ class EmployeePayrollCalender extends Component {
 								year={this.props.selectedYear}
 								month={this.props.selectedMonth}
 								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
 							/>
 						);
 					})}
@@ -103,6 +127,7 @@ class EmployeePayrollCalender extends Component {
 		);
 	};
 
+	//see comment on renderFourWeeks
 	renderFiveWeeks = () => {
 		let numDays = 1;
 		let extraDays = this.state.daysInMonth - 28;
@@ -117,6 +142,9 @@ class EmployeePayrollCalender extends Component {
 								year={this.props.selectedYear}
 								month={this.props.selectedMonth}
 								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
 							/>
 						);
 					})}
@@ -129,6 +157,9 @@ class EmployeePayrollCalender extends Component {
 								year={this.props.selectedYear}
 								month={this.props.selectedMonth}
 								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
 							/>
 						);
 					})}
@@ -141,6 +172,9 @@ class EmployeePayrollCalender extends Component {
 								year={this.props.selectedYear}
 								month={this.props.selectedMonth}
 								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
 							/>
 						);
 					})}
@@ -153,6 +187,9 @@ class EmployeePayrollCalender extends Component {
 								year={this.props.selectedYear}
 								month={this.props.selectedMonth}
 								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
 							/>
 						);
 					})}
@@ -165,6 +202,9 @@ class EmployeePayrollCalender extends Component {
 								year={this.props.selectedYear}
 								month={this.props.selectedMonth}
 								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
 							/>
 						);
 					})}
@@ -176,6 +216,7 @@ class EmployeePayrollCalender extends Component {
 		);
 	};
 
+	//this is probably uneeded once the render week functions are optimized
 	renderCalender = () => {
 		if (this.state.daysInMonth % 7 === 0) {
 			return this.renderFourWeeks();

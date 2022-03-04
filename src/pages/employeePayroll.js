@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import BottomEmpNav from "../components/bottomEmpNav";
+import EmployeePayrollButtons from "../components/employeePayrollButtons";
 import EmployeePayrollCalender from "../components/employeePayrollCalendar";
 import payrollController from "../controllers/payrollController";
+import payrollDataController from "../controllers/payrollDataController";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class EmployeePayroll extends Component {
@@ -11,6 +13,8 @@ class EmployeePayroll extends Component {
 			selectedMonth: 0,
 			selectedYear: 2020,
 			selectedPayrollID: 0,
+			selectedDay: "",
+			payrollData: [],
 		};
 	}
 
@@ -26,17 +30,77 @@ class EmployeePayroll extends Component {
 		console.log("componentDidUpdate Fired");
 		if (this.state.selectedMonth !== prevState.selectedMonth) {
 			this.handlePayrollObject();
+			this.loadPayrollData();
 		} else if (this.state.selectedYear !== prevState.selectedYear) {
 			this.handlePayrollObject();
+			this.loadPayrollData();
+		} else if (this.state.selectedPayrollID != prevState.selectedPayrollID) {
+			this.loadPayrollData();
 		}
 	}
 
+	//loads payrollData objects for the selected months payroll
+	loadPayrollData = async () => {
+		let payrollDataResponse =
+			await payrollDataController.getPayrollDataByPayrollID(
+				this.state.selectedPayrollID
+			);
+
+		this.setState({ payrollData: payrollDataResponse.data });
+
+		console.log(this.state.payrollData);
+	};
+
+	//function for adding a daily assistance fee type payroll data object
+	//will need similar functions for all payroll data events
+	//passed to the button components
+	addDailyAssistanceFee = async (clientName) => {
+		let dataDay = new Date(this.state.selectedDay);
+		const DAILY_ASSISTANCE_FEE_PER_DAY_IN_EUROS = 9;
+
+		let newPayrollData = {
+			payrollDataId: "",
+			payrollId: this.state.selectedPayrollID,
+			payrollEvent: 3,
+			dateOfPayrollData: dataDay.toISOString(),
+			noOfWorkingHours: null,
+			timeOff: null,
+			officeUsage: null,
+			otherUseage: null,
+			usageCost: null,
+			dailyAssistanceClient: clientName,
+			dailyAssistanceStartDate: dataDay.toISOString(),
+			dailyAssistanceEndDate: dataDay.toISOString(),
+			dailyAssistanceFee: DAILY_ASSISTANCE_FEE_PER_DAY_IN_EUROS,
+			tourBookingAdminDescription: null,
+			tourBookingNumOfHours: null,
+			tourBookingClient: null,
+			tourBookingAdminFee: null,
+			dayOfExpense: null,
+			expenseDescription: null,
+			expenseAmount: null,
+			expenseDate: null,
+		};
+
+		let response = await payrollDataController.createPayrollData(
+			newPayrollData
+		);
+
+		console.log(response);
+
+		this.loadPayrollData();
+	};
+
+	//function for handling loading and creating payroll objects for the selected month
+	//might need to rethink the approach for this eventually but works for now
+	//will definitely need some optimizing though
 	handlePayrollObject = async () => {
 		let response = await payrollController.getPayrollByEID(
 			this.props.currentUser.employeeID
 		);
 
 		console.log(response);
+		//if no payrolls found belonging to employee, create one for current month
 		if (response.data.length === 0) {
 			console.log("no payroll");
 
@@ -49,6 +113,7 @@ class EmployeePayroll extends Component {
 			let createResponse = await payrollController.createPayroll(newPayroll);
 			console.log(createResponse);
 		} else {
+			//employee does have payroll, search to see if payroll exists for selected month
 			let payrolls = response.data;
 			let foundMatch = false;
 
@@ -75,6 +140,7 @@ class EmployeePayroll extends Component {
 					date.getMonth() == this.state.selectedMonth &&
 					date.getFullYear() == this.state.selectedYear
 				) {
+					//payroll exists for selected month, update payroll id in state
 					console.log("found match");
 					foundMatch = true;
 					this.setState({ selectedPayrollID: payrolls[i].payrollId });
@@ -82,6 +148,7 @@ class EmployeePayroll extends Component {
 				}
 			}
 
+			//no payroll found for selected month, create new one and update state
 			if (foundMatch === false) {
 				console.log("creating new payroll");
 				let newPayroll = {
@@ -99,6 +166,10 @@ class EmployeePayroll extends Component {
 			}
 		}
 		console.log(this.state.selectedPayrollID);
+	};
+
+	handleSelectedDay = (day) => {
+		this.setState({ selectedDay: day });
 	};
 
 	handleMonthChange = (e) => {
@@ -151,15 +222,22 @@ class EmployeePayroll extends Component {
 						</select>
 					</div>
 				</div>
-				<div className="row">
+				<div className="row flex-nowrap">
 					<div className="col-8 ms-5 innerAdmin">
 						<EmployeePayrollCalender
 							selectedMonth={this.state.selectedMonth}
 							selectedYear={this.state.selectedYear}
 							selectedPayrollID={this.state.selectedPayrollID}
+							selectedDay={this.state.selectedDay}
+							payrollData={this.state.payrollData}
+							handleSelectedDay={this.handleSelectedDay}
 						/>
 					</div>
-					<div className="col-4"></div>
+					<div className="col-4">
+						<EmployeePayrollButtons
+							addDailyAssistanceFee={this.addDailyAssistanceFee}
+						/>
+					</div>
 				</div>
 			</div>
 		);

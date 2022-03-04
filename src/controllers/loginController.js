@@ -16,4 +16,13 @@ class LoginController {
 	}
 }
 
+// this might work for setting cookie
+// fetch('http://localhost:8080/only-already-authenticated-users', {
+//       method: "GET",
+//       credentials: 'include',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//     })
+
 export default new LoginController();

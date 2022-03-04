@@ -24,33 +24,6 @@ class AdminHome extends Component {
 		});
 	}
 
-	renderEmployees = () => {
-		console.log("render Employees fired");
-		console.log(this.state.employeeList);
-		return this.state.employeeList.map((e) => {
-			<EmployeeCard
-				key={e.id}
-				firstName={e.firstName}
-				lastName={e.lastName}
-				jobTitle={e.jobTitle}
-			/>;
-		});
-	};
-
-	// renderEmployees = () => {
-	//     console.log("render Employees fired");
-	//     console.log(this.state.employeeList);
-	//     return this.state.employeeList.map(e => {
-
-	//         <EmployeeCard
-	//             key={e.id}
-	//             firstName={e.firstName}
-	//             lastName={e.lastName}
-	//             jobTitle={e.jobTitle}
-	//         />
-	//     })
-	// }
-
 	render() {
 		var adminName = "Administrator";
 		var monthName = [
