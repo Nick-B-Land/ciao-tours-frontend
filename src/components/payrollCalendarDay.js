@@ -138,7 +138,7 @@ class PayrollCalenderDay extends Component {
 					: null}
 				<div className="row">
 					<div className="col">
-						<h3>Date: {this.state.calenderDay.getDate()}</h3>
+						<h2 className="d-flex justify-content-start">{this.state.calenderDay.getDate()}</h2>
 					</div>
 				</div>
 				{this.state.events.length !== 0 ? (
