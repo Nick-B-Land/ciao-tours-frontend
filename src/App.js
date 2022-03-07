@@ -70,6 +70,13 @@ class App extends Component {
 								<NewEmployeeWrapper currentUser={this.props.currentUser} />
 							}
 						/>
+						<Route 
+							exact
+							path="/employeePayroll"
+							element={
+								<EmployeePayroll currentUser={this.props.currentUser} />
+							}
+						/>
 					</Routes>
 				</BrowserRouter>
 			</React.Fragment>

@@ -84,6 +84,7 @@ class PayrollCalenderDay extends Component {
 	filterPayrollData = () => {
 		let payrollEvents = [];
 
+		if(this.props.payrollData){
 		this.props.payrollData.forEach((e) => {
 			if (
 				this.state.calenderDay.getDate() ===
@@ -92,6 +93,7 @@ class PayrollCalenderDay extends Component {
 				payrollEvents.push(e);
 			}
 		});
+	}
 
 		this.setState({ events: payrollEvents });
 	};
