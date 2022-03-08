@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../style/employeeCalendarCSS.css";
 import BottomEmpNav from "../components/bottomEmpNav";
 import EmployeePayrollButtons from "../components/employeePayrollButtons";
 import EmployeePayrollCalender from "../components/employeePayrollCalendar";
@@ -342,14 +343,13 @@ class EmployeePayroll extends Component {
 					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomEmpNav />
 				</div>
-				<div className="row py-4">
-					<div className="col-6 d-flex justify-content-center">
+				<div className="row py-4 align-items-center">
+					<div className="col-auto d-inline-flex">
 						<select
-							className="form-select w-50"
+							className="form-select h-50"
 							onChange={this.handleYearChange}
 							value={this.state.selectedYear}
 						>
-							<option value={2015}>2015</option>
 							<option value={2020}>2020</option>
 							<option value={2021}>2021</option>
 							<option value={2022}>2022</option>
@@ -357,9 +357,9 @@ class EmployeePayroll extends Component {
 							<option value={2024}>2024</option>
 						</select>
 					</div>
-					<div className="col-6 d-flex justify-content-center">
+					<div className="col-auto d-flex">
 						<select
-							className="form-select w-50"
+							className="form-select h-50"
 							onChange={this.handleMonthChange}
 							value={this.state.selectedMonth}
 						>
@@ -377,9 +377,14 @@ class EmployeePayroll extends Component {
 							<option value={11}>December</option>
 						</select>
 					</div>
+					<div className="col">
+						<EmployeePayrollButtons
+							handleSelectedForm={this.handleSelectedForm}
+						/>
+					</div>
 				</div>
-				<div className="row flex-nowrap">
-					<div className="col-8 ms-5 innerAdmin">
+				<div className="row justify-content-between flex-nowrap">
+					<div className="col-8 ms-4 me-3 innerAdmin">
 						<EmployeePayrollCalender
 							selectedMonth={this.state.selectedMonth}
 							selectedYear={this.state.selectedYear}
@@ -389,14 +394,7 @@ class EmployeePayroll extends Component {
 							handleSelectedDay={this.handleSelectedDay}
 						/>
 					</div>
-					<div className="col-4">
-						<div className="row">
-							<div className="col">
-								<EmployeePayrollButtons
-									handleSelectedForm={this.handleSelectedForm}
-								/>
-							</div>
-						</div>
+					<div className="col-3 ms-3 me-4 innerAdmin">
 						<div className="row">
 							<div className="col">
 								<EmployeePayrollForm

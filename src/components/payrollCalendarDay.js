@@ -77,11 +77,7 @@ class PayrollCalenderDay extends Component {
 	//this should be replaced by some sort of visual status of selection
 	renderSelectedStatus = () => {
 		return (
-			<div className="row">
-				<div className="col">
-					<i>Selected</i>
-				</div>
-			</div>
+			<div className="w-100 h-75 selectedcolor"></div>
 		);
 	};
 
@@ -143,13 +139,18 @@ class PayrollCalenderDay extends Component {
 	render() {
 		return (
 			<div className="col calenderDay" onClick={this.handleDayClick}>
-				{this.state.calenderDay.getDate() ===
+				{/* {this.state.calenderDay.getDate() ===
 				new Date(this.props.selectedDay).getDate()
 					? this.renderSelectedStatus()
-					: null}
+					: null} */}
 				<div className="row">
 					<div className="col">
-						<h2 className="d-flex justify-content-start">{this.state.calenderDay.getDate()}</h2>
+						<h3 
+							className="d-flex justify-content-start" 
+							class={this.state.calenderDay.getDate() === new Date(this.props.selectedDay).getDate() ? "selecteddate" : null}
+						>
+							{this.state.calenderDay.getDate()}
+						</h3>
 					</div>
 				</div>
 				{this.state.events.length !== 0 ? (

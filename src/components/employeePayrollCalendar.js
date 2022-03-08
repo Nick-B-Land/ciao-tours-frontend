@@ -57,7 +57,7 @@ class EmployeePayrollCalender extends Component {
 	};
 
 	//see comment on renderFourWeeks
-	renderFiveWeeks = () => {
+	renderCalender = () => {
 		let numDays = 1;
 		let extraDays = this.state.daysInMonth - 28;
 
@@ -201,11 +201,6 @@ class EmployeePayrollCalender extends Component {
 				: null }
 			</>
 		);
-	};
-
-	//this is probably uneeded once the render week functions are optimized
-	renderCalender = () => {
-		return this.renderFiveWeeks();
 	};
 
 	render() {

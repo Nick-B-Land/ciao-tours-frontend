@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
 import TopNav from "../components/topNav";
-import BottomAdminNav from "../components/bottomAdminNav";
+import BottomEmpNav from '../components/bottomEmpNav';
 
 class EmployeePaystubs extends Component {
 	constructor(props) {
@@ -54,7 +54,7 @@ class EmployeePaystubs extends Component {
 			<div className="container-fluid p-0 employeePaystubsPage">
 				<div className="row">
 					<TopNav />
-					<BottomAdminNav />
+					<BottomEmpNav />
 				</div>
 				<div className="row m-0">
 					<div className="col-2"></div>

@@ -10,7 +10,7 @@ class WorkDayPayrollEvent extends Component {
 		return (
 			<div className="row">
 				<div className="col">
-					<p>Event Type: WD</p>
+					<p>Daily Hours: x</p>
 				</div>
 			</div>
 		);
