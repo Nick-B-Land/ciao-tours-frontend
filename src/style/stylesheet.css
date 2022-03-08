@@ -38,6 +38,7 @@ body {
 	background-image: url("../style/EmployeeHomeBG.jpg"); /*Photo source: https://unsplash.com/photos/xWZa0GYCMbo*/
 	width: 100%;
 	height: 100vh;
+	overflow: hidden;
 	background-size: cover;
 	background-position: center;
 }
@@ -57,7 +58,22 @@ body {
 	background-size: cover;
 	background-position: center;
 }
-
+.employeeCalendarPage {
+	background-image: url("../style/PayrollCalendarBG.jpg"); /*Photo source: https://unsplash.com/photos/zunQwMy5B6M?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink*/
+	width: 100%;
+	height: 100vh;
+	overflow: scroll;
+	background-size: cover;
+	background-position: center;
+}
+.employeePaystubsPage {
+	background-image: url("../style/PaystubsBG.jpg"); /*Photo source: https://unsplash.com/photos/RKsLQoSnuTc*/
+	width: 100%;
+	height: 100vh;
+	overflow: scroll;
+	background-size: cover;
+	background-position: center;
+}
 .innerAdmin {
 	background-color: #faf2db;
 }
@@ -66,12 +82,24 @@ body {
 	border: solid #f84111;
 	background-color: #f84111;
 }
-
+.PrimaryButton:hover {
+	border: solid #ff613a;
+	background-color: #ff613a;
+}
 .SecondaryButton {
 	border: solid #f8bf4d;
 	background-color: #f8bf4d;
 }
-
+.SecondaryButton:hover {
+	border: solid #fdcf74;
+	background-color: #fdcf74;
+}
+.empPaystubButton {
+	background-color: #fffef9;
+}
+.empPaystubButton:hover {
+	background-color: #f8bf4d;
+}
 .innnerInfo {
 	margin-top: 20px;
 	color: #5b642c;
@@ -320,8 +348,4 @@ input:checked + .slider:before {
 .accordion-content p {
 	margin: 0;
 	margin-left: 2em;
-}
-
-.calenderDay {
-	cursor: pointer;
 }
