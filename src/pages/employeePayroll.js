@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import BottomEmpNav from "../components/bottomEmpNav";
 import EmployeePayrollButtons from "../components/employeePayrollButtons";
 import EmployeePayrollCalender from "../components/employeePayrollCalendar";
+import EmployeePayrollForm from "../components/employeePayrollForm";
 import payrollController from "../controllers/payrollController";
 import payrollDataController from "../controllers/payrollDataController";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
@@ -15,6 +16,7 @@ class EmployeePayroll extends Component {
 			selectedPayrollID: 0,
 			selectedDay: "",
 			payrollData: [],
+			selectedForm: 0,
 		};
 	}
 
@@ -34,7 +36,7 @@ class EmployeePayroll extends Component {
 		} else if (this.state.selectedYear !== prevState.selectedYear) {
 			this.handlePayrollObject();
 			this.loadPayrollData();
-		} else if (this.state.selectedPayrollID != prevState.selectedPayrollID) {
+		} else if (this.state.selectedPayrollID !== prevState.selectedPayrollID) {
 			this.loadPayrollData();
 		}
 	}
@@ -91,12 +93,158 @@ class EmployeePayroll extends Component {
 		this.loadPayrollData();
 	};
 
+	addTourBooking = async (bookingInfoDesc, numHours, clientName) => {
+		let dataDay = new Date(this.state.selectedDay);
+
+		const BOOKING_RATE_PER_HOUR = 13;
+
+		let newPayrollData = {
+			payrollDataId: "",
+			payrollId: this.state.selectedPayrollID,
+			payrollEvent: 2,
+			dateOfPayrollData: dataDay.toISOString(),
+			noOfWorkingHours: null,
+			timeOff: null,
+			officeUsage: null,
+			otherUseage: null,
+			usageCost: null,
+			dailyAssistanceClient: clientName,
+			dailyAssistanceStartDate: null,
+			dailyAssistanceEndDate: null,
+			dailyAssistanceFee: null,
+			tourBookingAdminDescription: bookingInfoDesc,
+			tourBookingNumOfHours: numHours,
+			tourBookingClient: clientName,
+			tourBookingAdminFee: BOOKING_RATE_PER_HOUR,
+			dayOfExpense: null,
+			expenseDescription: null,
+			expenseAmount: null,
+			expenseDate: null,
+		};
+
+		let response = await payrollDataController.createPayrollData(
+			newPayrollData
+		);
+
+		console.log(response);
+
+		this.loadPayrollData();
+	};
+
+	addWorkDay = async (numHours) => {
+		let dataDay = new Date(this.state.selectedDay);
+
+		let newPayrollData = {
+			payrollDataId: "",
+			payrollId: this.state.selectedPayrollID,
+			payrollEvent: 1,
+			dateOfPayrollData: dataDay.toISOString(),
+			noOfWorkingHours: numHours,
+			timeOff: null,
+			officeUsage: null,
+			otherUseage: null,
+			usageCost: null,
+			dailyAssistanceClient: null,
+			dailyAssistanceStartDate: null,
+			dailyAssistanceEndDate: null,
+			dailyAssistanceFee: null,
+			tourBookingAdminDescription: null,
+			tourBookingNumOfHours: null,
+			tourBookingClient: null,
+			tourBookingAdminFee: null,
+			dayOfExpense: null,
+			expenseDescription: null,
+			expenseAmount: null,
+			expenseDate: null,
+		};
+
+		let response = await payrollDataController.createPayrollData(
+			newPayrollData
+		);
+
+		console.log(response);
+
+		this.loadPayrollData();
+	};
+
+	addTimeOff = async (numHours) => {
+		let dataDay = new Date(this.state.selectedDay);
+
+		let newPayrollData = {
+			payrollDataId: "",
+			payrollId: this.state.selectedPayrollID,
+			payrollEvent: 4,
+			dateOfPayrollData: dataDay.toISOString(),
+			noOfWorkingHours: null,
+			timeOff: numHours,
+			officeUsage: null,
+			otherUseage: null,
+			usageCost: null,
+			dailyAssistanceClient: null,
+			dailyAssistanceStartDate: null,
+			dailyAssistanceEndDate: null,
+			dailyAssistanceFee: null,
+			tourBookingAdminDescription: null,
+			tourBookingNumOfHours: null,
+			tourBookingClient: null,
+			tourBookingAdminFee: null,
+			dayOfExpense: null,
+			expenseDescription: null,
+			expenseAmount: null,
+			expenseDate: null,
+		};
+
+		let response = await payrollDataController.createPayrollData(
+			newPayrollData
+		);
+
+		console.log(response);
+
+		this.loadPayrollData();
+	};
+
+	addExpense = async (expenseDesc, expenseAmount) => {
+		let dataDay = new Date(this.state.selectedDay);
+
+		let newPayrollData = {
+			payrollDataId: "",
+			payrollId: this.state.selectedPayrollID,
+			payrollEvent: 7,
+			dateOfPayrollData: dataDay.toISOString(),
+			noOfWorkingHours: null,
+			timeOff: null,
+			officeUsage: null,
+			otherUseage: null,
+			usageCost: null,
+			dailyAssistanceClient: null,
+			dailyAssistanceStartDate: null,
+			dailyAssistanceEndDate: null,
+			dailyAssistanceFee: null,
+			tourBookingAdminDescription: null,
+			tourBookingNumOfHours: null,
+			tourBookingClient: null,
+			tourBookingAdminFee: null,
+			dayOfExpense: null,
+			expenseDescription: expenseDesc,
+			expenseAmount: expenseAmount,
+			expenseDate: dataDay.toISOString(),
+		};
+
+		let response = await payrollDataController.createPayrollData(
+			newPayrollData
+		);
+
+		console.log(response);
+
+		this.loadPayrollData();
+	};
+
 	//function for handling loading and creating payroll objects for the selected month
 	//might need to rethink the approach for this eventually but works for now
 	//will definitely need some optimizing though
 	handlePayrollObject = async () => {
 		let response = await payrollController.getPayrollByEID(
-			this.props.currentUser.employeeID
+			this.props.currentUser.eID
 		);
 
 		console.log(response);
@@ -106,7 +254,7 @@ class EmployeePayroll extends Component {
 
 			let newPayroll = {
 				payrollId: "",
-				employeeId: this.props.currentUser.employeeID,
+				employeeId: this.props.currentUser.eID,
 				dateOfPayroll: new Date().toISOString(),
 			};
 
@@ -153,7 +301,7 @@ class EmployeePayroll extends Component {
 				console.log("creating new payroll");
 				let newPayroll = {
 					payrollId: "",
-					employeeId: this.props.currentUser.employeeID,
+					employeeId: this.props.currentUser.eID,
 					dateOfPayroll: new Date(
 						this.state.selectedYear,
 						this.state.selectedMonth
@@ -165,11 +313,18 @@ class EmployeePayroll extends Component {
 				this.setState({ selectedPayrollID: createResponse.data.payrollId });
 			}
 		}
-		console.log(this.state.selectedPayrollID);
 	};
 
 	handleSelectedDay = (day) => {
 		this.setState({ selectedDay: day });
+	};
+
+	handleSelectedForm = (formType) => {
+		if (this.state.selectedForm === formType) {
+			this.setState({ selectedForm: 0 });
+		} else {
+			this.setState({ selectedForm: formType });
+		}
 	};
 
 	handleMonthChange = (e) => {
@@ -234,9 +389,25 @@ class EmployeePayroll extends Component {
 						/>
 					</div>
 					<div className="col-4">
-						<EmployeePayrollButtons
-							addDailyAssistanceFee={this.addDailyAssistanceFee}
-						/>
+						<div className="row">
+							<div className="col">
+								<EmployeePayrollButtons
+									handleSelectedForm={this.handleSelectedForm}
+								/>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col">
+								<EmployeePayrollForm
+									selectedForm={this.state.selectedForm}
+									addTourBooking={this.addTourBooking}
+									addDailyAssistanceFee={this.addDailyAssistanceFee}
+									addWorkDay={this.addWorkDay}
+									addTimeOff={this.addTimeOff}
+									addExpense={this.addExpense}
+								/>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

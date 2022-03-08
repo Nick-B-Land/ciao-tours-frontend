@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import loginController from "../controllers/loginController";
 import logo from "../style/CAIO logo.png";
 
@@ -23,9 +24,13 @@ class TopNav extends Component {
 				<div className="col d-flex justify-content-between">
 					<img src={logo} alt="CIAO Tours Logo"></img>
 					<h1 className="d-flex align-items-end">CAIO Tours EMS</h1>
-					<a className="d-flex align-items-center" onClick={this.handleLogout}>
+					<Link
+						className="d-flex align-items-center"
+						onClick={this.handleLogout}
+						to="/"
+					>
 						Logout
-					</a>
+					</Link>
 				</div>
 			</div>
 		);

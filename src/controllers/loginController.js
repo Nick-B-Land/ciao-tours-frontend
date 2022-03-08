@@ -5,9 +5,27 @@ const LOGOUT_API_URL = "http://localhost:8080/api/auth/signout";
 
 class LoginController {
 	login(username, password) {
-		return axios.post(LOGIN_API_URL, {
-			username: username,
-			password: password,
+		// return axios.post(
+		// 	LOGIN_API_URL,
+		// {
+		// 	username: username,
+		// 	password: password,
+		// },
+		// {
+		// 	//headers: { "Access-Control-Allow-Credentials": "true" },
+		// 	withCredentials: true,
+		// }
+		// );
+
+		return fetch(LOGIN_API_URL, {
+			credentials: "include",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+				"Access-Control-Allow-Credentials": "true",
+			},
+			method: "POST",
+			body: JSON.stringify({ username: username, password: password }),
 		});
 	}
 

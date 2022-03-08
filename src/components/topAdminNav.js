@@ -14,9 +14,8 @@ class TopAdminNav extends Component {
                         <span class="slider round"></span>
                     </label> */}
 					<p className="switchLabel">Employee View</p>
-					<a className="d-flex align-items-center">
-						<Link to="/">Logout</Link>
-					</a>
+
+					<Link to="/">Logout</Link>
 				</div>
 			</div>
 		);

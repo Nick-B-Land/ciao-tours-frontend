@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import DailyAssistanceFeePayrollEvent from "./dafPayrollEvent";
+import ExpensePayrollEvent from "./expensePayrollEvent";
+import TourBookingPayrollEvent from "./tbPayrollEvent";
+import TimeOffPayrollEvent from "./toPayrollEvent";
+import WorkDayPayrollEvent from "./wdPayrollEvent";
 
 //
 // props
@@ -20,7 +25,7 @@ class PayrollCalenderDay extends Component {
 	}
 
 	componentDidMount = () => {
-		console.log(this.props.payrollData);
+		//console.log(this.props.payrollData);
 		this.setState({
 			calenderDay: new Date(this.props.year, this.props.month, this.props.day),
 		});
@@ -118,13 +123,19 @@ class PayrollCalenderDay extends Component {
 	//this is a very sloppy way of just ensuring the prototype works
 	//should map out components specific to each event
 	renderPayrollEvents = () => {
-		return this.state.events.map((e) => (
-			<div className="row">
-				<div className="col">
-					<p>Event Type: {this.displayEventType(e.payrollEvent)}</p>
-				</div>
-			</div>
-		));
+		return this.state.events.map((e) => {
+			if (e.payrollEvent === 1) {
+				return <WorkDayPayrollEvent key={e.payrollDataId} />;
+			} else if (e.payrollEvent === 2) {
+				return <TourBookingPayrollEvent key={e.payrollDataId} />;
+			} else if (e.payrollEvent === 3) {
+				return <DailyAssistanceFeePayrollEvent key={e.payrollDataId} />;
+			} else if (e.payrollEvent === 4) {
+				return <TimeOffPayrollEvent key={e.payrollDataId} />;
+			} else if (e.payrollEvent === 7) {
+				return <ExpensePayrollEvent key={e.payrollDataId} />;
+			} else return null;
+		});
 	};
 
 	render() {

@@ -1,6 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import "../style/stylesheet.css";
-import EmployeeCard from "../components/employeeCard";
 import employeeController from "../controllers/employeeController";
 import TopAdminNav from "../components/topAdminNav";
 import BottomAdminNav from "../components/bottomAdminNav";

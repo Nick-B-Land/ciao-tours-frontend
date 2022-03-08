@@ -14,6 +14,7 @@ import EmployeePayroll from "./pages/employeePayroll";
 
 class App extends Component {
 	render() {
+		this.props.currentUser.Set();
 		return (
 			<React.Fragment>
 				<BrowserRouter>
