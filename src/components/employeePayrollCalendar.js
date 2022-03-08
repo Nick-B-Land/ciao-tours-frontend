@@ -56,84 +56,48 @@ class EmployeePayrollCalender extends Component {
 		).getDate();
 	};
 
-	//this and renderFiveWeeks should be optimized into one function
-	//lots of redundant code here, just did it cheap and easy for prototyping
-	renderFourWeeks = () => {
-		let numDays = 1;
-
-		return (
-			<>
-				<div className="row">
-					{[...Array(7)].map((e) => {
-						return (
-							<PayrollCalenderDay
-								key={numDays}
-								year={this.props.selectedYear}
-								month={this.props.selectedMonth}
-								day={numDays++}
-								selectedDay={this.props.selectedDay}
-								payrollData={this.props.payrollData}
-								handleSelectedDay={this.props.handleSelectedDay}
-							/>
-						);
-					})}
-				</div>
-				<div className="row">
-					{[...Array(7)].map((e) => {
-						return (
-							<PayrollCalenderDay
-								key={numDays}
-								year={this.props.selectedYear}
-								month={this.props.selectedMonth}
-								day={numDays++}
-								selectedDay={this.props.selectedDay}
-								payrollData={this.props.payrollData}
-								handleSelectedDay={this.props.handleSelectedDay}
-							/>
-						);
-					})}
-				</div>
-				<div className="row">
-					{[...Array(7)].map((e) => {
-						return (
-							<PayrollCalenderDay
-								key={numDays}
-								year={this.props.selectedYear}
-								month={this.props.selectedMonth}
-								day={numDays++}
-								selectedDay={this.props.selectedDay}
-								payrollData={this.props.payrollData}
-								handleSelectedDay={this.props.handleSelectedDay}
-							/>
-						);
-					})}
-				</div>
-				<div className="row">
-					{[...Array(7)].map((e) => {
-						return (
-							<PayrollCalenderDay
-								key={numDays}
-								year={this.props.selectedYear}
-								month={this.props.selectedMonth}
-								day={numDays++}
-								selectedDay={this.props.selectedDay}
-								payrollData={this.props.payrollData}
-								handleSelectedDay={this.props.handleSelectedDay}
-							/>
-						);
-					})}
-				</div>
-			</>
-		);
-	};
-
 	//see comment on renderFourWeeks
 	renderFiveWeeks = () => {
 		let numDays = 1;
 		let extraDays = this.state.daysInMonth - 28;
 
+		//gets the weekday of the first as 0-6
+		let firstOfMonth = new Date(this.props.selectedYear, this.props.selectedMonth, 1);
+		let firstWeekday = firstOfMonth.getDay();
+
+		//gets the weekday of the last as 0-6
+		let lastOfMonth = new Date(this.props.selectedYear, this.props.selectedMonth, this.state.daysInMonth);
+		let lastWeekday = lastOfMonth.getDay();		
+
 		return (
 			<>
+				<div className="row">
+					<div className="col d-flex justify-content-center">Sunday</div>
+					<div className="col d-flex justify-content-center">Monday</div>
+					<div className="col d-flex justify-content-center">Tuesday</div>
+					<div className="col d-flex justify-content-center">Wednesday</div>
+					<div className="col d-flex justify-content-center">Thursday</div>
+					<div className="col d-flex justify-content-center">Friday</div>
+					<div className="col d-flex justify-content-center">Saturday</div>
+				</div>
+				<div className="row">
+					{[...Array(firstWeekday)].map((e) => {
+						return <div key={extraDays--} className="col"></div>;
+					})}
+					{[...Array(7-firstWeekday)].map((e) => {
+						return (
+							<PayrollCalenderDay
+								key={numDays}
+								year={this.props.selectedYear}
+								month={this.props.selectedMonth}
+								day={numDays++}
+								selectedDay={this.props.selectedDay}
+								payrollData={this.props.payrollData}
+								handleSelectedDay={this.props.handleSelectedDay}
+							/>
+						);
+					})}
+				</div>
 				<div className="row">
 					{[...Array(7)].map(() => {
 						return (
@@ -179,50 +143,69 @@ class EmployeePayrollCalender extends Component {
 						);
 					})}
 				</div>
-				<div className="row">
-					{[...Array(7)].map((e) => {
-						return (
-							<PayrollCalenderDay
-								key={numDays}
-								year={this.props.selectedYear}
-								month={this.props.selectedMonth}
-								day={numDays++}
-								selectedDay={this.props.selectedDay}
-								payrollData={this.props.payrollData}
-								handleSelectedDay={this.props.handleSelectedDay}
-							/>
-						);
-					})}
-				</div>
-				<div className="row">
-					{[...Array(extraDays)].map((e) => {
-						return (
-							<PayrollCalenderDay
-								key={numDays}
-								year={this.props.selectedYear}
-								month={this.props.selectedMonth}
-								day={numDays++}
-								selectedDay={this.props.selectedDay}
-								payrollData={this.props.payrollData}
-								handleSelectedDay={this.props.handleSelectedDay}
-							/>
-						);
-					})}
-					{[...Array(7 - extraDays)].map((e) => {
-						return <div key={extraDays--} className="col"></div>;
-					})}
-				</div>
+				{this.state.daysInMonth - numDays+1 >= 7 ? 
+					<div className="row">
+						{[...Array(7)].map((e) => {
+							return (
+								<PayrollCalenderDay
+									key={numDays}
+									year={this.props.selectedYear}
+									month={this.props.selectedMonth}
+									day={numDays++}
+									selectedDay={this.props.selectedDay}
+									payrollData={this.props.payrollData}
+									handleSelectedDay={this.props.handleSelectedDay}
+								/>
+							);
+						})}
+					</div>
+				: this.state.daysInMonth - numDays-1 > 0 ? 
+					<div className="row">
+						{[...Array(lastWeekday + 1)].map((e) => {
+							return (
+								<PayrollCalenderDay
+									key={numDays}
+									year={this.props.selectedYear}
+									month={this.props.selectedMonth}
+									day={numDays++}
+									selectedDay={this.props.selectedDay}
+									payrollData={this.props.payrollData}
+									handleSelectedDay={this.props.handleSelectedDay}
+								/>
+							);
+						})}
+						{[...Array(6 - lastWeekday)].map((e) => {
+							return <div key={extraDays--} className="col"></div>;
+						})}
+					</div>
+				: null}
+				{this.state.daysInMonth - numDays+1 > 0 ? 
+					<div className="row">
+						{[...Array(lastWeekday + 1)].map((e) => {
+							return (
+								<PayrollCalenderDay
+									key={numDays}
+									year={this.props.selectedYear}
+									month={this.props.selectedMonth}
+									day={numDays++}
+									selectedDay={this.props.selectedDay}
+									payrollData={this.props.payrollData}
+									handleSelectedDay={this.props.handleSelectedDay}
+								/>
+							);
+						})}
+						{[...Array(6 - lastWeekday)].map((e) => {
+							return <div key={extraDays--} className="col"></div>;
+						})}
+					</div>
+				: null }
 			</>
 		);
 	};
 
 	//this is probably uneeded once the render week functions are optimized
 	renderCalender = () => {
-		if (this.state.daysInMonth % 7 === 0) {
-			return this.renderFourWeeks();
-		} else {
-			return this.renderFiveWeeks();
-		}
+		return this.renderFiveWeeks();
 	};
 
 	render() {

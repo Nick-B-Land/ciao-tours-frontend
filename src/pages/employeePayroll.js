@@ -349,6 +349,7 @@ class EmployeePayroll extends Component {
 							onChange={this.handleYearChange}
 							value={this.state.selectedYear}
 						>
+							<option value={2015}>2015</option>
 							<option value={2020}>2020</option>
 							<option value={2021}>2021</option>
 							<option value={2022}>2022</option>
