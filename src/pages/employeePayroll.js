@@ -257,6 +257,7 @@ class EmployeePayroll extends Component {
 				payrollId: "",
 				employeeId: this.props.currentUser.eID,
 				dateOfPayroll: new Date().toISOString(),
+				isProcessed: 0,
 			};
 
 			let createResponse = await payrollController.createPayroll(newPayroll);
@@ -307,6 +308,7 @@ class EmployeePayroll extends Component {
 						this.state.selectedYear,
 						this.state.selectedMonth
 					).toISOString(),
+					isProcessed: 0,
 				};
 
 				let createResponse = await payrollController.createPayroll(newPayroll);

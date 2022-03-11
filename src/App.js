@@ -12,6 +12,7 @@ import LoginWrapper from "./functionalComponents/loginWrapper";
 import NewEmployeeWrapper from "./functionalComponents/newEmployeeWrapper";
 import EmployeePayroll from "./pages/employeePayroll";
 import EmployeePaystubs from "./pages/employeePaystub";
+import BookkeeperPayroll from "./pages/bookkeeperPayroll";
 
 class App extends Component {
 	render() {
@@ -44,6 +45,13 @@ class App extends Component {
 							exact
 							path="/adminEmployees"
 							element={<AdminEmployees currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/adminPayroll"
+							element={
+								<BookkeeperPayroll currentUser={this.props.currentUser} />
+							}
 						/>
 						<Route
 							exact

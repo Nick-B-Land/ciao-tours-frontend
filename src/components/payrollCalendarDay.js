@@ -76,25 +76,23 @@ class PayrollCalenderDay extends Component {
 
 	//this should be replaced by some sort of visual status of selection
 	renderSelectedStatus = () => {
-		return (
-			<div className="w-100 h-75 selectedcolor"></div>
-		);
+		return <div className="w-100 h-75 selectedcolor"></div>;
 	};
 
 	//filters all payroll events to only events that match the components date
 	filterPayrollData = () => {
 		let payrollEvents = [];
 
-		if(this.props.payrollData){
-		this.props.payrollData.forEach((e) => {
-			if (
-				this.state.calenderDay.getDate() ===
-				new Date(e.dateOfPayrollData).getDate()
-			) {
-				payrollEvents.push(e);
-			}
-		});
-	}
+		if (this.props.payrollData) {
+			this.props.payrollData.forEach((e) => {
+				if (
+					this.state.calenderDay.getDate() ===
+					new Date(e.dateOfPayrollData).getDate()
+				) {
+					payrollEvents.push(e);
+				}
+			});
+		}
 
 		this.setState({ events: payrollEvents });
 	};
@@ -145,9 +143,13 @@ class PayrollCalenderDay extends Component {
 					: null} */}
 				<div className="row">
 					<div className="col">
-						<h3 
-							className="d-flex justify-content-start" 
-							class={this.state.calenderDay.getDate() === new Date(this.props.selectedDay).getDate() ? "selecteddate" : null}
+						<h3
+							className={
+								this.state.calenderDay.getDate() ===
+								new Date(this.props.selectedDay).getDate()
+									? "selecteddate d-flex justify-content-start"
+									: "d-flex justify-content-start"
+							}
 						>
 							{this.state.calenderDay.getDate()}
 						</h3>

@@ -4,6 +4,8 @@ const GET_ALL_PAYROLL_API_URL = "http://localhost:8080/api/v1/payroll";
 const CREATE_NEW_PAYROLL_API_URL = "http://localhost:8080/api/v1/new-payroll";
 const GET_PAYROLL_BY_ID_API_URL = "http://localhost:8080/api/v1/payroll/";
 const GET_PAYROLL_BY_EID_API_URL = "http://localhost:8080/api/v1/payroll/eid/";
+const GET_PAYROLL_BY_IS_PROCESSED_API_URL =
+	"http://localhost:8080/api/v1/payroll/is-processed/";
 
 class PayrollController {
 	getPayroll() {
@@ -20,6 +22,10 @@ class PayrollController {
 
 	getPayrollByEID(employeeID) {
 		return axios.get(GET_PAYROLL_BY_EID_API_URL + employeeID);
+	}
+
+	getPayrollByIsProcessed(proccessedStatus) {
+		return axios.get(GET_PAYROLL_BY_IS_PROCESSED_API_URL + proccessedStatus);
 	}
 }
 
