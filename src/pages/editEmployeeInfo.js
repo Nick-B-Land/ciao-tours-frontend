@@ -67,6 +67,7 @@ class editEmployeeInfo extends Component {
 									<input
 										type="text"
 										defaultValue={this.state.name}
+                                        disabled={false}
 										onChange={this.handleNameInput}
 									/>
 								</div>
@@ -77,6 +78,7 @@ class editEmployeeInfo extends Component {
 									<input
 										type="text"
 										defaultValue={this.state.address}
+                                        disabled={false}
 										onChange={this.handleAddressInput}
 									/>
 								</div>
@@ -87,6 +89,7 @@ class editEmployeeInfo extends Component {
 									<input
 										type="text"
 										defaultValue={this.state.email}
+                                        disabled={false}
 										onChange={this.handleEmailInput}
 									/>
 								</div>
@@ -97,6 +100,7 @@ class editEmployeeInfo extends Component {
 									<input
 										type="text"
 										defaultValue={this.state.rate}
+                                        disabled={true}
 										onChange={this.handleRateInput}
 									/>
 								</div>

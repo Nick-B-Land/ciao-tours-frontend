@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,useState } from "react";
 import "../style/stylesheet.css";
 import TopNav from "../components/topNav";
 import BottomAdminNav from "../components/bottomAdminNav";
@@ -41,19 +41,19 @@ class employeeInfo extends Component {
 							</div>
 							<div className="row">
 								<div className="col-3 text-start">Name:</div>
-								<div className="col-4">{this.state.name}</div>
+								<div className="col-4"><input disabled={true} value={this.state.name}></input></div>
 							</div>
 							<div className="row">
 								<div className="col-3  text-start">Address:</div>
-								<div className="col-4">{this.state.address}</div>
+								<div className="col-4"><input disabled={true} value={this.state.address}></input></div>
 							</div>
 							<div className="row">
 								<div className="col-3  text-start">Email:</div>
-								<div className="col-4">{this.state.email}</div>
+								<div className="col-4"><input disabled={true} value={this.state.email}></input></div>
 							</div>
 							<div className="row">
 								<div className="col-3  text-start">Hourly Rate:</div>
-								<div className="col-4">{this.state.rate}</div>
+								<div className="col-4"><input disabled={true} value={this.state.rate}></input></div>
 							</div>
 							<div className="row justify-content-center text-center">
 								<div className="col-12">
@@ -65,7 +65,7 @@ class employeeInfo extends Component {
 								<div className="col-7">
 									<button
 										type="button"
-										onClick={() => {}}
+										onClick={this.editInfo}
 										class="employeeButton"
 									>
 										Edit Information
