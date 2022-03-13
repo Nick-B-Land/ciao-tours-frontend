@@ -14,7 +14,6 @@ class LoginPage extends Component {
 
 	handleUsernameInput = (e) => {
 		this.setState({ username: e.target.value });
-		console.log(this.state.username);
 	};
 
 	handlePasswordInput = (e) => {
@@ -30,10 +29,28 @@ class LoginPage extends Component {
 
 		if (response.status === 200) {
 			console.log("logged in");
-			let employeeTypes = response.data.roles;
+
+			// this.props.currentUser.Set(
+			// 	response.data.employeeID,
+			// 	response.data.username,
+			// 	response.data.roles
+			// );
+
+			let responseData = await response.json();
+
+			let sessionObj = {};
+			sessionObj.roles = responseData.roles;
+			sessionObj.uID = responseData.id;
+			sessionObj.eID = responseData.employeeID;
+			sessionObj.username = responseData.username;
+
+			sessionStorage.setItem("userSession", JSON.stringify(sessionObj));
+			this.props.currentUser.Set();
+			let employeeTypes = responseData.roles;
+			console.log(responseData);
 
 			if (employeeTypes.includes("ROLE_EMPLOYEE")) {
-				this.props.navigate("/employee");
+				this.props.navigate("employee");
 			} else {
 				this.props.navigate("/admin");
 			}

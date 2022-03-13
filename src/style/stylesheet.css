@@ -59,6 +59,14 @@ body {
 	background-position: center;
 }
 
+.employeePaystubsPage {
+	background-image: url("../style/PaystubsBG.jpg"); /*Photo source: https://unsplash.com/photos/RKsLQoSnuTc*/
+	width: 100%;
+	height: 100vh;
+	overflow: scroll;
+	background-size: cover;
+	background-position: center;
+}
 .innerAdmin {
 	background-color: #faf2db;
 }
@@ -67,18 +75,29 @@ body {
 	border: solid #f84111;
 	background-color: #f84111;
 }
-
+.PrimaryButton:hover {
+	border: solid #ff613a;
+	background-color: #ff613a;
+}
 .SecondaryButton {
 	border: solid #f8bf4d;
 	background-color: #f8bf4d;
 }
-
+.SecondaryButton:hover {
+	border: solid #fdcf74;
+	background-color: #fdcf74;
+}
+.empPaystubButton {
+	background-color: #fffef9;
+}
+.empPaystubButton:hover {
+	background-color: #f8bf4d;
+}
 .innnerInfo {
 	margin-top: 20px;
 	color: #5b642c;
 	text-align: center;
 }
-
 .employeeHeader {
 	background-color: #5b642c;
 	color: #faf2db;
@@ -88,6 +107,7 @@ body {
 	color: #5b642c;
 }
 
+/* delete? */
 .adminContent {
 	margin: 10px;
 }

@@ -33,7 +33,7 @@ class AdminEmployees extends Component {
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
 				<div className="row d-flex">
-					<TopAdminNav />
+					<TopAdminNav currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">

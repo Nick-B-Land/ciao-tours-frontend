@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import TopNav from "../components/topNav";
 import BottomEmpNav from "../components/bottomEmpNav";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class EmployeeHome extends Component {
 	render() {
-		var empName = "Employee";
 		return (
 			<div className="container-fluid p-0 employeeHomePage">
 				<div className="row d-flex">
-					<TopNavWrapper />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomEmpNav />
 				</div>
 				<div className="row">
@@ -17,7 +15,7 @@ class EmployeeHome extends Component {
 					<div className="col-8 innerAdmin">
 						<div className="row">
 							<div className="col min-vh-100">
-								<h1>Welcome, {empName}</h1>
+								<h1>Welcome, {this.props.currentUser.username}</h1>
 							</div>
 						</div>
 						<div className="row">

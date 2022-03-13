@@ -1,6 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import "../style/stylesheet.css";
-import EmployeeCard from "../components/employeeCard";
 import employeeController from "../controllers/employeeController";
 import TopAdminNav from "../components/topAdminNav";
 import BottomAdminNav from "../components/bottomAdminNav";
@@ -24,32 +23,6 @@ class AdminHome extends Component {
 		});
 	}
 
-	renderEmployees = () => {
-		console.log("render Employees fired");
-		console.log(this.state.employeeList);
-		return this.state.employeeList.map((e) => {
-			// <EmployeeCard
-			// 	key={e.id}
-			// 	firstName={e.firstName}
-			// 	lastName={e.lastName}
-			// 	jobTitle={e.jobTitle}
-			// />;
-		});
-	};
-
-	// renderEmployees = () => {
-	//     console.log("render Employees fired");
-	//     console.log(this.state.employeeList);
-	//     return this.state.employeeList.map(e => {
-
-	//         <EmployeeCard
-	//             key={e.id}
-	//             firstName={e.firstName}
-	//             lastName={e.lastName}
-	//             jobTitle={e.jobTitle}
-	//         />
-	//     })
-	// }
 
 	render() {
 		var adminName = "Administrator";
@@ -75,7 +48,7 @@ class AdminHome extends Component {
 		return (
 			<div className="container-fluid p-0 adminHomePage">
 				<div className="row d-flex">
-					<TopAdminNav />
+					<TopAdminNav currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">
