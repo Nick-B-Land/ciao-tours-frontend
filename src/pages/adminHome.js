@@ -23,6 +23,7 @@ class AdminHome extends Component {
 		});
 	}
 
+
 	render() {
 		var adminName = "Administrator";
 		var monthName = [
