@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "../style/stylesheet.css";
 import TopNav from "../components/topNav";
 import BottomEmpNav from '../components/bottomEmpNav';
+import Paystub from "../components/paystub";
+import { paystubData } from "../components/data";
 
 class EmployeePaystubs extends Component {
 	constructor(props) {
@@ -73,6 +75,89 @@ class EmployeePaystubs extends Component {
 								</select>
 							</div>
 						</div>
+
+						<div className="row">
+							{paystubData.map(
+								({ period,
+									fName,
+									lName,
+									employer,
+									empId,
+									date,
+									regRate,
+									regHours,
+									regEarnings,
+									regYearHours,
+									regYearEarnings,
+									sickRate,
+									sickHours,
+									sickEarnings,
+									sickYearHours,
+									sickYearEarnings,
+									holRate,
+									holHours,
+									holEarnings,
+									holYearHours,
+									holYearEarnings,
+									cpp,
+									cppYear,
+									ei,
+									eiYear,
+									tax,
+									taxYear,
+									csb,
+									csbYear,
+									curGross,
+									curDeductions,
+									curNet,
+									payMethod,
+									yearGross,
+									yearDeductions,
+									yearNet,
+									refNum }) => (
+									<Paystub
+										period={period}
+										fName={fName}
+										lName={lName}
+										employer={employer}
+										empId={empId}
+										date={date}
+										regRate={regRate}
+										regHours={regHours}
+										regEarnings={regEarnings}
+										regYearHours={regYearHours}
+										regYearEarnings={regYearEarnings}
+										sickRate={sickRate}
+										sickHours={sickHours}
+										sickEarnings={sickEarnings}
+										sickYearHours={sickYearHours}
+										sickYearEarnings={sickYearEarnings}
+										holRate={holRate}
+										holHours={holHours}
+										holEarnings={holEarnings}
+										holYearHours={holYearHours}
+										holYearEarnings={holYearEarnings}
+										cpp={cpp}
+										cppYear={cppYear}
+										ei={ei}
+										eiYear={eiYear}
+										tax={tax}
+										taxYear={taxYear}
+										csb={csb}
+										csbYear={csbYear}
+										curGross={curGross}
+										curDeductions={curDeductions}
+										curNet={curNet}
+										payMethod={payMethod}
+										yearGross={yearGross}
+										yearDeductions={yearDeductions}
+										yearNet={yearNet}
+										refNum={refNum}
+									/>
+								)
+							)}
+						</div>
+
 						<div className="row">
 							<div className="d-flex justify-content-center p-0">
 								<button

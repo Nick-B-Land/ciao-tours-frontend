@@ -17,7 +17,9 @@ class BottomEmpNav extends Component {
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/employee">Paystubs</Link>
+						<Link className="nav-link" to="/employeePaystubs">
+							Paystubs
+						</Link>
 					</li>
 					<li className="nav-item">
 						<Link to="/employee">My Information</Link>

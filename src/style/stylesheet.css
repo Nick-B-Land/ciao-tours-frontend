@@ -342,3 +342,26 @@ input:checked + .slider:before {
 	margin: 0;
 	margin-left: 2em;
 }
+
+.haeHeader th,
+.dHeader th,
+.sumHeader th {
+	text-align: center;
+}
+
+.haeBody td,
+.dBody td {
+	padding-bottom: 0;
+	padding-top: 0;
+}
+
+.paystubTable {
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+}
+
+.downloadButton {
+	float: right;
+}
