@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import DailyAssistanceFeePayrollEvent from "./dafPayrollEvent";
-import ExpensePayrollEvent from "./expensePayrollEvent";
-import TourBookingPayrollEvent from "./tbPayrollEvent";
-import TimeOffPayrollEvent from "./toPayrollEvent";
-import WorkDayPayrollEvent from "./wdPayrollEvent";
-
+import CalendarEvent from "./calendarEvent";
+import "../style/employeeCalendarCSS.css";
 //
 // props
 // year - year in number format
@@ -68,18 +64,19 @@ class PayrollCalenderDay extends Component {
 		// 		this.props.month +
 		// 		" day: " +
 		// 		this.props.day
-		// );
+		// )
+		this.props.handleSelectedEvents(this.state.events);
 
 		let day = new Date(this.props.year, this.props.month, this.props.day);
 		this.props.handleSelectedDay(day);
 	};
 
 	//this should be replaced by some sort of visual status of selection
-	renderSelectedStatus = () => {
-		return (
-			<div className="w-100 h-75 selectedcolor"></div>
-		);
-	};
+	// renderSelectedStatus = () => {
+	// 	return (
+	// 		<div className="w-100 h-75 selectedcolor"></div>
+	// 	);
+	// };
 
 	//filters all payroll events to only events that match the components date
 	filterPayrollData = () => {
@@ -121,18 +118,22 @@ class PayrollCalenderDay extends Component {
 	//this is a very sloppy way of just ensuring the prototype works
 	//should map out components specific to each event
 	renderPayrollEvents = () => {
+		var type;
 		return this.state.events.map((e) => {
 			if (e.payrollEvent === 1) {
-				return <WorkDayPayrollEvent key={e.payrollDataId} />;
+				type="Hours";
 			} else if (e.payrollEvent === 2) {
-				return <TourBookingPayrollEvent key={e.payrollDataId} />;
+				type="Tour Booking";
 			} else if (e.payrollEvent === 3) {
-				return <DailyAssistanceFeePayrollEvent key={e.payrollDataId} />;
+				type="Assistance Fee";
 			} else if (e.payrollEvent === 4) {
-				return <TimeOffPayrollEvent key={e.payrollDataId} />;
+				type="Time off";
 			} else if (e.payrollEvent === 7) {
-				return <ExpensePayrollEvent key={e.payrollDataId} />;
-			} else return null;
+				type="Expense";
+			} else {
+				type="";
+			};
+			return <CalendarEvent key={e.payrollDataId} data={e} type={type} />;
 		});
 	};
 
@@ -146,22 +147,24 @@ class PayrollCalenderDay extends Component {
 				<div className="row">
 					<div className="col">
 						<h3 
-							className="d-flex justify-content-start" 
+							className="d-flex justify-content-start"
 							class={this.state.calenderDay.getDate() === new Date(this.props.selectedDay).getDate() ? "selecteddate" : null}
 						>
 							{this.state.calenderDay.getDate()}
 						</h3>
 					</div>
 				</div>
-				{this.state.events.length !== 0 ? (
-					this.renderPayrollEvents()
-				) : (
-					<div className="row">
-						<div className="col">
-							<p>No Events</p>
+				<div className="row calendarSize overflow-auto">
+					{this.state.events.length !== 0 ? (
+						this.renderPayrollEvents()
+					) : (
+						<div className="row">
+							<div className="col">
+								<p>No Events</p>
+							</div>
 						</div>
-					</div>
-				)}
+					)}
+				</div>
 			</div>
 		);
 	}

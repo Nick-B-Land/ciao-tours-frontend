@@ -16,9 +16,14 @@ class EmployeePayroll extends Component {
 			selectedYear: 2020,
 			selectedPayrollID: 0,
 			selectedDay: "",
+			selectedEvents: [],
 			payrollData: [],
 			selectedForm: 0,
 		};
+	}
+
+	handleSelectedEvents = (events) => {
+		this.setState( { selectedEvents: events });
 	}
 
 	componentDidMount = () => {
@@ -39,6 +44,8 @@ class EmployeePayroll extends Component {
 			this.loadPayrollData();
 		} else if (this.state.selectedPayrollID !== prevState.selectedPayrollID) {
 			this.loadPayrollData();
+		} else if (this.state.selectedEvents !== prevState.selectedEvents) {
+			console.log(this.state.selectedEvents);
 		}
 	}
 
@@ -57,8 +64,8 @@ class EmployeePayroll extends Component {
 	//function for adding a daily assistance fee type payroll data object
 	//will need similar functions for all payroll data events
 	//passed to the button components
-	addDailyAssistanceFee = async (clientName) => {
-		let dataDay = new Date(this.state.selectedDay);
+	addDailyAssistanceFee = async (clientName, date) => {
+		let dataDay = new Date(date);
 		const DAILY_ASSISTANCE_FEE_PER_DAY_IN_EUROS = 9;
 
 		let newPayrollData = {
@@ -338,7 +345,7 @@ class EmployeePayroll extends Component {
 
 	render() {
 		return (
-			<div className="container-fluid p-0 employeeHomePage">
+			<div className="container-fluid p-0 employeeCalendarPage">
 				<div className="row d-flex">
 					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomEmpNav />
@@ -380,6 +387,7 @@ class EmployeePayroll extends Component {
 					<div className="col">
 						<EmployeePayrollButtons
 							handleSelectedForm={this.handleSelectedForm}
+							handleSelectedEvents={this.handleSelectedEvents}
 						/>
 					</div>
 				</div>
@@ -391,14 +399,21 @@ class EmployeePayroll extends Component {
 							selectedPayrollID={this.state.selectedPayrollID}
 							selectedDay={this.state.selectedDay}
 							payrollData={this.state.payrollData}
+							selectedEvents={this.state.selectedEvents}
+							handleSelectedEvents={this.handleSelectedEvents}
 							handleSelectedDay={this.handleSelectedDay}
 						/>
 					</div>
 					<div className="col-3 ms-3 me-4 innerAdmin">
 						<div className="row">
-							<div className="col">
+							<div className="col mw-100">
 								<EmployeePayrollForm
 									selectedForm={this.state.selectedForm}
+									selectedDay={this.state.selectedDay}
+									selectedEvents={this.state.selectedEvents}
+									handleSelectedEvents={this.handleSelectedEvents}
+									handleSelectedDay={this.handleSelectedDay}
+									handleSelectedForm={this.handleSelectedForm}
 									addTourBooking={this.addTourBooking}
 									addDailyAssistanceFee={this.addDailyAssistanceFee}
 									addWorkDay={this.addWorkDay}

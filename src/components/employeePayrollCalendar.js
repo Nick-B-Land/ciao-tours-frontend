@@ -94,6 +94,8 @@ class EmployeePayrollCalender extends Component {
 								selectedDay={this.props.selectedDay}
 								payrollData={this.props.payrollData}
 								handleSelectedDay={this.props.handleSelectedDay}
+								selectedEvents={this.props.selectedEvents}
+								handleSelectedEvents={this.props.handleSelectedEvents}
 							/>
 						);
 					})}
@@ -109,6 +111,8 @@ class EmployeePayrollCalender extends Component {
 								selectedDay={this.props.selectedDay}
 								payrollData={this.props.payrollData}
 								handleSelectedDay={this.props.handleSelectedDay}
+								selectedEvents={this.props.selectedEvents}
+								handleSelectedEvents={this.props.handleSelectedEvents}
 							/>
 						);
 					})}
@@ -124,6 +128,8 @@ class EmployeePayrollCalender extends Component {
 								selectedDay={this.props.selectedDay}
 								payrollData={this.props.payrollData}
 								handleSelectedDay={this.props.handleSelectedDay}
+								selectedEvents={this.props.selectedEvents}
+								handleSelectedEvents={this.props.handleSelectedEvents}
 							/>
 						);
 					})}
@@ -139,6 +145,8 @@ class EmployeePayrollCalender extends Component {
 								selectedDay={this.props.selectedDay}
 								payrollData={this.props.payrollData}
 								handleSelectedDay={this.props.handleSelectedDay}
+								selectedEvents={this.props.selectedEvents}
+									handleSelectedEvents={this.props.handleSelectedEvents}
 							/>
 						);
 					})}
@@ -155,6 +163,8 @@ class EmployeePayrollCalender extends Component {
 									selectedDay={this.props.selectedDay}
 									payrollData={this.props.payrollData}
 									handleSelectedDay={this.props.handleSelectedDay}
+									selectedEvents={this.props.selectedEvents}
+									handleSelectedEvents={this.props.handleSelectedEvents}
 								/>
 							);
 						})}
@@ -171,6 +181,8 @@ class EmployeePayrollCalender extends Component {
 									selectedDay={this.props.selectedDay}
 									payrollData={this.props.payrollData}
 									handleSelectedDay={this.props.handleSelectedDay}
+									selectedEvents={this.props.selectedEvents}
+									handleSelectedEvents={this.props.handleSelectedEvents}
 								/>
 							);
 						})}
@@ -191,6 +203,8 @@ class EmployeePayrollCalender extends Component {
 									selectedDay={this.props.selectedDay}
 									payrollData={this.props.payrollData}
 									handleSelectedDay={this.props.handleSelectedDay}
+									selectedEvents={this.props.selectedEvents}
+									handleSelectedEvents={this.props.handleSelectedEvents}
 								/>
 							);
 						})}
