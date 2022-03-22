@@ -397,3 +397,49 @@ input:checked + .slider:before {
 .calenderDay {
 	cursor: pointer;
 }
+
+.dropdown {
+
+  width: 100%;
+
+}
+
+.myalert{
+
+  width: max-content;
+
+}
+
+.alertRow{
+
+  width: 100%;
+
+  text-align: center;
+
+  align-items: center;
+
+  align-content: center;
+
+}
+
+.newEmployeeRow{
+
+  padding: 5px;
+
+}
+
+.newEmployeeRowText{
+
+  text-align: right;
+
+  padding: 5px;
+
+}
+
+
+
+.errorText{
+
+  color: #f84111;
+
+}
