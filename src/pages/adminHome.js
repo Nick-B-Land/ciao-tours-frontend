@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
 import employeeController from "../controllers/employeeController";
-import TopAdminNav from "../components/topAdminNav";
-import BottomAdminNav from "../components/bottomAdminNav";
+import TopAdminNav from "../components/navs/topAdminNav";
+import BottomAdminNav from "../components/navs/bottomAdminNav";
 import FlaggedDay from "../components/flaggedDay.js";
 import EmployeeHours from "../components/employeeHours";
 import { Link } from "react-router-dom";

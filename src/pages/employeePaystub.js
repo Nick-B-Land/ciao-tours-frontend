@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
-import TopNav from "../components/topNav";
-import BottomEmpNav from '../components/bottomEmpNav';
+import TopNav from "../components/navs/topNav";
+import BottomEmpNav from "../components/navs/bottomEmpNav";
 import Paystub from "../components/paystub";
 import { paystubData } from "../components/data";
 
@@ -78,7 +78,8 @@ class EmployeePaystubs extends Component {
 
 						<div className="row">
 							{paystubData.map(
-								({ period,
+								({
+									period,
 									fName,
 									lName,
 									employer,
@@ -114,7 +115,8 @@ class EmployeePaystubs extends Component {
 									yearGross,
 									yearDeductions,
 									yearNet,
-									refNum }) => (
+									refNum,
+								}) => (
 									<Paystub
 										period={period}
 										fName={fName}

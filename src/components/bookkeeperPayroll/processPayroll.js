@@ -272,6 +272,35 @@ class ProccessPayroll extends Component {
 		this.setState({ netPay: net });
 	};
 
+	handleFlagPayroll = async () => {
+		let newPayroll = {
+			payrollId: this.state.currentPayroll.payrollId,
+			employeeId: this.state.currentPayroll.employeeId,
+			dateOfPayroll: this.state.currentPayroll.dateOfPayroll,
+			isProcessed: 0,
+			isFlagged: 1,
+		};
+
+		let payrollResponse = await payrollController.updatePayroll(
+			newPayroll,
+			this.state.currentPayroll.payrollId
+		);
+
+		console.log(payrollResponse);
+
+		if (this.state.payrollIndex + 1 >= this.props.payrollsToProcess.length) {
+			this.props.loadPayrollsToProcess();
+			this.props.handleSceneChange(0);
+		} else {
+			this.setState((prevState) => ({
+				payrollsRemaining: prevState.payrollsRemaining - 1,
+				currentPayroll:
+					this.props.payrollsToProcess[prevState.payrollIndex + 1],
+				payrollIndex: prevState.payrollIndex + 1,
+			}));
+		}
+	};
+
 	handlePaystub = async () => {
 		//do paystub submission and error handling (update payroll is processed, create new paystub)
 
@@ -300,17 +329,15 @@ class ProccessPayroll extends Component {
 		console.log(payrollResponse);
 
 		if (this.state.payrollIndex + 1 >= this.props.payrollsToProcess.length) {
+			this.props.loadPayrollsToProcess();
 			this.props.handleSceneChange(0);
 		} else {
-			this.setState(
-				(prevState) => ({
-					payrollsRemaining: prevState.payrollsRemaining - 1,
-					currentPayroll:
-						this.props.payrollsToProcess[prevState.payrollIndex + 1],
-					payrollIndex: prevState.payrollIndex + 1,
-				}),
-				() => console.log(this.state.currentPayroll)
-			);
+			this.setState((prevState) => ({
+				payrollsRemaining: prevState.payrollsRemaining - 1,
+				currentPayroll:
+					this.props.payrollsToProcess[prevState.payrollIndex + 1],
+				payrollIndex: prevState.payrollIndex + 1,
+			}));
 		}
 	};
 
@@ -626,7 +653,12 @@ class ProccessPayroll extends Component {
 				{this.renderPayrollForm()}
 				<div className="row">
 					<div className="col d-flex justify-content-around">
-						<button className="btn SecondaryButton my-5">Flag Payroll</button>
+						<button
+							className="btn SecondaryButton my-5"
+							onClick={this.handleFlagPayroll}
+						>
+							Flag Payroll
+						</button>
 						<button
 							className="btn PrimaryButton my-5"
 							onClick={this.handlePaystub}

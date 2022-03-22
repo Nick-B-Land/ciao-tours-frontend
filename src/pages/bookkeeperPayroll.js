@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PayrollOverview from "../components/bookkeeperPayroll/payrollOverview";
 import ProccessPayroll from "../components/bookkeeperPayroll/processPayroll";
-import BottomAdminNav from "../components/bottomAdminNav";
-import TopAdminNav from "../components/topAdminNav";
+import BottomAdminNav from "../components/navs/bottomAdminNav";
+import TopAdminNav from "../components/navs/topAdminNav";
 import payrollController from "../controllers/payrollController";
 
 class BookkeeperPayroll extends Component {
@@ -13,6 +13,7 @@ class BookkeeperPayroll extends Component {
 			selectedYear: 2020,
 			payrollsToProcess: [],
 			scene: 0,
+			noPayrollError: false,
 		};
 	}
 
@@ -30,6 +31,12 @@ class BookkeeperPayroll extends Component {
 		} else if (this.state.selectedYear !== prevState.selectedYear) {
 			this.loadPayrollsToProcess();
 		}
+	};
+
+	setNoPayrollError = () => {
+		this.setState({ noPayrollError: true }, () =>
+			setInterval(() => this.setState({ noPayrollError: false }), 4000)
+		);
 	};
 
 	loadPayrollsToProcess = async () => {
@@ -72,6 +79,8 @@ class BookkeeperPayroll extends Component {
 					selectedMonth={this.state.selectedMonth}
 					payrollsToProcess={this.state.payrollsToProcess}
 					handleSceneChange={this.handleSceneChange}
+					setNoPayrollError={this.setNoPayrollError}
+					noPayrollError={this.state.noPayrollError}
 				/>
 			);
 		} else if (this.state.scene === 1) {
@@ -79,6 +88,7 @@ class BookkeeperPayroll extends Component {
 				<ProccessPayroll
 					payrollsToProcess={this.state.payrollsToProcess}
 					handleSceneChange={this.handleSceneChange}
+					loadPayrollsToProcess={this.loadPayrollsToProcess}
 				/>
 			);
 		}

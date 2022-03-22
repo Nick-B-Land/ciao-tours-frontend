@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BottomEmpNav from "../components/bottomEmpNav";
+import BottomEmpNav from "../components/navs/bottomEmpNav";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class EmployeeHome extends Component {

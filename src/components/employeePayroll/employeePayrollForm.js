@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DailyAssistanceForm from "../components/dailyAssistanceForm";
+import DailyAssistanceForm from "./dailyAssistanceForm";
 import ExpenseForm from "./expenseForm";
 import TimeOffForm from "./timeOffForm";
 import TourBookingForm from "./tourBookingForm";

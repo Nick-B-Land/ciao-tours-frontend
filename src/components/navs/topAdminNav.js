@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import logo from "../style/CAIO logo.png";
+import logo from "../../style/CAIO logo.png";
 
 class TopAdminNav extends Component {
 	render() {

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-// import AdminEmployees from '../pages/adminEmployees';
 
 class BottomAdminNav extends Component {
 	render() {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
-import TopNav from "../components/topNav";
-import BottomAdminNav from "../components/bottomAdminNav";
+import TopNav from "../components/navs/topNav";
+import BottomAdminNav from "../components/navs/bottomAdminNav";
 
 class editEmployeeInfo extends Component {
 	data = [
@@ -67,7 +67,7 @@ class editEmployeeInfo extends Component {
 									<input
 										type="text"
 										defaultValue={this.state.name}
-                                        disabled={false}
+										disabled={false}
 										onChange={this.handleNameInput}
 									/>
 								</div>
@@ -78,7 +78,7 @@ class editEmployeeInfo extends Component {
 									<input
 										type="text"
 										defaultValue={this.state.address}
-                                        disabled={false}
+										disabled={false}
 										onChange={this.handleAddressInput}
 									/>
 								</div>
@@ -89,7 +89,7 @@ class editEmployeeInfo extends Component {
 									<input
 										type="text"
 										defaultValue={this.state.email}
-                                        disabled={false}
+										disabled={false}
 										onChange={this.handleEmailInput}
 									/>
 								</div>
@@ -100,7 +100,7 @@ class editEmployeeInfo extends Component {
 									<input
 										type="text"
 										defaultValue={this.state.rate}
-                                        disabled={true}
+										disabled={true}
 										onChange={this.handleRateInput}
 									/>
 								</div>

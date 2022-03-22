@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
-import BottomAdminNav from "../components/bottomAdminNav";
-import TopAdminNav from "../components/topAdminNav";
+import BottomAdminNav from "../components/navs/bottomAdminNav";
+import TopAdminNav from "../components/navs/topAdminNav";
 import employeeController from "../controllers/employeeController";
 import { Link } from "react-router-dom";
-import EmployeeCard from "../components/employeeCard";
+import EmployeeCard from "../components/adminEmployees/employeeCard";
 
 class AdminEmployees extends Component {
 	constructor(props) {

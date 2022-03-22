@@ -50,8 +50,8 @@ class EmployeePayrollButtons extends Component {
 					Add Time Off
 				</button>
 				<button type="button" className="btn btn-sm SecondaryButton m-3">
-	 				Add Monthly Fee
-	 			</button>
+					Add Monthly Fee
+				</button>
 			</div>
 		);
 	}

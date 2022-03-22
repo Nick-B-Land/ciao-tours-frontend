@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "../style/employeeCalendarCSS.css";
-import BottomEmpNav from "../components/bottomEmpNav";
-import EmployeePayrollButtons from "../components/employeePayrollButtons";
-import EmployeePayrollCalender from "../components/employeePayrollCalendar";
-import EmployeePayrollForm from "../components/employeePayrollForm";
+import BottomEmpNav from "../components/navs/bottomEmpNav";
 import payrollController from "../controllers/payrollController";
 import payrollDataController from "../controllers/payrollDataController";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
+import EmployeePayrollButtons from "../components/employeePayroll/employeePayrollButtons";
+import EmployeePayrollCalender from "../components/employeePayroll/employeePayrollCalendar";
+import EmployeePayrollForm from "../components/employeePayroll/employeePayrollForm";
 
 class EmployeePayroll extends Component {
 	constructor(props) {

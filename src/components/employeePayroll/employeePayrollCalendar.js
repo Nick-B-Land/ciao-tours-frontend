@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PayrollCalenderDay from "./payrollCalendarDay";
+import PayrollCalenderDay from "../employeePayroll/payrollCalendarDay";
 
 //
 // props
@@ -62,12 +62,20 @@ class EmployeePayrollCalender extends Component {
 		let extraDays = this.state.daysInMonth - 28;
 
 		//gets the weekday of the first as 0-6
-		let firstOfMonth = new Date(this.props.selectedYear, this.props.selectedMonth, 1);
+		let firstOfMonth = new Date(
+			this.props.selectedYear,
+			this.props.selectedMonth,
+			1
+		);
 		let firstWeekday = firstOfMonth.getDay();
 
 		//gets the weekday of the last as 0-6
-		let lastOfMonth = new Date(this.props.selectedYear, this.props.selectedMonth, this.state.daysInMonth);
-		let lastWeekday = lastOfMonth.getDay();		
+		let lastOfMonth = new Date(
+			this.props.selectedYear,
+			this.props.selectedMonth,
+			this.state.daysInMonth
+		);
+		let lastWeekday = lastOfMonth.getDay();
 
 		return (
 			<>
@@ -84,7 +92,7 @@ class EmployeePayrollCalender extends Component {
 					{[...Array(firstWeekday)].map((e) => {
 						return <div key={extraDays--} className="col"></div>;
 					})}
-					{[...Array(7-firstWeekday)].map((e) => {
+					{[...Array(7 - firstWeekday)].map((e) => {
 						return (
 							<PayrollCalenderDay
 								key={numDays}
@@ -143,7 +151,7 @@ class EmployeePayrollCalender extends Component {
 						);
 					})}
 				</div>
-				{this.state.daysInMonth - numDays+1 >= 7 ? 
+				{this.state.daysInMonth - numDays + 1 >= 7 ? (
 					<div className="row">
 						{[...Array(7)].map((e) => {
 							return (
@@ -159,7 +167,7 @@ class EmployeePayrollCalender extends Component {
 							);
 						})}
 					</div>
-				: this.state.daysInMonth - numDays-1 > 0 ? 
+				) : this.state.daysInMonth - numDays - 1 > 0 ? (
 					<div className="row">
 						{[...Array(lastWeekday + 1)].map((e) => {
 							return (
@@ -178,8 +186,8 @@ class EmployeePayrollCalender extends Component {
 							return <div key={extraDays--} className="col"></div>;
 						})}
 					</div>
-				: null}
-				{this.state.daysInMonth - numDays+1 > 0 ? 
+				) : null}
+				{this.state.daysInMonth - numDays + 1 > 0 ? (
 					<div className="row">
 						{[...Array(lastWeekday + 1)].map((e) => {
 							return (
@@ -198,7 +206,7 @@ class EmployeePayrollCalender extends Component {
 							return <div key={extraDays--} className="col"></div>;
 						})}
 					</div>
-				: null }
+				) : null}
 			</>
 		);
 	};

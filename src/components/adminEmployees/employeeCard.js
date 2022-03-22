@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import employeeController from "../controllers/employeeController";
-import "../style/stylesheet.css";
+import employeeController from "../../controllers/employeeController";
+import "../../style/stylesheet.css";
 
 const EmployeeCard = ({
 	empId,

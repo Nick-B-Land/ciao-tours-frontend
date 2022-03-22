@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import loginController from "../controllers/loginController";
-import logo from "../style/CAIO logo.png";
+import loginController from "../../controllers/loginController";
+import logo from "../../style/CAIO logo.png";
 
 class TopNav extends Component {
 	handleLogout = async () => {
