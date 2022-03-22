@@ -365,3 +365,7 @@ input:checked + .slider:before {
 .downloadButton {
 	float: right;
 }
+
+.calenderDay {
+	cursor: pointer;
+}
