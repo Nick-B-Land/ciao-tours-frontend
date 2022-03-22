@@ -6,6 +6,7 @@ const GET_PAYROLL_BY_ID_API_URL = "http://localhost:8080/api/v1/payroll/";
 const GET_PAYROLL_BY_EID_API_URL = "http://localhost:8080/api/v1/payroll/eid/";
 const GET_PAYROLL_BY_IS_PROCESSED_API_URL =
 	"http://localhost:8080/api/v1/payroll/is-processed/";
+const UPDATE_PAYROLL_API_URL = "http://localhost:8080/api/v1/update-payroll/";
 
 class PayrollController {
 	getPayroll() {
@@ -26,6 +27,10 @@ class PayrollController {
 
 	getPayrollByIsProcessed(proccessedStatus) {
 		return axios.get(GET_PAYROLL_BY_IS_PROCESSED_API_URL + proccessedStatus);
+	}
+
+	updatePayroll(updatedPayroll, payrollID) {
+		return axios.put(UPDATE_PAYROLL_API_URL + payrollID, updatedPayroll);
 	}
 }
 

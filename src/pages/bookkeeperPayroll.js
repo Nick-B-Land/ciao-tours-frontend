@@ -3,7 +3,6 @@ import PayrollOverview from "../components/bookkeeperPayroll/payrollOverview";
 import ProccessPayroll from "../components/bookkeeperPayroll/processPayroll";
 import BottomAdminNav from "../components/bottomAdminNav";
 import TopAdminNav from "../components/topAdminNav";
-import employeeController from "../controllers/employeeController";
 import payrollController from "../controllers/payrollController";
 
 class BookkeeperPayroll extends Component {

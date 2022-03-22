@@ -28,6 +28,8 @@ class NewEmployee extends Component {
 			password: "password",
 			roles: [],
 			roleText: "employee",
+			jobTitle: "",
+			employeeType: "",
 		};
 	}
 
@@ -91,6 +93,14 @@ class NewEmployee extends Component {
 		this.setState({ roleText: e.target.value });
 	};
 
+	handleEmployeeTypeInput = (e) => {
+		this.setState({ employeeType: e.target.value });
+	};
+
+	handleJobTitleInput = (e) => {
+		this.setState({ jobTitle: e.target.value });
+	};
+
 	handleNewEmployee = async () => {
 		// need to add in proper handling of is admin/bookkeeper - can't be a bool
 		//but I don't think we even need those fields tbh
@@ -103,9 +113,10 @@ class NewEmployee extends Component {
 		let employeeObj = {
 			employeeId: "",
 			firstName: this.state.firstname,
-			jobTitle: "",
+			jobTitle: this.state.jobTitle,
 			lastName: this.state.lastname,
 			address: this.state.address,
+			employeeType: this.state.employeeType,
 			bankAccountNumber: this.state.bankaccountnum,
 			city: this.state.city,
 			emailAddress: this.state.email,
@@ -234,6 +245,28 @@ class NewEmployee extends Component {
 									type="text"
 									value={this.state.email}
 									onChange={this.handleEmailInput}
+								/>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Type:
+							</div>
+							<div className="col">
+								<input
+									type="text"
+									value={this.state.employeeType}
+									onChange={this.handleEmployeeTypeInput}
+								/>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-5 d-flex flex-row-reverse">Job Title:</div>
+							<div className="col">
+								<input
+									type="text"
+									value={this.state.jobTitle}
+									onChange={this.handleJobTitleInput}
 								/>
 							</div>
 						</div>
