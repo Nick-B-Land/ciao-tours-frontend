@@ -168,8 +168,9 @@ class NewEmployee extends Component {
 								<h1>Create New Employee</h1>
 							</div>
 						</div>
+						
 						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse">Username:</div>
+							<div className="col-5 d-flex flex-row-reverse">Username im hot:</div>
 							<div className="col">
 								<input
 									type="text"
