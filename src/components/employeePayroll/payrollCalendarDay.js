@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CalendarEvent from "./calendarEvent";
-import "../style/employeeCalendarCSS.css";
+import "../../style/employeeCalendarCSS.css";
 /*
 Local Functions
 	handleDayClick - updates the selected day and events for that day, runs when a day is clicked on
@@ -41,6 +41,13 @@ class PayrollCalenderDay extends Component {
 	componentDidUpdate(prevProps) {
 		if (this.props.payrollData !== prevProps.payrollData) {
 			this.filterPayrollData();
+		} else if (this.props.reloadEvents === true) {
+			console.log("UPDATING SELECTED EVENTS");
+			console.log("OLD PAYROLL EVENTS: " + this.state.events.length);
+			this.filterPayrollData();
+			console.log("NEW PAYROLL EVENTS: " + this.state.events.length);
+			this.props.handleSelectedEvents(this.state.events);
+			this.props.handleReloadEvents();
 		}
 	}
 
@@ -71,7 +78,7 @@ class PayrollCalenderDay extends Component {
 
 	// maps out the events for the calendar day and loads them into the calendar as components
 	renderPayrollEvents = () => {
-		var type;
+		let type;
 		return this.state.events.map((e) => {
 			if (e.payrollEvent === 1) {
 				type = "Hours";
@@ -100,12 +107,11 @@ class PayrollCalenderDay extends Component {
 				<div className="row">
 					<div className="col">
 						<h3
-							className="d-flex justify-content-start"
-							class={
+							className={
 								this.state.calenderDay.getDate() ===
 								new Date(this.props.selectedDay).getDate()
-									? "selecteddate"
-									: null
+									? "selecteddate d-flex justify-content-start"
+									: "d-flex justify-content-start"
 							}
 						>
 							{this.state.calenderDay.getDate()}

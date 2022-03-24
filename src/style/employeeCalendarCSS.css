@@ -1,24 +1,44 @@
 .employeeCalendarPage {
-  background-image: url("../style/PayrollCalendarBG.jpg"); /*Photo source: https://unsplash.com/photos/zunQwMy5B6M?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink*/
-  width: 100%;
-  height: 100vh;
-  overflow: scroll;
-  background-size: cover;
-  background-position: center;
+	background-image: url("../style/PayrollCalendarBG.jpg"); /*Photo source: https://unsplash.com/photos/zunQwMy5B6M?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink*/
+	width: 100%;
+	height: 100vh;
+	overflow: scroll;
+	background-size: cover;
+	background-position: center;
 }
 
 /* adds background color to selected date on calendar */
 .selecteddate {
-  background-color: #f84111;
+	background-color: #f84111;
 }
 
 .calendarItem {
-  border: solid #b9b4a3 1px;
-  background-color: #fffef9;
+	border: solid #b9b4a3 1px;
+	background-color: #fffef9;
 }
 
 .calendarSize {
-  max-width: auto;
-  max-height: 80px;
-  overflow: auto;
+	max-width: auto;
+	max-height: 80px;
+	overflow: hidden;
+}
+
+div.calenderSize ::-webkit-scrollbar {
+	width: 5px;
+}
+
+div.calenderSize ::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey;
+	border-radius: 10px;
+}
+
+/* Handle */
+div.calenderSize ::-webkit-scrollbar-thumb {
+	background: red;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+div.calenderSize ::-webkit-scrollbar-thumb:hover {
+	background: #b30000;
 }

@@ -8,6 +8,8 @@ const GET_PAYROLL_DATA_BY_ID_API_URL =
 	"http://localhost:8080/api/v1/payroll-data/";
 const GET_PAYROLL_DATA_BY_PAYROLL_ID_API_URL =
 	"http://localhost:8080/api/v1/payroll-data-by-payroll/";
+const DELETE_PAYROLL_DATA_BY_ID =
+	"http://localhost:8080/api/v1/delete-payroll-data/";
 
 class PayrollDataController {
 	getAllPayrollData() {
@@ -22,8 +24,12 @@ class PayrollDataController {
 		return axios.get(GET_PAYROLL_DATA_BY_ID_API_URL + payrollDataID);
 	}
 
-	getPayrollDataByPayrollID(payrollID) {
-		return axios.get(GET_PAYROLL_DATA_BY_PAYROLL_ID_API_URL + payrollID);
+	getPayrollDataByPayrollID(payrollDataID) {
+		return axios.get(GET_PAYROLL_DATA_BY_PAYROLL_ID_API_URL + payrollDataID);
+	}
+
+	deletePayrollDataEvent(payrollDataID) {
+		return axios.delete(DELETE_PAYROLL_DATA_BY_ID + payrollDataID);
 	}
 }
 

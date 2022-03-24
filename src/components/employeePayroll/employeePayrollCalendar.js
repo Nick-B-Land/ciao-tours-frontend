@@ -49,7 +49,7 @@ class EmployeePayrollCalender extends Component {
 		}
 	}
 
-	// gets the number of days in a provided month 
+	// gets the number of days in a provided month
 	getDaysInMonth = (anyDateInMonth) => {
 		return new Date(
 			anyDateInMonth.getFullYear(),
@@ -106,6 +106,8 @@ class EmployeePayrollCalender extends Component {
 								handleSelectedDay={this.props.handleSelectedDay}
 								selectedEvents={this.props.selectedEvents}
 								handleSelectedEvents={this.props.handleSelectedEvents}
+								reloadEvents={this.props.reloadEvents}
+								handleReloadEvents={this.props.handleReloadEvents}
 							/>
 						);
 					})}
@@ -123,6 +125,8 @@ class EmployeePayrollCalender extends Component {
 								handleSelectedDay={this.props.handleSelectedDay}
 								selectedEvents={this.props.selectedEvents}
 								handleSelectedEvents={this.props.handleSelectedEvents}
+								reloadEvents={this.props.reloadEvents}
+								handleReloadEvents={this.props.handleReloadEvents}
 							/>
 						);
 					})}
@@ -140,6 +144,8 @@ class EmployeePayrollCalender extends Component {
 								handleSelectedDay={this.props.handleSelectedDay}
 								selectedEvents={this.props.selectedEvents}
 								handleSelectedEvents={this.props.handleSelectedEvents}
+								reloadEvents={this.props.reloadEvents}
+								handleReloadEvents={this.props.handleReloadEvents}
 							/>
 						);
 					})}
@@ -156,7 +162,9 @@ class EmployeePayrollCalender extends Component {
 								payrollData={this.props.payrollData}
 								handleSelectedDay={this.props.handleSelectedDay}
 								selectedEvents={this.props.selectedEvents}
-									handleSelectedEvents={this.props.handleSelectedEvents}
+								handleSelectedEvents={this.props.handleSelectedEvents}
+								reloadEvents={this.props.reloadEvents}
+								handleReloadEvents={this.props.handleReloadEvents}
 							/>
 						);
 					})}
@@ -175,6 +183,8 @@ class EmployeePayrollCalender extends Component {
 									handleSelectedDay={this.props.handleSelectedDay}
 									selectedEvents={this.props.selectedEvents}
 									handleSelectedEvents={this.props.handleSelectedEvents}
+									reloadEvents={this.props.reloadEvents}
+									handleReloadEvents={this.props.handleReloadEvents}
 								/>
 							);
 						})}
@@ -193,6 +203,8 @@ class EmployeePayrollCalender extends Component {
 									handleSelectedDay={this.props.handleSelectedDay}
 									selectedEvents={this.props.selectedEvents}
 									handleSelectedEvents={this.props.handleSelectedEvents}
+									reloadEvents={this.props.reloadEvents}
+									handleReloadEvents={this.props.handleReloadEvents}
 								/>
 							);
 						})}
@@ -215,6 +227,8 @@ class EmployeePayrollCalender extends Component {
 									handleSelectedDay={this.props.handleSelectedDay}
 									selectedEvents={this.props.selectedEvents}
 									handleSelectedEvents={this.props.handleSelectedEvents}
+									reloadEvents={this.props.reloadEvents}
+									handleReloadEvents={this.props.handleReloadEvents}
 								/>
 							);
 						})}

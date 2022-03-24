@@ -53,13 +53,20 @@ class EmployeePayroll extends Component {
 			selectedEvents: [],
 			payrollData: [],
 			selectedForm: 0,
+			reloadEvents: false,
 		};
 	}
 
 	// handles the state of Events from a day, runs every time a day is clicked in the calendar
 	handleSelectedEvents = (events) => {
-		this.setState( { selectedEvents: events });
-	}
+		this.setState({ selectedEvents: events });
+	};
+
+	handleReloadEvents = () => {
+		this.setState({ reloadEvents: !this.state.reloadEvents }, () =>
+			console.log("HANDLE RELOAD EVENTS FIRED: " + this.state.selectedEvents)
+		);
+	};
 
 	componentDidMount = () => {
 		console.log(this.props.currentUser);
@@ -445,6 +452,8 @@ class EmployeePayroll extends Component {
 							selectedEvents={this.state.selectedEvents}
 							handleSelectedEvents={this.handleSelectedEvents}
 							handleSelectedDay={this.handleSelectedDay}
+							reloadEvents={this.state.reloadEvents}
+							handleReloadEvents={this.handleReloadEvents}
 						/>
 					</div>
 					<div className="col-3 ms-3 me-4 innerAdmin">
@@ -462,6 +471,7 @@ class EmployeePayroll extends Component {
 									addWorkDay={this.addWorkDay}
 									addTimeOff={this.addTimeOff}
 									addExpense={this.addExpense}
+									handleReloadEvents={this.handleReloadEvents}
 								/>
 							</div>
 						</div>

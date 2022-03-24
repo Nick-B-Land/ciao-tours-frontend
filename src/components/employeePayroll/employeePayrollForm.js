@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DailyAssistanceForm from "../components/dailyAssistanceForm";
+import DailyAssistanceForm from "../employeePayroll/dailyAssistanceForm";
 import CalendarDayReport from "./calendarDayReport";
 import ExpenseForm from "./expenseForm";
 import TimeOffForm from "./timeOffForm";
@@ -54,7 +54,12 @@ class EmployeePayrollForm extends Component {
 				/>
 			);
 		} else if (this.props.selectedEvents.length !== 0) {
-			return <CalendarDayReport selectedEvents={this.props.selectedEvents} />;
+			return (
+				<CalendarDayReport
+					selectedEvents={this.props.selectedEvents}
+					handleReloadEvents={this.props.handleReloadEvents}
+				/>
+			);
 		} else if (this.props.selectedForm === 0) {
 			return null;
 		}
