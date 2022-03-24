@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import PayrollCalenderDay from "./payrollCalendarDay";
 
-//
-// props
-// selectedYear - year in number format
-// selectedMonth - month in js date index format
-// selectedDay - day selected from user input in js date format
-// payrollData - array of payroll data object for currently selected payroll
-// handleSelectedDay - function to set selected calendar day in employeePayroll
-//
+/*
+Locally-Defined Functions/Variables
+	getDaysInMonth - gets the number of days in a provided month
+
+
+Props
+	selectedYear - currently selected year
+	selectedMonth - currently selected month
+	selectedDay - currently selected day, passthrough
+	payrollData - array of payrollData objects for the selected payroll, passthrough
+	selectedEvents - array of payrollData obejcts for the selected day, passthrough
+
+	handleSelectedDay - handles state of selectedDay, passthrough
+	handleSelectedEvents - handles state of selectedEvents, passthrough
+*/
 
 class EmployeePayrollCalender extends Component {
 	constructor(props) {
@@ -19,12 +26,6 @@ class EmployeePayrollCalender extends Component {
 	}
 
 	componentDidMount = () => {
-		// console.log(
-		// 	"calendar props - year: " +
-		// 		this.props.selectedYear +
-		// 		" month: " +
-		// 		this.props.selectedMonth
-		// );
 		this.setState({
 			daysInMonth: this.getDaysInMonth(
 				new Date(this.props.selectedYear, this.props.selectedMonth)
@@ -48,6 +49,7 @@ class EmployeePayrollCalender extends Component {
 		}
 	}
 
+	// gets the number of days in a provided month 
 	getDaysInMonth = (anyDateInMonth) => {
 		return new Date(
 			anyDateInMonth.getFullYear(),

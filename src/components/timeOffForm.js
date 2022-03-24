@@ -51,7 +51,7 @@ class TimeOffForm extends Component {
 	};
 
 	handleTimeOffSubmit = () => {
-		this.props.addTimeOff(this.state.numHours);
+		this.props.addTimeOff(this.state.numHours, this.state.date);
 		this.props.handleSelectedForm(0);
 	};
 

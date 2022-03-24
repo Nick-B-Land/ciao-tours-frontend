@@ -64,7 +64,8 @@ class TourBookingForm extends Component {
 		this.props.addTourBooking(
 			this.state.bookingDesc,
 			this.state.numHours,
-			this.state.clientName
+			this.state.clientName,
+			this.state.date
 		);
 		this.props.handleSelectedForm(0);
 	};

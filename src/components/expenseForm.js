@@ -16,7 +16,7 @@ class ExpenseForm extends Component {
 		};
 	}
 
-	createFormatedDate = () => {
+	createFormattedDate = () => {
 		this.props.handleSelectedDay(this.state.date);
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
@@ -31,7 +31,7 @@ class ExpenseForm extends Component {
 	}
 
 	componentDidMount = () => {
-		this.createFormatedDate();
+		this.createFormattedDate();
 	}
 
 	componentDidUpdate = (preprops, prestate) => {
@@ -41,7 +41,7 @@ class ExpenseForm extends Component {
 	}
 
 	handleDate = (e) => {
-		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormatedDate());
+		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 
 	handleExpenseDescInput = (e) => {
@@ -53,7 +53,7 @@ class ExpenseForm extends Component {
 	};
 
 	handleExpenseSubmit = () => {
-		this.props.addExpense(this.state.expenseDesc, this.state.expenseAmount);
+		this.props.addExpense(this.state.expenseDesc, this.state.expenseAmount, this.state.date);
 		this.props.handleSelectedForm(0);
 	};
 

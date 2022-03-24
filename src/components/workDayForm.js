@@ -51,7 +51,7 @@ class WorkDayForm extends Component {
 	};
 
 	handleWorkDaySubmit = () => {
-		this.props.addWorkDay(this.state.numHours);
+		this.props.addWorkDay(this.state.numHours, this.state.date);
 	};
 
 	handleCancel = () => {

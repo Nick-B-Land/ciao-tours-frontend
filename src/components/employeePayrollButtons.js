@@ -11,18 +11,13 @@ class EmployeePayrollButtons extends Component {
 		this.state = {};
 	}
 
-	handleExpenseClick = () => {
-		this.props.handleSelectedForm(7);
-		this.props.handleSelectedEvents([]);
-	}
-
 	render() {
 		return (
 			<div className="d-flex justify-content-end">
 				<button
 					type="button"
 					className="btn btn-sm SecondaryButton m-3"
-					onClick={this.handleExpenseClick}
+					onClick={() => this.props.handleSelectedForm(7)}
 				>
 					Add Expense
 				</button>

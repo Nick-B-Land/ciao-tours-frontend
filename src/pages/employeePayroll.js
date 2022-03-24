@@ -8,6 +8,40 @@ import payrollController from "../controllers/payrollController";
 import payrollDataController from "../controllers/payrollDataController";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
+/*
+Locally-Defined Functions/Variables
+	handleSelectedEvents - controls state of selected Events from a day
+		called in: payrollCalendarDay(handleDayClick)
+	loadPayrollData - loads PayrollData objects for the selected month and year's payroll
+	addDailyAssistanceFee - creates a new PayrollData object of type Daily Assistance Fee
+	  and recalls loadPayrollData to update the calendar
+	  	called in: dailyAssistanceForm(handleDailyAssistanceSubmit)
+	addTourBooking - creates new PayrollData object of type Tour Booking and recalls loadPayrollData
+	  to update the calendar
+	  	called in: tourBookingForm(handleTourBookingSubmit)
+	addWorkDay - creates new PayrollData object of type Work Day and recalls loadPayrollData
+	  to update the calendar
+	  	called in: workDayForm(handleWorkDaySubmit)
+	addTimeOff - creates new PayrollData object of type Time off and recalls loadPayrollData
+	  to update the calendar
+	  	called in: timeOffForm(handleTimeOffSubmit)
+	addExpense - creates new PayrollData object of type Expense and recalls loadPayrollData
+	  to update the calendar
+	  	called in: expenseForm(handleExpenseSubmit)
+	handlePayrollObject - handles loading and creating payroll objects for the selected month
+	handleSelectedDay - controls state of the selected day on the calendar
+		called in: all of the specific form components(under createFormattedDate), payrollCalendarDay(
+		   handleDayClick)
+	handleSelectedForm - controls state of the selected form in the calendar page
+		called in: all of the specific form components(under submit and cancel functions), 
+		   employeePayrollButtons
+	handleMonthChange - controls state of the selected month
+	handleYearChange - controls state of the selected year
+
+Props
+	CurrentUser - the employee that is currently on the system
+*/
+
 class EmployeePayroll extends Component {
 	constructor(props) {
 		super(props);
@@ -22,6 +56,7 @@ class EmployeePayroll extends Component {
 		};
 	}
 
+	// handles the state of Events from a day, runs every time a day is clicked in the calendar
 	handleSelectedEvents = (events) => {
 		this.setState( { selectedEvents: events });
 	}
@@ -61,9 +96,7 @@ class EmployeePayroll extends Component {
 		console.log(this.state.payrollData);
 	};
 
-	//function for adding a daily assistance fee type payroll data object
-	//will need similar functions for all payroll data events
-	//passed to the button components
+	//adds a daily assistance fee type payroll data object
 	addDailyAssistanceFee = async (clientName, date) => {
 		let dataDay = new Date(date);
 		const DAILY_ASSISTANCE_FEE_PER_DAY_IN_EUROS = 9;
@@ -101,8 +134,9 @@ class EmployeePayroll extends Component {
 		this.loadPayrollData();
 	};
 
-	addTourBooking = async (bookingInfoDesc, numHours, clientName) => {
-		let dataDay = new Date(this.state.selectedDay);
+	// adds a tour booking type payroll data object
+	addTourBooking = async (bookingInfoDesc, numHours, clientName, date) => {
+		let dataDay = new Date(date);
 
 		const BOOKING_RATE_PER_HOUR = 13;
 
@@ -139,8 +173,9 @@ class EmployeePayroll extends Component {
 		this.loadPayrollData();
 	};
 
-	addWorkDay = async (numHours) => {
-		let dataDay = new Date(this.state.selectedDay);
+	// adds a work day type payroll data object
+	addWorkDay = async (numHours, date) => {
+		let dataDay = new Date(date);
 
 		let newPayrollData = {
 			payrollDataId: "",
@@ -175,8 +210,9 @@ class EmployeePayroll extends Component {
 		this.loadPayrollData();
 	};
 
-	addTimeOff = async (numHours) => {
-		let dataDay = new Date(this.state.selectedDay);
+	// adds time off type Payroll Data object
+	addTimeOff = async (numHours, date) => {
+		let dataDay = new Date(date);
 
 		let newPayrollData = {
 			payrollDataId: "",
@@ -211,8 +247,9 @@ class EmployeePayroll extends Component {
 		this.loadPayrollData();
 	};
 
-	addExpense = async (expenseDesc, expenseAmount) => {
-		let dataDay = new Date(this.state.selectedDay);
+	//adds an expense type payroll data object
+	addExpense = async (expenseDesc, expenseAmount, date) => {
+		let dataDay = new Date(date);
 
 		let newPayrollData = {
 			payrollDataId: "",
@@ -248,8 +285,6 @@ class EmployeePayroll extends Component {
 	};
 
 	//function for handling loading and creating payroll objects for the selected month
-	//might need to rethink the approach for this eventually but works for now
-	//will definitely need some optimizing though
 	handlePayrollObject = async () => {
 		let response = await payrollController.getPayrollByEID(
 			this.props.currentUser.eID
@@ -323,10 +358,12 @@ class EmployeePayroll extends Component {
 		}
 	};
 
+	// handles the state of the selected day
 	handleSelectedDay = (day) => {
 		this.setState({ selectedDay: day });
 	};
 
+	// handles the state of the selected form
 	handleSelectedForm = (formType) => {
 		if (this.state.selectedForm === formType) {
 			this.setState({ selectedForm: 0 });
@@ -335,10 +372,12 @@ class EmployeePayroll extends Component {
 		}
 	};
 
+	// handles the state of the selected month
 	handleMonthChange = (e) => {
 		this.setState({ selectedMonth: e.target.value });
 	};
 
+	// handles the state of the selected year
 	handleYearChange = (e) => {
 		this.setState({ selectedYear: e.target.value });
 	};
