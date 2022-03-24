@@ -79,34 +79,34 @@ class EmployeePaystubs extends Component {
 						<div className="row">
 							{paystubData.map(
 								({ period,
+									paystubId,
 									fName,
 									lName,
 									employer,
 									empId,
 									date,
-									regRate,
-									regHours,
-									regEarnings,
+									address,
+									city,
+									email,
+									hourlyWage,
+									workdayHours,
+									workdayCharges,
 									regYearHours,
 									regYearEarnings,
-									sickRate,
-									sickHours,
-									sickEarnings,
-									sickYearHours,
-									sickYearEarnings,
-									holRate,
-									holHours,
-									holEarnings,
-									holYearHours,
-									holYearEarnings,
+									daysOff,
+									dailyAssistanceNumber,
+									dailyAssistanceCharges,
+									tourBookingHours,
+									tourBookingCharges,
+									statHours,
+									expense,
+									expenseYear,
 									cpp,
 									cppYear,
 									ei,
 									eiYear,
-									tax,
-									taxYear,
-									csb,
-									csbYear,
+									incomeTax,
+									incomeYear,
 									curGross,
 									curDeductions,
 									curNet,
@@ -117,34 +117,34 @@ class EmployeePaystubs extends Component {
 									refNum }) => (
 									<Paystub
 										period={period}
+										paystubid={paystubId}
 										fName={fName}
 										lName={lName}
 										employer={employer}
 										empId={empId}
 										date={date}
-										regRate={regRate}
-										regHours={regHours}
-										regEarnings={regEarnings}
+										address={address}
+										city={city}
+										email={email}
+										hourlyWage={hourlyWage}
+										workdayHours={workdayHours}
+										workdayCharges={workdayCharges}
 										regYearHours={regYearHours}
 										regYearEarnings={regYearEarnings}
-										sickRate={sickRate}
-										sickHours={sickHours}
-										sickEarnings={sickEarnings}
-										sickYearHours={sickYearHours}
-										sickYearEarnings={sickYearEarnings}
-										holRate={holRate}
-										holHours={holHours}
-										holEarnings={holEarnings}
-										holYearHours={holYearHours}
-										holYearEarnings={holYearEarnings}
+										daysOff={daysOff}
+										dailyAssistanceNumber={dailyAssistanceNumber}
+										dailyAssistanceCharges={dailyAssistanceCharges}
+										tourBookingHours={tourBookingHours}
+										tourBookingCharges={tourBookingCharges}
+										statHours={statHours}
+										expense={expense}
+										expenseYear={expenseYear}
 										cpp={cpp}
 										cppYear={cppYear}
 										ei={ei}
 										eiYear={eiYear}
-										tax={tax}
-										taxYear={taxYear}
-										csb={csb}
-										csbYear={csbYear}
+										incomeTax={incomeTax}
+										incomeYear={incomeYear}
 										curGross={curGross}
 										curDeductions={curDeductions}
 										curNet={curNet}

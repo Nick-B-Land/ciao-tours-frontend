@@ -3,34 +3,35 @@ import "../style/stylesheet.css";
 
 const Paystub = ({
 	period,
+	paystubid,
 	fName,
 	lName,
 	employer,
 	empId,
 	date,
-	regRate,
-	regHours,
-	regEarnings,
+	address,
+	city,
+	email,
+	hourlyWage,
+	workdayHours,
+	workdayCharges,
+	monthlySalary,
 	regYearHours,
 	regYearEarnings,
-	sickRate,
-	sickHours,
-	sickEarnings,
-	sickYearHours,
-	sickYearEarnings,
-	holRate,
-	holHours,
-	holEarnings,
-	holYearHours,
-	holYearEarnings,
+	daysOff,
+	dailyAssistanceNumber,
+	dailyAssistanceCharges,
+	tourBookingHours,
+	tourBookingCharges,
+	statHours,
+	expense,
+	expenseYear,
 	cpp,
 	cppYear,
 	ei,
 	eiYear,
-	tax,
-	taxYear,
-	csb,
-	csbYear,
+	incomeTax,
+	incomeYear,
 	curGross,
 	curDeductions,
 	curNet,
@@ -57,15 +58,21 @@ const Paystub = ({
 				<tr class="table-success">
 					<th>{fName} {lName}</th>
 					<th>Employer: {employer}</th>
-					<th>Employee Number: {empId}</th>
+					<th>Employee ID: {empId}</th>
 					<th>Date: {date}</th>
+				</tr>
+				<tr class="table-success">
+					<th>{address}, {city}</th>
+					<th>{email}</th>
+					<th></th>
+					<th>Paystub ID: {paystubid}</th>
 				</tr>
 				<tr>
 					<td colspan="4" class='table-light'>
 						<table class="table mb-0 table-borderless haeBody">
 							<thead>
 								<tr className="table-dark haeHeader">
-									<th colspan="6">HOURS AND EARNINGS</th>
+									<th colspan="6">HOURS</th>
 								</tr>
 							</thead>
 							<tbody class="table-light">
@@ -78,33 +85,57 @@ const Paystub = ({
 									<th>Description</th>
 									<th>Rate</th>
 									<th>Hours</th>
-									<th>Earnings</th>
+									<th>Total</th>
 									<th>Hours</th>
-									<th>Earnings</th>
+									<th>Total</th>
 								</tr>
 								<tr>
-									<td>Regular</td>
-									<td>{regRate}</td>
-									<td>{regHours}</td>
-									<td>{regEarnings}</td>
+									<td>Workdays</td>
+									<td>{hourlyWage}</td>
+									<td>{workdayHours}</td>
+									<td>{workdayCharges}</td>
 									<td>{regYearHours}</td>
 									<td>{regYearEarnings}</td>
 								</tr>
 								<tr>
-									<td>Sick</td>
-									<td>{sickRate}</td>
-									<td>{sickHours}</td>
-									<td>{sickEarnings}</td>
-									<td>{sickYearHours}</td>
-									<td>{sickYearEarnings}</td>
+									<td>Time Off </td>
+									<td>-</td>
+									<td>{daysOff}</td>
+									<td>-</td>
+									<td>3</td>
+									<td>-</td>
 								</tr>
 								<tr>
-									<td>Holiday</td>
-									<td>{holRate}</td>
-									<td>{holHours}</td>
-									<td>{holEarnings}</td>
-									<td>{holYearHours}</td>
-									<td>{holYearEarnings}</td>
+									<td>Daily Assistance</td>
+									<td>-</td>
+									<td>{dailyAssistanceNumber}</td>
+									<td>{dailyAssistanceCharges}</td>
+									<td>-</td>
+									<td>{dailyAssistanceCharges}</td>
+								</tr>
+								<tr>
+									<td>Tour Booking</td>
+									<td>-</td>
+									<td>{tourBookingHours}</td>
+									<td>{tourBookingCharges}</td>
+									<td>-</td>
+									<td>{tourBookingCharges}</td>
+								</tr>
+								<tr>
+									<td>Statutory</td>
+									<td>-</td>
+									<td>{statHours}</td>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
+								</tr>
+								<tr>
+									<td>Expense</td>
+									<td>-</td>
+									<td>-</td>
+									<td>{expense}</td>
+									<td>-</td>
+									<td>{expenseYear}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -136,13 +167,8 @@ const Paystub = ({
 								</tr>
 								<tr>
 									<td>Income Tax</td>
-									<td>{tax}</td>
-									<td>{taxYear}</td>
-								</tr>
-								<tr>
-									<td>CANADA SAVINGS BOND</td>
-									<td>{csb}</td>
-									<td>{csbYear}</td>
+									<td>{incomeTax}</td>
+									<td>{incomeYear}</td>
 								</tr>
 							</tbody>
 						</table>
