@@ -11,7 +11,37 @@ class ExpenseForm extends Component {
 		this.state = {
 			expenseDesc: "",
 			expenseAmount: "",
+			date: new Date(this.props.selectedDay),
+			formattedDate: ""
 		};
+	}
+
+	createFormattedDate = () => {
+		this.props.handleSelectedDay(this.state.date);
+		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
+			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
+		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
+	}
+
+	formatDateFromSelectedDay = () => {
+		console.log("Date before formatting", this.state.date);
+		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
+			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
+		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
+	}
+
+	componentDidMount = () => {
+		this.createFormattedDate();
+	}
+
+	componentDidUpdate = (preprops, prestate) => {
+		if (preprops.selectedDay !== this.props.selectedDay){
+			this.setState({ date : new Date(this.props.selectedDay) }, () => this.formatDateFromSelectedDay());
+		}
+	}
+
+	handleDate = (e) => {
+		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 
 	handleExpenseDescInput = (e) => {
@@ -23,9 +53,13 @@ class ExpenseForm extends Component {
 	};
 
 	handleExpenseSubmit = () => {
-		this.props.addExpense(this.state.expenseDesc, this.state.expenseAmount);
+		this.props.addExpense(this.state.expenseDesc, this.state.expenseAmount, this.state.date);
+		this.props.handleSelectedForm(0);
 	};
 
+	handleCancelSubmit = () => {
+		this.props.handleSelectedForm(0);
+	}
 	render() {
 		return (
 			<>
@@ -35,7 +69,22 @@ class ExpenseForm extends Component {
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-5 d-flex flex-row-reverse">Description:</div>
+					<div className="col">Date</div>
+				</div>
+				<div className="row">
+					<div className="col">
+						<input
+							className="mw-100"
+							type="date"
+							value={this.state.formattedDate}
+							onChange={this.handleDate}
+						/>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col">Description</div>
+				</div>
+				<div className="row">
 					<div className="col">
 						<input
 							type="text"
@@ -45,7 +94,9 @@ class ExpenseForm extends Component {
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-5 d-flex flex-row-reverse">Amount:</div>
+					<div className="col">Amount</div>
+				</div>
+				<div className="row">
 					<div className="col">
 						<input
 							type="text"
@@ -55,13 +106,22 @@ class ExpenseForm extends Component {
 					</div>
 				</div>
 				<div className="row">
-					<button
-						type="button"
-						className="btn PrimaryButton"
-						onClick={this.handleExpenseSubmit}
-					>
-						Add Expense
-					</button>
+					<div className="col">
+						<button
+							type="button"
+							className="btn PrimaryButton mt-3 m-0"
+							onClick={this.handleExpenseSubmit}
+						>
+							Add Expense
+						</button>
+						<button
+							type="button"
+							className="btn PrimaryButton mt-3 ms-3"
+							onClick={this.handleCancelSubmit}
+						>
+							Cancel
+						</button>
+					</div>
 				</div>
 			</>
 		);
