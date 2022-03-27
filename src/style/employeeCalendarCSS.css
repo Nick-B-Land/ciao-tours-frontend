@@ -1,44 +1,68 @@
 .employeeCalendarPage {
-	background-image: url("../style/PayrollCalendarBG.jpg"); /*Photo source: https://unsplash.com/photos/zunQwMy5B6M?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink*/
-	width: 100%;
-	height: 100vh;
-	overflow: scroll;
-	background-size: cover;
-	background-position: center;
+  background-image: url("../style/PayrollCalendarBG.jpg"); /*Photo source: https://unsplash.com/photos/zunQwMy5B6M?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink*/
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+  background-size: cover;
+  background-position: center;
 }
 
 /* adds background color to selected date on calendar */
 .selecteddate {
-	background-color: #f84111;
+  background-color: #f84111;
 }
 
+/* style for a calendar list item */
 .calendarItem {
-	border: solid #b9b4a3 1px;
-	background-color: #fffef9;
+  border: solid #92908a 1px;
+  border-radius: 7px;
+  padding-left: 5px;
 }
 
+/* controls the max length of a calendar day */
 .calendarSize {
-	max-width: auto;
-	max-height: 80px;
-	overflow: hidden;
+  max-width: auto;
+  max-height: 80px;
+  overflow: hidden;
 }
 
-div.calenderSize ::-webkit-scrollbar {
-	width: 5px;
+/* background of an hours entry */
+.bgHours {
+  background-color: #bbc4ac;
 }
 
-div.calenderSize ::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 5px grey;
-	border-radius: 10px;
+/* background of tours entry */
+.bgTours {
+  background-color: #99a682;
 }
 
-/* Handle */
-div.calenderSize ::-webkit-scrollbar-thumb {
-	background: red;
-	border-radius: 10px;
+/* background of assistance fee entry */
+.bgAssist {
+  background-color: #778959;
 }
 
-/* Handle on hover */
-div.calenderSize ::-webkit-scrollbar-thumb:hover {
-	background: #b30000;
+/* background of time off entry*/
+.bgTime {
+  background-color: #667a44;
+}
+
+/* background of expense entry */
+.bgExpense {
+  background-color: #88976d;
+}
+
+/* controls the scrollbar for the calendar days */
+.calendarSize::-webkit-scrollbar {
+  width: 5px;
+}
+.calendarSize::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+.calendarSize::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 8px;
+}
+.calendarSize::-webkit-scrollbar-thumb:hover {
+  background: #b30000;
 }

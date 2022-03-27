@@ -1,9 +1,24 @@
 import React, { Component } from "react";
 
-//
-// props
-// addDailyAssistanceFee - function that uses front end controller to add a payroll data object in employeePayroll
-//
+/*
+local functions/variables
+	createFormattedDate - changes the selected day on the calendar and converts the date object into string format for input tag to read
+	formatDateFromSelectedDay - converts the date object into string format for input tag to read
+	handleDate - updates the date state object and calls to recreate formatted date
+	handleClientNameInput - updates the state object for the client name inputted by the user
+	handleDailyAssistanceSubmit - submits the form and adds the fee to the database
+	handleCancel - cancels the form by setting the chosen form to 0 (none selected)
+
+props
+	selectedDay - currently selected day
+	
+	handleSelectedDay - changes the currently selected day on the calendar
+		located: employeePayroll
+	addDailyAssistanceFee - adds the fee to the database
+		located: employeePayroll
+	handleSelectedForm - changes the state of the currently selected form 
+		located: employeePayroll
+*/
 
 class DailyAssistanceForm extends Component {
 	constructor(props) {
@@ -11,12 +26,11 @@ class DailyAssistanceForm extends Component {
 		this.state = {
 			clientName: "",
 			date: new Date(this.props.selectedDay),
-			formattedDate : ""
+			formattedDate: ""
 		};
 	}
 
 	createFormattedDate = () => {
-		console.log("Date before formatting", this.state.date);
 		this.props.handleSelectedDay(this.state.date);
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
@@ -24,7 +38,6 @@ class DailyAssistanceForm extends Component {
 	}
 
 	formatDateFromSelectedDay = () => {
-		console.log("Date before formatting", this.state.date);
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
 		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
@@ -32,7 +45,6 @@ class DailyAssistanceForm extends Component {
 
 	componentDidMount = () => {
 		this.createFormattedDate();
-		console.log("DATE (cdm): " + this.state.formattedDate);
 	}
 
 	componentDidUpdate = (preprops, prestate) => {
@@ -42,7 +54,6 @@ class DailyAssistanceForm extends Component {
 	}
 
 	handleDate = (e) => {
-		console.log("DATE passed : ", new Date(e.target.value + "T12:00:00"));
 		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 
@@ -51,7 +62,7 @@ class DailyAssistanceForm extends Component {
 	};
 
 	handleDailyAssistanceSubmit = () => {
-		this.props.addDailyAssistanceFee(this.state.clientName, this.state.date);
+		this.props.addDailyAssistanceFee(this.state.clientName, this.date);
 		this.props.handleSelectedForm(0);
 	};
 

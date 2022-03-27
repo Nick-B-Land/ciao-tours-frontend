@@ -88,6 +88,8 @@ class EmployeePayroll extends Component {
 			this.loadPayrollData();
 		} else if (this.state.selectedEvents !== prevState.selectedEvents) {
 			console.log(this.state.selectedEvents);
+		} else if(this.state.reloadEvents !== prevState.reloadEvents) {
+			this.loadPayrollData();
 		}
 	}
 

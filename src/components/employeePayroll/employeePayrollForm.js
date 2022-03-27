@@ -6,6 +6,22 @@ import TimeOffForm from "./timeOffForm";
 import TourBookingForm from "./tourBookingForm";
 import WorkDayForm from "./workDayForm";
 
+/*
+props
+	selectedDay - currently selected day
+	
+	addWorkDay - adds a work day to the database
+	addTourBooking - adds tour booking to database
+	addDailyAssistanceFee - adds assistance fee to the database
+	addTimeOff - adds time off to the database
+	addExpense - adds expense to the database
+
+	handleReloadEvents - controls the state of reloading events after deletion
+	handleSelectedDay - controls the state of the currently selected day
+	handleSelectedForm - controls the state of the currently selected form
+*/
+
+//handles which form component to load into the space based on the button that was clicked
 class EmployeePayrollForm extends Component {
 	handleRender = () => {
 		if (this.props.selectedForm === 1) {

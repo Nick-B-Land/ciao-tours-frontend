@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 
-//
-// props -
-// handleSelectedForm: function that sets selected form state in employee payroll to match button
-//
+/*
+props
+	handleSelectedForm - changes the state of the currently selected form
+		located: employeePayroll
+*/
 
+// a component for the form buttons at the top of the calendar page
 class EmployeePayrollButtons extends Component {
 	constructor(props) {
 		super(props);

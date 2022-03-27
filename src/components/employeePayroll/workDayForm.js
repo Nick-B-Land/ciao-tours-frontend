@@ -1,9 +1,24 @@
 import React, { Component } from "react";
 
-//
-// props
-// addDailyAssistanceFee - function that uses front end controller to add a payroll data object in employeePayroll
-//
+/*
+locally-defined functions/variables
+	createFormattedDate - changes the selected day on the calendar and converts the date object into string format for input tag to read
+	formatDateFromSelectedDay - converts the date object into string format for input tag to read
+	handleDate - updates the date state object and calls to recreate formatted date
+	handleNumHoursInput - controls state of number of hours entered in form field
+	handleWorkDaySubmit - controls the form submit by calling to add work day to database
+	handleCancel - cancels the form by setting the chosen form to 0 (none selected)
+
+props
+	selectedDay - currenly selected day
+
+	handleSelectedDay - controls state of currently selected day
+		located: employeePayroll
+	addWorkDay - adds work day to the database
+		located: employeePayroll
+	handleSelectedForm - controls state of currently selected form
+		located: employeePayroll
+*/
 
 class WorkDayForm extends Component {
 	constructor(props) {
@@ -16,7 +31,6 @@ class WorkDayForm extends Component {
 	}
 
 	createFormattedDate = () => {
-		console.log("Date before formatting", this.state.date);
 		this.props.handleSelectedDay(this.state.date);
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
@@ -24,7 +38,6 @@ class WorkDayForm extends Component {
 	}
 
 	formatDateFromSelectedDay = () => {
-		console.log("Date before formatting", this.state.date);
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
 		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
@@ -42,7 +55,6 @@ class WorkDayForm extends Component {
 	}
 
 	handleDate = (e) => {
-		console.log("DATE passed : ", new Date(e.target.value + "T12:00:00"));
 		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 

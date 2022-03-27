@@ -46,7 +46,7 @@ class EmployeePayrollCalender extends Component {
 					new Date(this.props.selectedYear, this.props.selectedMonth)
 				),
 			});
-		}
+		} 
 	}
 
 	// gets the number of days in a provided month

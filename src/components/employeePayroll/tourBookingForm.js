@@ -1,9 +1,26 @@
 import React, { Component } from "react";
 
-//
-// props
-// addDailyAssistanceFee - function that uses front end controller to add a payroll data object in employeePayroll
-//
+/*
+locally-defined functions/variables
+	createFormattedDate - changes the selected day on the calendar and converts the date object into string format for input tag to read
+	formatDateFromSelectedDay - converts the date object into string format for input tag to read
+	handleDate - updates the date state object and calls to recreate formatted date
+	handleClientNameInput - controls state of client name from form input
+	handleBookingDescInput - controls state of desc from form input
+	handleNumHoursInput - controls state of hours from form input 
+	handleTourBookingSubmit - controls the form submit by calling to add tour booking to database
+	handleCancel - cancels the form by setting the chosen form to 0 (none selected)
+
+props
+	selectedDay - currently selected day
+
+	handleSelectedDay - controls state of currently selected day
+		located: employeePayroll
+	addTourBooking - adds tour booking to the database
+		located: employeePayroll
+	handleSelectedForm - controls state of currently selected form
+		located: employeePayroll
+*/
 
 class TourBookingForm extends Component {
 	constructor(props) {
@@ -44,7 +61,6 @@ class TourBookingForm extends Component {
 	}
 
 	handleDate = (e) => {
-		console.log("DATE passed : ", new Date(e.target.value + "T12:00:00"));
 		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 
