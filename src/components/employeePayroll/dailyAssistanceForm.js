@@ -26,49 +26,73 @@ class DailyAssistanceForm extends Component {
 		this.state = {
 			clientName: "",
 			date: new Date(this.props.selectedDay),
-			formattedDate: ""
+			formattedDate: "",
 		};
 	}
 
 	createFormattedDate = () => {
 		this.props.handleSelectedDay(this.state.date);
-		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
-			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
-		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
-	}
+		let newString =
+			this.state.date.getFullYear() +
+			"-" +
+			(this.state.date.getMonth() + 1 < 10
+				? "0" + (this.state.date.getMonth() + 1)
+				: this.state.date.getMonth() + 1) +
+			"-" +
+			(this.state.date.getDate() < 10
+				? "0" + this.state.date.getDate()
+				: this.state.date.getDate());
+		this.setState({ formattedDate: newString }, () =>
+			console.log("Date after changing: ", this.state.formattedDate)
+		);
+	};
 
 	formatDateFromSelectedDay = () => {
-		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
-			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
-		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
-	}
+		let newString =
+			this.state.date.getFullYear() +
+			"-" +
+			(this.state.date.getMonth() + 1 < 10
+				? "0" + (this.state.date.getMonth() + 1)
+				: this.state.date.getMonth() + 1) +
+			"-" +
+			(this.state.date.getDate() < 10
+				? "0" + this.state.date.getDate()
+				: this.state.date.getDate());
+		this.setState({ formattedDate: newString }, () =>
+			console.log("Date after changing: ", this.state.formattedDate)
+		);
+	};
 
 	componentDidMount = () => {
 		this.createFormattedDate();
-	}
+	};
 
 	componentDidUpdate = (preprops, prestate) => {
-		if (preprops.selectedDay !== this.props.selectedDay){
-			this.setState({ date : new Date(this.props.selectedDay) }, () => this.formatDateFromSelectedDay());
+		if (preprops.selectedDay !== this.props.selectedDay) {
+			this.setState({ date: new Date(this.props.selectedDay) }, () =>
+				this.formatDateFromSelectedDay()
+			);
 		}
-	}
+	};
 
 	handleDate = (e) => {
-		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
-	}
+		this.setState({ date: new Date(e.target.value + "T12:00:00") }, () =>
+			this.createFormattedDate()
+		);
+	};
 
 	handleClientNameInput = (e) => {
 		this.setState({ clientName: e.target.value });
 	};
 
 	handleDailyAssistanceSubmit = () => {
-		this.props.addDailyAssistanceFee(this.state.clientName, this.date);
+		this.props.addDailyAssistanceFee(this.state.clientName, this.state.date);
 		this.props.handleSelectedForm(0);
 	};
 
 	handleCancel = () => {
 		this.props.handleSelectedForm(0);
-	}
+	};
 
 	render() {
 		return (
