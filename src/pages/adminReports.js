@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "../style/stylesheet.css";
 import TopAdminNav from "../components/navs/topAdminNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
-import payrollController from "../controllers/payrollController";
 import paystubController from "../controllers/paystubController";
+import Paystub from "../components/paystub";
 
 class AdminReports extends Component {
 	constructor(props) {
@@ -12,7 +12,7 @@ class AdminReports extends Component {
 			selectedMonth: 0,
 			selectedYear: 2020,
 			paystubsToProcess: [],
-			scene: 0,
+			employeeSearchValue: "",
 		};
 	}
 
@@ -58,8 +58,8 @@ class AdminReports extends Component {
 		this.setState({ selectedYear: e.target.value });
 	};
 
-	handleSceneChange = (e) => {
-		this.setState({ scene: e });
+	handleEmployeeSearch = (e) => {
+		this.setState({ employeeSearchValue: e.target.value });
 	};
 
 	calculateTotalGrossPaidByPeriod = () => {
@@ -91,6 +91,40 @@ class AdminReports extends Component {
 				<h5>Total Net Pay: {this.calculateTotalNetPaidByPeriod()}</h5>
 			</>
 		);
+	};
+
+	filterPaystubsBySearchValue = () => {
+		let filteredPaystubs = [];
+
+		this.state.paystubsToProcess.forEach((e) => {
+			if (
+				e.firstName
+					.toUpperCase()
+					.includes(this.state.employeeSearchValue.toUpperCase()) ||
+				e.lastName
+					.toUpperCase()
+					.includes(this.state.employeeSearchValue.toUpperCase())
+			)
+				filteredPaystubs.push(e);
+		});
+
+		return filteredPaystubs;
+	};
+
+	renderMonthlyPaystubs = () => {
+		if (this.state.employeeSearchValue) {
+			if (this.filterPaystubsBySearchValue().length > 0) {
+				return this.filterPaystubsBySearchValue().map((paystub) => (
+					<Paystub key={paystub.paystubId} {...paystub} />
+				));
+			} else {
+				return <h3>No Results</h3>;
+			}
+		} else {
+			return this.state.paystubsToProcess.map((paystub) => (
+				<Paystub key={paystub.paystubId} {...paystub} />
+			));
+		}
 	};
 
 	render() {
@@ -155,6 +189,23 @@ class AdminReports extends Component {
 							<div className="col">
 								<h3>Monthly Paystubs</h3>
 							</div>
+						</div>
+						<div className="row">
+							<div className="col d-flex justify-content-center">
+								<h5>Search for Employee</h5>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col d-flex justify-content-center">
+								<input
+									type="text"
+									value={this.state.employeeSearchValue}
+									onChange={this.handleEmployeeSearch}
+								/>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col">{this.renderMonthlyPaystubs()}</div>
 						</div>
 					</div>
 					<div className="col-2"></div>

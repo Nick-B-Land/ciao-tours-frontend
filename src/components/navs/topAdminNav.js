@@ -8,7 +8,7 @@ class TopAdminNav extends Component {
 			<div className="row basicNavBar">
 				<div className="col d-flex justify-content-between">
 					<img src={logo} alt="CIAO Tours Logo"></img>
-					<h1 className="d-flex align-items-end">CAIO Tours EMS</h1>
+					<h1 className="d-flex align-items-end">CIAO Tours EMS</h1>
 					{/* <label class="switch">
                         <input type="checkbox"></input>
                         <span class="slider round"></span>
