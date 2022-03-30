@@ -88,6 +88,8 @@ class EmployeePayroll extends Component {
 			this.loadPayrollData();
 		} else if (this.state.selectedEvents !== prevState.selectedEvents) {
 			console.log(this.state.selectedEvents);
+		} else if (this.state.reloadEvents !== prevState.reloadEvents) {
+			this.loadPayrollData();
 		}
 	}
 
@@ -107,6 +109,8 @@ class EmployeePayroll extends Component {
 	addDailyAssistanceFee = async (clientName, date) => {
 		let dataDay = new Date(date);
 		const DAILY_ASSISTANCE_FEE_PER_DAY_IN_EUROS = 9;
+
+		console.log("DATE FROM ADAF: " + date);
 
 		let newPayrollData = {
 			payrollDataId: "",

@@ -3,49 +3,71 @@ import "../style/stylesheet.css";
 
 const Paystub = ({
 	period,
-	fName,
-	lName,
+	paystubId,
+	firstName,
+	lastName,
 	employer,
-	empId,
-	date,
-	regRate,
-	regHours,
-	regEarnings,
+	employeeId,
+	dateOfPaystub,
+	address,
+	city,
+	emailAddress,
+	hourlyWage,
+	workDayHours,
+	workDayCharges,
+	monthlySalary,
 	regYearHours,
 	regYearEarnings,
-	sickRate,
-	sickHours,
-	sickEarnings,
-	sickYearHours,
-	sickYearEarnings,
-	holRate,
-	holHours,
-	holEarnings,
-	holYearHours,
-	holYearEarnings,
-	cpp,
+	timeOffHours,
+	dailyAssistanceNumber,
+	dailyAssistanceCharges,
+	tourBookingHours,
+	tourBookingCharges,
+	statHours,
+	expenseAmount,
+	expenseYear,
+	cppDeductions,
 	cppYear,
-	ei,
+	eiDeductions,
 	eiYear,
-	tax,
-	taxYear,
-	csb,
-	csbYear,
-	curGross,
+	incomeTax,
+	incomeYear,
+	grossPay,
 	curDeductions,
-	curNet,
+	netPay,
 	payMethod,
 	yearGross,
 	yearDeductions,
 	yearNet,
 	refNum,
 }) => {
+	const getMonthName = (month) => {
+		if (month === 0) return "January";
+		else if (month === 1) return "February";
+		else if (month === 2) return "March";
+		else if (month === 3) return "April";
+		else if (month === 4) return "May";
+		else if (month === 5) return "June";
+		else if (month === 6) return "July";
+		else if (month === 7) return "August";
+		else if (month === 8) return "Sepetember";
+		else if (month === 9) return "October";
+		else if (month === 10) return "November";
+		else if (month === 11) return "December";
+	};
 
 	return (
-		<table class="table paystubTable">
+		<table className="table paystubTable">
 			<thead>
-				<tr class="table-success">
-					<th colspan="3"><h3>Paystub for Period: {period}</h3></th>
+				<tr className="table-success">
+					<th colSpan="3">
+						<h3>
+							Paystub for Period:{" "}
+							{getMonthName(new Date(dateOfPaystub).getMonth()) +
+								" " +
+								new Date(dateOfPaystub).getFullYear()}
+						</h3>
+					</th>
 					<td>
 						<button type="button" className="btn btn-light downloadButton">
 							Download
@@ -54,71 +76,111 @@ const Paystub = ({
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="table-success">
-					<th>{fName} {lName}</th>
-					<th>Employer: {employer}</th>
-					<th>Employee Number: {empId}</th>
-					<th>Date: {date}</th>
+				<tr className="table-success">
+					<th>
+						{firstName} {lastName}
+					</th>
+					<th>Employer: CIAO Tours</th>
+					<th>Employee ID: {employeeId}</th>
+					<th>Date: {new Date(dateOfPaystub).toLocaleDateString()}</th>
+				</tr>
+				<tr className="table-success">
+					<th>
+						{address}, {city}
+					</th>
+					<th>{emailAddress}</th>
+					<th></th>
+					<th>Paystub ID: {paystubId}</th>
 				</tr>
 				<tr>
-					<td colspan="4" class='table-light'>
-						<table class="table mb-0 table-borderless haeBody">
+					<td colSpan="4" className="table-light">
+						<table className="table mb-0 table-borderless haeBody">
 							<thead>
 								<tr className="table-dark haeHeader">
-									<th colspan="6">HOURS AND EARNINGS</th>
+									<th colSpan="6">HOURS</th>
 								</tr>
 							</thead>
-							<tbody class="table-light">
+							<tbody className="table-light">
 								<tr>
 									<th></th>
-									<th colspan="3">Current</th>
-									<th colspan="2">Year to Date</th>
+									<th colSpan="3">Current</th>
+									<th colSpan="2">Year to Date</th>
 								</tr>
 								<tr>
 									<th>Description</th>
 									<th>Rate</th>
 									<th>Hours</th>
-									<th>Earnings</th>
+									<th>Total</th>
 									<th>Hours</th>
-									<th>Earnings</th>
+									<th>Total</th>
 								</tr>
 								<tr>
-									<td>Regular</td>
-									<td>{regRate}</td>
-									<td>{regHours}</td>
-									<td>{regEarnings}</td>
+									<td>Workdays</td>
+									<td>
+										{monthlySalary
+											? monthlySalary
+											: workDayHours > 0
+											? hourlyWage
+											: "-"}
+									</td>
+									<td>{monthlySalary ? 160 - timeOffHours : workDayHours}</td>
+									<td>{workDayCharges}</td>
 									<td>{regYearHours}</td>
 									<td>{regYearEarnings}</td>
 								</tr>
 								<tr>
-									<td>Sick</td>
-									<td>{sickRate}</td>
-									<td>{sickHours}</td>
-									<td>{sickEarnings}</td>
-									<td>{sickYearHours}</td>
-									<td>{sickYearEarnings}</td>
+									<td>Time Off </td>
+									<td>-</td>
+									<td>{timeOffHours}</td>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
 								</tr>
 								<tr>
-									<td>Holiday</td>
-									<td>{holRate}</td>
-									<td>{holHours}</td>
-									<td>{holEarnings}</td>
-									<td>{holYearHours}</td>
-									<td>{holYearEarnings}</td>
+									<td>Daily Assistance</td>
+									<td>{dailyAssistanceNumber > 0 ? "9" : "-"}</td>
+									<td>{dailyAssistanceNumber}</td>
+									<td>{dailyAssistanceCharges}</td>
+									<td>-</td>
+									<td>{dailyAssistanceCharges}</td>
+								</tr>
+								<tr>
+									<td>Tour Booking</td>
+									<td>{tourBookingHours > 0 ? hourlyWage : "-"}</td>
+									<td>{tourBookingHours}</td>
+									<td>{tourBookingCharges}</td>
+									<td>-</td>
+									<td>{tourBookingCharges}</td>
+								</tr>
+								<tr>
+									<td>Statutory</td>
+									<td>{statHours > 0 ? hourlyWage * 1.5 : "-"}</td>
+									<td>{statHours}</td>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
+								</tr>
+								<tr>
+									<td>Expense</td>
+									<td>-</td>
+									<td>-</td>
+									<td>{expenseAmount}</td>
+									<td>-</td>
+									<td>{expenseYear}</td>
 								</tr>
 							</tbody>
 						</table>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="4" class='table-light'>
-						<table class="table mb-0 table-borderless dBody">
+					<td colSpan="4" className="table-light">
+						<table className="table mb-0 table-borderless dBody">
 							<thead>
-								<tr class="table-dark dHeader">
-									<th colspan="3">Deductions</th>
+								<tr className="table-dark dHeader">
+									<th colSpan="3">Deductions</th>
 								</tr>
 							</thead>
-							<tbody class="table-light">
+							<tbody className="table-light">
 								<tr>
 									<th></th>
 									<th>Current</th>
@@ -126,33 +188,28 @@ const Paystub = ({
 								</tr>
 								<tr>
 									<td>CPP</td>
-									<td>{cpp}</td>
+									<td>{cppDeductions}</td>
 									<td>{cppYear}</td>
 								</tr>
 								<tr>
 									<td>EI</td>
-									<td>{ei}</td>
+									<td>{eiDeductions}</td>
 									<td>{eiYear}</td>
 								</tr>
 								<tr>
 									<td>Income Tax</td>
-									<td>{tax}</td>
-									<td>{taxYear}</td>
-								</tr>
-								<tr>
-									<td>CANADA SAVINGS BOND</td>
-									<td>{csb}</td>
-									<td>{csbYear}</td>
+									<td>{incomeTax}</td>
+									<td>{incomeYear}</td>
 								</tr>
 							</tbody>
 						</table>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="4" class='table-light'>
-						<table class="table mb-0 table-bordered">
+					<td colSpan="4" className="table-light">
+						<table className="table mb-0 table-bordered">
 							<thead>
-								<tr class="table-dark sumHeader">
+								<tr className="table-dark sumHeader">
 									<th>SUMMMARY</th>
 									<th>GROSS PAY</th>
 									<th>DEDUCTIONS</th>
@@ -160,12 +217,12 @@ const Paystub = ({
 									<th>PAYMENT METHOD</th>
 								</tr>
 							</thead>
-							<tbody class="table-light">
+							<tbody className="table-light">
 								<tr>
 									<th>CURRENT</th>
-									<td>{curGross}</td>
-									<td>{curDeductions}</td>
-									<td>{curNet}</td>
+									<td>{grossPay}</td>
+									<td>{eiDeductions + cppDeductions + incomeTax}</td>
+									<td>{netPay}</td>
 									<td>{payMethod}</td>
 								</tr>
 								<tr>

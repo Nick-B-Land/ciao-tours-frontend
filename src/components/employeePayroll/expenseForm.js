@@ -1,9 +1,25 @@
 import React, { Component } from "react";
 
-//
-// props
-// addDailyAssistanceFee - function that uses front end controller to add a payroll data object in employeePayroll
-//
+/*
+locally-defined functions/variables
+	createFormattedDate - changes the selected day on the calendar and converts the date object into string format for input tag to read
+	formatDateFromSelectedDay - converts the date object into string format for input tag to read
+	handleDate - updates the date state object and calls to recreate formatted date
+	handleExpenseDescInput - controls the state of the expense description when user enters info
+	handleExpenseAmountInput - controls the state of the expense amount on change
+	handleExpenseSubmit - controls the form submit by calling to add expense to database
+	handleCancel - cancels the form by setting the chosen form to 0 (none selected)
+
+props
+	selectedDay - currenly selected day
+
+	handleSelectedDay - controls state of currently selected day
+		located: employeePayroll
+	addExpense - adds expense to the database
+		located: employeePayroll
+	handleSelectedForm - controls state of currently selected form
+		located: employeePayroll
+*/
 
 class ExpenseForm extends Component {
 	constructor(props) {
@@ -57,7 +73,7 @@ class ExpenseForm extends Component {
 		this.props.handleSelectedForm(0);
 	};
 
-	handleCancelSubmit = () => {
+	handleCancel = () => {
 		this.props.handleSelectedForm(0);
 	}
 	render() {
@@ -117,7 +133,7 @@ class ExpenseForm extends Component {
 						<button
 							type="button"
 							className="btn PrimaryButton mt-3 ms-3"
-							onClick={this.handleCancelSubmit}
+							onClick={this.handleCancel}
 						>
 							Cancel
 						</button>

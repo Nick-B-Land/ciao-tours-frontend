@@ -13,7 +13,7 @@ class BottomAdminNav extends Component {
 						<Link to="/adminEmployees">Employees</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/admin">Reports</Link>
+						<Link to="/adminReports">Reports</Link>
 					</li>
 					<li className="nav-item">
 						<Link to="/adminPayroll">Run Payroll</Link>

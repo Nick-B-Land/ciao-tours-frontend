@@ -79,31 +79,33 @@ class PayrollCalenderDay extends Component {
 	// maps out the events for the calendar day and loads them into the calendar as components
 	renderPayrollEvents = () => {
 		let type;
+		let bg;
 		return this.state.events.map((e) => {
 			if (e.payrollEvent === 1) {
 				type = "Hours";
+				bg = "bgHours";
 			} else if (e.payrollEvent === 2) {
 				type = "Tour Booking";
+				bg = "bgTours";
 			} else if (e.payrollEvent === 3) {
 				type = "Assistance Fee";
+				bg = "bgAssist";
 			} else if (e.payrollEvent === 4) {
 				type = "Time off";
+				bg = "bgTime";
 			} else if (e.payrollEvent === 7) {
 				type = "Expense";
+				bg = "bgExpense";
 			} else {
 				type = "";
 			}
-			return <CalendarEvent key={e.payrollDataId} data={e} type={type} />;
+			return <CalendarEvent key={e.payrollDataId} data={e} type={type} bg={bg} />;
 		});
 	};
 
 	render() {
 		return (
 			<div className="col calenderDay" onClick={this.handleDayClick}>
-				{/* {this.state.calenderDay.getDate() ===
-				new Date(this.props.selectedDay).getDate()
-					? this.renderSelectedStatus()
-					: null} */}
 				<div className="row">
 					<div className="col">
 						<h3
