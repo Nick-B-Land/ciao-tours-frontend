@@ -16,6 +16,7 @@ const EmployeeCard = ({
 	bankAccount,
 	institutionId,
 	transitId,
+	file
 }) => {
 	const [isActive, setIsActive] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
@@ -32,7 +33,9 @@ const EmployeeCard = ({
 	const [stateBankAccount, setStateBankAccount] = useState(bankAccount);
 	const [stateInstitutionId, setStateInstitutionId] = useState(institutionId);
 	const [stateTransitId, setStateTransitId] = useState(transitId);
-
+	const [selectedFile, setSelectedFile] = useState(file);
+	const [isFilePicked, setIsFilePicked] = useState(false);
+	const hiddenFileBtn = React.useRef(null);
 	const buildEmployeeObj = () => {
 		let employeeObj = {
 			employeeId: stateEmpId,
@@ -51,6 +54,7 @@ const EmployeeCard = ({
 			isBookkeeper: 0,
 			monthlySalary: stateMonthlySal,
 			transitId: stateTransitId,
+			file: selectedFile
 		};
 
 		return employeeObj;
@@ -58,6 +62,16 @@ const EmployeeCard = ({
 
 	const deleteMode = async () => {
 		setIsEdit(false);
+	};
+
+	const uploadFile = (event) => {
+		hiddenFileBtn.current.click();
+
+	};
+	const saveFile = async (event) => {
+		setSelectedFile(event.target.files[0]);
+		setIsFilePicked(true);
+	
 	};
 
 	const editMode = async () => {
@@ -288,6 +302,17 @@ const EmployeeCard = ({
 
 						<div className="row">
 							<div className="col-5 d-flex flex-row-reverse">
+								<div style={{width:"100%"}}>
+								<button
+									type="button"
+									className="btn btn-warning m-2"
+									onClick={uploadFile}
+									style={{width: "40%"}}
+									id="employeeCardUploadButton">
+										<input type="file" ref={hiddenFileBtn} name="Upload File" onChange={saveFile} style={{display:"none"}}/> Upload File
+									</button>
+									{isFilePicked?(<div> {selectedFile.name}</div>):""}
+								</div>
 								<button
 									type="button"
 									className="btn btn-success m-2 "
@@ -296,6 +321,7 @@ const EmployeeCard = ({
 								>
 									Submit
 								</button>
+								
 								<button
 									type="button"
 									className="btn btn-secondary m-2 "
@@ -316,6 +342,7 @@ const EmployeeCard = ({
 									Edit Information
 								</button>
 							</div>
+							
 							<div className="col">
 								<button
 									type="button"
