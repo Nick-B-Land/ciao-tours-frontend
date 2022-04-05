@@ -5,7 +5,7 @@ class BottomAdminNav extends Component {
 	render() {
 		return (
 			<div className="row border basicNavBar">
-				<ul className="nav nav-pills  nav-fill">
+				<ul className="nav nav-pills nav-fill">
 					<li className="nav-item">
 						<Link to="/admin" className="basicNavBarItem">Home</Link>
 					</li>

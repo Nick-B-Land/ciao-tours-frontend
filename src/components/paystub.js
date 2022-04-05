@@ -56,40 +56,32 @@ const Paystub = ({
 	};
 
 	return (
-		<table className="table paystubTable">
+		<table className="table text-white paystubTable">
 			<thead>
-				<tr className="table-success">
-					<th colSpan="3">
-						<h3>
+				<tr className="table text-white tableHeader">
+					<th colSpan="4" class="text-white">
+						<h3 class="text-white ">
 							Paystub for Period:{" "}
 							{getMonthName(new Date(dateOfPaystub).getMonth()) +
 								" " +
 								new Date(dateOfPaystub).getFullYear()}
 						</h3>
 					</th>
-					<td>
-						<button type="button" className="btn btn-light downloadButton">
-							Download
-						</button>
-					</td>
+					
 				</tr>
 			</thead>
 			<tbody>
-				<tr className="table-success">
-					<th>
-						{firstName} {lastName}
-					</th>
-					<th>Employer: CIAO Tours</th>
-					<th>Employee ID: {employeeId}</th>
-					<th>Date: {new Date(dateOfPaystub).toLocaleDateString()}</th>
+				<tr class="table tableHeader">
+					<th class="text-white">{firstName} {lastName}</th>
+					<th class="text-white">Employer: CIAO Tours</th>
+					<th class="text-white">Employee ID: {employeeId}</th>
+					<th class="text-white">Date: {new Date(dateOfPaystub).toLocaleDateString()}</th>
 				</tr>
-				<tr className="table-success">
-					<th>
-						{address}, {city}
-					</th>
-					<th>{emailAddress}</th>
-					<th></th>
-					<th>Paystub ID: {paystubId}</th>
+				<tr class="table text-white tableHeader">
+					<th class="text-white">{address}, {city}</th>
+					<th class="text-white">{emailAddress}</th>
+					<th class="text-white"></th>
+					<th class="text-white">Paystub ID: {paystubId}</th>
 				</tr>
 				<tr>
 					<td colSpan="4" className="table-light">

@@ -9,54 +9,54 @@ import { Link } from "react-router-dom";
 import { flaggedDayData, empHoursData } from "../components/data";
 
 class AdminHome extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			employeeList: [],
-			employeesLoaded: false,
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      employeeList: [],
+      employeesLoaded: false,
+    };
+  }
 
-	componentDidMount() {
-		employeeController.getEmployees().then((employees) => {
-			this.setState({ employeeList: employees.data, employeesLoaded: true });
-		});
-	}
+  componentDidMount() {
+    employeeController.getEmployees().then((employee) => {
+      console.log(<li key={employee.id}>{employee.data}</li>);
+    });
+  }
 
-	// renderEmployees = () => {
-	//     console.log("render Employees fired");
-	//     console.log(this.state.employeeList);
-	//     return this.state.employeeList.map(e => {
+  // renderEmployees = () => {
+  //     console.log("render Employees fired");
+  //     console.log(this.state.employeeList);
+  //     return this.state.employeeList.map(e => {
 
-	//         <EmployeeCard
-	//             key={e.id}
-	//             firstName={e.firstName}
-	//             lastName={e.lastName}
-	//             jobTitle={e.jobTitle}
-	//         />
-	//     })
-	// }
+  //         <EmployeeCard
+  //             key={e.id}
+  //             firstName={e.firstName}
+  //             lastName={e.lastName}
+  //             jobTitle={e.jobTitle}
+  //         />
+  //     })
+  // }
 
-	render() {
-		var adminName = "Administrator";
-		var monthName = [
-			"JAN",
-			"FEB",
-			"MAR",
-			"APR",
-			"MAY",
-			"JUN",
-			"JUL",
-			"AUG",
-			"SEP",
-			"OCT",
-			"NOV",
-			"DEC",
-		];
-		var current = new Date();
-		var month = `${monthName[current.getMonth()]}`;
-		var day = `${current.getDate()}`;
-		var year = `${current.getFullYear()}`;
+  render() {
+    var adminName = "Administrator";
+    var monthName = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+    var current = new Date();
+    var month = `${monthName[current.getMonth()]}`;
+    var day = `${current.getDate()}`;
+    var year = `${current.getFullYear()}`;
 
 		return (
 			<div className="container-fluid p-0 adminHomePage">

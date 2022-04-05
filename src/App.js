@@ -88,7 +88,7 @@ class App extends Component {
 						<Route
 							exact
 							path="/employeePaystubs"
-							element={<EmployeePaystubs />}
+							element={<EmployeePaystubs currentUser={this.props.currentUser} />}
 						/>
 					</Routes>
 				</BrowserRouter>

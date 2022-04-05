@@ -203,10 +203,6 @@ body {
 	margin-top: 10px;
 }
 
-.downloadButton {
-	float: right;
-}
-
 .calenderDay {
 	cursor: pointer;
 }

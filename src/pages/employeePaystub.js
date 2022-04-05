@@ -28,7 +28,7 @@ class EmployeePaystubs extends Component {
 		
 		// try making a call using paystub id
 		// put '-' if value is 0
-		let paystubData = paystubController.getPaystubByID();
+		let paystubData = paystubController.getPaystubByEID(this.props.currentUser.eID);
 		console.log(paystubData);
 	};
 
@@ -187,7 +187,7 @@ class EmployeePaystubs extends Component {
 					<div className="col-2"></div>
 					<div className="col-8 min-vh-100 innerAdmin">
 						<div className="row">
-							<div className="d-flex justify-content-center mainHeaders">
+							<div className="employeeHeader p-4 pt-2 pb-2 text-center">
 								<h1>Paystubs</h1>
 							</div>
 							<div className="d-flex justify-content-end">
