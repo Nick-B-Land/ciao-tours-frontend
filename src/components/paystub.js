@@ -6,7 +6,6 @@ const Paystub = ({
 	paystubId,
 	firstName,
 	lastName,
-	employer,
 	employeeId,
 	dateOfPaystub,
 	address,
@@ -96,7 +95,7 @@ const Paystub = ({
 					<td colSpan="4" className="table-light">
 						<table className="table mb-0 table-borderless haeBody">
 							<thead>
-								<tr className="table-dark haeHeader">
+								<tr className="table-active haeHeader">
 									<th colSpan="6">HOURS</th>
 								</tr>
 							</thead>
@@ -176,7 +175,7 @@ const Paystub = ({
 					<td colSpan="4" className="table-light">
 						<table className="table mb-0 table-borderless dBody">
 							<thead>
-								<tr className="table-dark dHeader">
+								<tr className="table-active dHeader">
 									<th colSpan="3">Deductions</th>
 								</tr>
 							</thead>
@@ -209,7 +208,7 @@ const Paystub = ({
 					<td colSpan="4" className="table-light">
 						<table className="table mb-0 table-bordered">
 							<thead>
-								<tr className="table-dark sumHeader">
+								<tr className="table-active sumHeader">
 									<th>SUMMMARY</th>
 									<th>GROSS PAY</th>
 									<th>DEDUCTIONS</th>
