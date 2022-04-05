@@ -8,7 +8,7 @@ const PaystubEmployeeGenerator = ({
   dop,
   desc,
   emailAdd,
-  expAmount,
+  expAmount2,
   firstName,
   lastName,
   hourlyWage,
@@ -18,6 +18,9 @@ const PaystubEmployeeGenerator = ({
   numOfHours,
   numberOfWork,
   rate,
+  eiDeductions,
+  grosspay,
+  netpay,
 }) => {
   return (
     <div id="pegWrapper" className="container row  text-responsive">
@@ -57,7 +60,7 @@ const PaystubEmployeeGenerator = ({
 
             <tr>
               <td>expense amount:</td>
-              <td>{expAmount}</td>
+              <td>{expAmount2}</td>
             </tr>
             <tr>
               <td>paystub Id:</td>
@@ -112,6 +115,18 @@ const PaystubEmployeeGenerator = ({
             <tr>
               <td>rate:</td>
               <td>{rate}</td>
+            </tr>
+            <tr>
+              <td>eiDeductions:</td>
+              <td>{eiDeductions}</td>
+            </tr>
+            <tr>
+              <td>grosspay:</td>
+              <td>{grosspay}</td>
+            </tr>
+            <tr>
+              <td>netpay:</td>
+              <td>{netpay}</td>
             </tr>
           </tbody>
         </table>

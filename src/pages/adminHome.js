@@ -18,9 +18,8 @@ class AdminHome extends Component {
   }
 
   componentDidMount() {
-    employeeController.getEmployees().then((employees) => {
-      this.setState({ employeeList: employees.data, employeesLoaded: true });
-      console.log(employees.data);
+    employeeController.getEmployees().then((employee) => {
+      console.log(<li key={employee.id}>{employee.data}</li>);
     });
   }
 
