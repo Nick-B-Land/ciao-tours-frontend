@@ -83,8 +83,8 @@ class EmployeeHome extends Component {
           }
 
           this.setState({
-            pdl: list2,
-            ps: list3,
+            pdl: Object.values(list2),
+            ps: Object.values(list3),
           });
           for (let i = 0; i < list2.length; i++) {
             console.log(list2[i]);
