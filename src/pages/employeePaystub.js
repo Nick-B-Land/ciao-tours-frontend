@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import "../style/stylesheet.css";
 import TopNav from "../components/navs/topNav";
 import BottomEmpNav from "../components/navs/bottomEmpNav";
 import Paystub from "../components/paystub";
 import { paystubData } from "../components/data";
+import paystubController from "../controllers/paystubController";
 
 class EmployeePaystubs extends Component {
 	constructor(props) {
@@ -11,6 +12,7 @@ class EmployeePaystubs extends Component {
 		this.state = {
 			year: "",
 			month: "00",
+			paystubPeriods: [],
 		};
 	}
 
@@ -21,8 +23,131 @@ class EmployeePaystubs extends Component {
 
 	loadPaystub = (e) => {
 		this.setState({ month: e.target.value });
-
+		
 		//make call to database to grab paystub associated with state year and month
+		
+		// try making a call using paystub id
+		// put '-' if value is 0
+		let paystubData = paystubController.getPaystubByID();
+		console.log(paystubData);
+	};
+
+	// get all paystubs leading to selected year and month
+	// loadPaystubPeriods = async () => {
+	// 	let paystubs = await paystubController.getPaystub();
+
+	// 	let filteredPeriods = paystubs.data.filter(
+	// 		(e) =>
+	// 			new Date(e.dateOfPaystub).getFullYear() ===
+	// 				new Date(
+	// 					this.state.selectedYear,
+	// 					this.state.selectedMonth
+	// 				).getFullYear() &&
+	// 			new Date(e.dateOfPaystub).getMonth() ===
+	// 				new Date(this.state.selectedYear, this.state.selectedMonth).getMonth()
+	// 	);
+
+	// 	this.setState({ paystubPeriods: filteredPeriods });
+	// };
+
+	// yearly total example
+	calculateWorkDaysYear = () => {
+		let workdaysYear = 0;
+		
+		this.state.paystubsPeriod.forEach((e) => {
+			workdaysYear +=e.workDayCharges;
+		});
+		return workdaysYear;
+	};
+
+	// daily assistance total
+	calculateDailyAssistanceYear = () => {
+		let dailyAssistanceYear = 0;
+		// get all paystubs leading to selected year and month
+		this.state.paystubsPeriod.forEach((e) => {
+			dailyAssistanceYear +=e.dailyAssistanceCharges;
+		});
+		return dailyAssistanceYear;
+	};
+
+	// tour booking total
+	calculateTourBookingYear = () => {
+		let tourBookingYear = 0;
+		// get all paystubs leading to selected year and month
+		this.state.paystubsPeriod.forEach((e) => {
+			tourBookingYear +=e.tourBookingCharges;
+		});
+		return tourBookingYear;
+	};
+
+	// expense total
+	calculateExpenseYear = () => {
+		let expenseYear = 0;
+		// get all paystubs leading to selected year and month
+		this.state.paystubsPeriod.forEach((e) => {
+			expenseYear +=e.expenseAmount;
+		});
+		return expenseYear;
+	};
+
+	// cpp total
+	calculateCppYear = () => {
+		let cppYear = 0;
+		// get all paystubs leading to selected year and month
+		this.state.paystubsPeriod.forEach((e) => {
+			cppYear +=e.cppDeductions;
+		});
+		return cppYear;
+	};
+
+	// ei total
+	calculateEiYear = () => {
+		let eiYear = 0;
+		// get all paystubs leading to selected year and month
+		this.state.paystubsPeriod.forEach((e) => {
+			eiYear +=e.eiDeductions;
+		});
+		return eiYear;
+	};
+
+	// income tax total
+	calculateIncomeYear = () => {
+		let incomeYear = 0;
+		// get all paystubs leading to selected year and month
+		this.state.paystubsPeriod.forEach((e) => {
+			incomeYear +=e.incomeTax;
+		});
+		return incomeYear;
+	};
+
+	// gross pay total
+	calculateGrossYear = () => {
+		let yearGross = 0;
+		// get all paystubs leading to selected year and month
+		this.state.paystubsPeriod.forEach((e) => {
+			yearGross +=e.grossPay;
+		});
+		return yearGross;
+	};
+
+	// deductions total
+	calculateDeductionsYear = () => {
+		let yearDeductions = 0;
+		// get all paystubs leading to selected year and month
+		this.state.paystubsPeriod.forEach((e) => {
+			yearDeductions +=e.eiDeductions + e.cppDeductions + e.incomeTax;
+		});
+		return yearDeductions;
+	};
+
+	// net pay total
+	calculateNetTotal = () => {
+		let yearNet = 0;
+		// get all paystubs leading to selected year and month
+		this.state.paystubsPeriod.forEach((e) => {
+			yearNet +=e.netPay;
+		});
+		return yearNet;
 	};
 
 	render() {
