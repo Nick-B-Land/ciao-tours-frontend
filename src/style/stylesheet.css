@@ -107,125 +107,12 @@ body {
 	color: #5b642c;
 }
 
-/* delete? */
-.adminContent {
-	margin: 10px;
-}
-
-.flaggedDays {
-	background-color: #fffef9;
-	border: 1px solid #707070;
-	border-radius: 15px;
-	width: 75%;
-	height: 35%;
-	float: left;
-}
-
-.todaysDate {
-	background-color: #fffef9;
-	border: 1px solid #707070;
-	border-radius: 15px;
-	width: 20%;
-	height: 35%;
-	float: right;
-}
-
-.listOfEmp {
-	background-color: #fffef9;
-	border: 1px solid #707070;
-	border-radius: 15px;
-	width: 45%;
-	height: 35%;
-	float: left;
-}
-
-.empty {
-	background-color: #fffef9;
-	border: 1px solid #707070;
-	border-radius: 15px;
-	width: 50%;
-	height: 35%;
-	float: right;
-}
-
-.flaggedDays,
-.todaysDate,
-.listOfEmp,
-.empty {
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 15px;
-	padding-right: 15px;
-	margin: 15px;
-}
-
-.flaggedDays h2,
-.todaysDate h2,
-.listOfEmp h2 {
-	text-align: center;
-}
-
-.flaggedDays table,
-.listOfEmp table {
-	width: 100%;
-}
-
-.flaggedDays table td,
-.listOfEmp table td {
-	border-left: 1px solid #707070;
-	border-right: 1px solid #707070;
-}
-
 table td:first-child {
 	border-left: none;
 }
 
 table td:last-child {
 	border-right: none;
-}
-
-.flaggedDays table {
-	text-align: center;
-}
-
-.flagDate {
-	color: red;
-}
-
-.flaggedDays button {
-	background-color: #f8bf4d;
-	color: black;
-	text-align: center;
-	padding: 2px 10px;
-	display: inline-block;
-}
-
-.todaysDate {
-	text-align: center;
-}
-
-.curMonth {
-	font-size: 45px;
-	margin: 0;
-}
-
-.curDay {
-	font-size: 110px;
-	margin: 0;
-	line-height: 110px;
-}
-
-.curYear {
-	font-size: 45px;
-	margin: 0;
-}
-
-.listOfEmp table td {
-	padding-left: 15px;
-}
-
-.listOfEmp table th {
-	padding-left: 15px;
 }
 
 .bar {
@@ -243,40 +130,6 @@ table td:last-child {
 	margin-bottom: 20px;
 }
 
-.accordion {
-	padding: 0;
-}
-
-.accordion-item {
-	list-style: none;
-}
-
-.accordion-toggle {
-	cursor: pointer;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	background-color: #faf2db;
-	padding: 1em;
-	color: #5b642c;
-}
-
-.accordion-toggle:hover {
-	background-color: #f8edcb;
-}
-
-.accordion-toggle h3 {
-	margin: 0;
-}
-.accordion-content {
-	background-color: white;
-	padding: 1em;
-}
-
-.accordion-content p {
-	margin: 0;
-	margin-left: 2em;
-}
 .employee_card_list_tweaks {
 	background-color: #f8edcb;
 	font-size: 0.7em;
