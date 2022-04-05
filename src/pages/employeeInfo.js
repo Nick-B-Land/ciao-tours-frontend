@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import "../style/stylesheet.css";
 import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
+
 class employeeInfo extends Component {
 	data = [
 		{
@@ -32,7 +33,7 @@ class employeeInfo extends Component {
 						<div className="col-2"></div>
 						<div className="col-7 min-vh-100 innerAdmin ">
 							<div className="row">
-								<div className="innnerInfo">
+								<div className="employeeHeader p-4 pt-2 pb-2 text-center">
 									<h1>My Information</h1>
 								</div>
 							</div>

@@ -131,7 +131,7 @@ class EmployeeHome extends Component {
           <div className="col-2"></div>
           <div className="col-8 innerAdmin">
             <div className="row">
-              <div className="col mt-2 min-vh-100">
+              <div className="employeeHeader p-4 pt-2 pb-2 text-center">
                 <h1 className="mb-2">Welcome, {CurrentUser.username}</h1>
                 <div className="container">
                   <div className="row">

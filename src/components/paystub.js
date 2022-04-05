@@ -60,7 +60,7 @@ const Paystub = ({
 			<thead>
 				<tr className="table text-white tableHeader">
 					<th colSpan="4" class="text-white">
-						<h3 class="text-white">
+						<h3 class="text-white ">
 							Paystub for Period:{" "}
 							{getMonthName(new Date(dateOfPaystub).getMonth()) +
 								" " +
