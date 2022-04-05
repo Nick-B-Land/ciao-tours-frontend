@@ -114,7 +114,7 @@ class TimeOffForm extends Component {
 						</button>
 						<button
 							type="button"
-							className="btn PrimaryButton mt-3 ms-3"
+							className="btn SecondaryButton mt-3 ms-3"
 							onClick={this.handleCancel}
 						>
 							Cancel

@@ -404,41 +404,45 @@ class EmployeePayroll extends Component {
 					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomEmpNav />
 				</div>
-				<div className="row py-4 align-items-center">
-					<div className="col-auto d-inline-flex">
-						<select
-							className="form-select h-50"
-							onChange={this.handleYearChange}
-							value={this.state.selectedYear}
-						>
-							<option value={2020}>2020</option>
-							<option value={2021}>2021</option>
-							<option value={2022}>2022</option>
-							<option value={2023}>2023</option>
-							<option value={2024}>2024</option>
-						</select>
+				<div className="row py-4 align-items-center no-gutters">
+					<div className="col-3 innerAdmin py-4 calendarBorder ms-4">
+						<div className="row">
+							<div className="col-auto d-flex w-50">
+								<select
+									className="form-select"
+									onChange={this.handleYearChange}
+									value={this.state.selectedYear}
+								>
+									<option value={2020}>2020</option>
+									<option value={2021}>2021</option>
+									<option value={2022}>2022</option>
+									<option value={2023}>2023</option>
+									<option value={2024}>2024</option>
+								</select>
+							</div>
+							<div className="col-auto d-flex w-50">
+								<select
+									className="form-select"
+									onChange={this.handleMonthChange}
+									value={this.state.selectedMonth}
+								>
+									<option value={0}>January</option>
+									<option value={1}>Febuary</option>
+									<option value={2}>March</option>
+									<option value={3}>April</option>
+									<option value={4}>May</option>
+									<option value={5}>June</option>
+									<option value={6}>July</option>
+									<option value={7}>August</option>
+									<option value={8}>September</option>
+									<option value={9}>October</option>
+									<option value={10}>November</option>
+									<option value={11}>December</option>
+								</select>
+							</div>
+						</div>
 					</div>
-					<div className="col-auto d-flex">
-						<select
-							className="form-select h-50"
-							onChange={this.handleMonthChange}
-							value={this.state.selectedMonth}
-						>
-							<option value={0}>January</option>
-							<option value={1}>Febuary</option>
-							<option value={2}>March</option>
-							<option value={3}>April</option>
-							<option value={4}>May</option>
-							<option value={5}>June</option>
-							<option value={6}>July</option>
-							<option value={7}>August</option>
-							<option value={8}>September</option>
-							<option value={9}>October</option>
-							<option value={10}>November</option>
-							<option value={11}>December</option>
-						</select>
-					</div>
-					<div className="col">
+					<div className="col me-0">
 						<EmployeePayrollButtons
 							handleSelectedForm={this.handleSelectedForm}
 							handleSelectedEvents={this.handleSelectedEvents}
@@ -446,7 +450,7 @@ class EmployeePayroll extends Component {
 					</div>
 				</div>
 				<div className="row justify-content-between flex-nowrap">
-					<div className="col-8 ms-4 me-3 innerAdmin">
+					<div className="col-8 ms-4 me-3 innerAdmin calendarBorder">
 						<EmployeePayrollCalender
 							selectedMonth={this.state.selectedMonth}
 							selectedYear={this.state.selectedYear}
@@ -460,7 +464,7 @@ class EmployeePayroll extends Component {
 							handleReloadEvents={this.handleReloadEvents}
 						/>
 					</div>
-					<div className="col-3 ms-3 me-4 innerAdmin">
+					<div className="col-3 ms-3 me-4 innerAdmin calendarBorder">
 						<div className="row">
 							<div className="col mw-100">
 								<EmployeePayrollForm

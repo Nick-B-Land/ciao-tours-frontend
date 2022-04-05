@@ -7,22 +7,22 @@ class BottomEmpNav extends Component {
 			<div className="row border basicNavBar">
 				<ul className="nav nav-pills  nav-fill">
 					<li className="nav-item">
-						<Link className="nav-link" to="/employee">
+						<Link className="nav-link basicNavBarItem" to="/employee">
 							Home
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link className="nav-link" to="/employeePayroll">
+						<Link className="nav-link basicNavBarItem" to="/employeePayroll">
 							Payroll Calendar
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link className="nav-link" to="/employeePaystubs">
+						<Link className="nav-link basicNavBarItem" to="/employeePaystubs">
 							Paystubs
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/employee">My Information</Link>
+						<Link to="/employee" className="nav-link basicNavBarItem">My Information</Link>
 					</li>
 				</ul>
 			</div>

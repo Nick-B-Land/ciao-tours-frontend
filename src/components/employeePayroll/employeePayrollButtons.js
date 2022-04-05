@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../../style/employeeCalendarCSS.css";
 
 /*
 props
@@ -18,40 +19,40 @@ class EmployeePayrollButtons extends Component {
 			<div className="d-flex justify-content-end">
 				<button
 					type="button"
-					className="btn btn-sm SecondaryButton m-3"
+					className="btn btn-sm m-3 payrollButton shadow"
 					onClick={() => this.props.handleSelectedForm(7)}
 				>
 					Add Expense
 				</button>
 				<button
 					type="button"
-					className="btn btn-sm SecondaryButton m-3"
+					className="btn btn-sm m-3 payrollButton shadow"
 					onClick={() => this.props.handleSelectedForm(3)}
 				>
 					Add Daily Assistance Fee
 				</button>
 				<button
 					type="button"
-					className="btn btn-sm SecondaryButton m-3"
+					className="btn btn-sm m-3 payrollButton shadow"
 					onClick={() => this.props.handleSelectedForm(2)}
 				>
 					Add Tour Booking
 				</button>
 				<button
 					type="button"
-					className="btn btn-sm SecondaryButton m-3"
+					className="btn btn-sm m-3 payrollButton shadow"
 					onClick={() => this.props.handleSelectedForm(1)}
 				>
 					Add WorkDay Hours
 				</button>
 				<button
 					type="button"
-					className="btn btn-sm SecondaryButton m-3"
+					className="btn btn-sm m-3 payrollButton shadow"
 					onClick={() => this.props.handleSelectedForm(4)}
 				>
 					Add Time Off
 				</button>
-				<button type="button" className="btn btn-sm SecondaryButton m-3">
+				<button type="button" className="btn btn-sm m-3 payrollButton shadow">
 					Add Monthly Fee
 				</button>
 			</div>

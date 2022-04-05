@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
-import TopAdminNav from "../components/navs/topAdminNav";
+import TopNav from "../components/navs/topNav";
 import employeeController from "../controllers/employeeController";
 import { Link } from "react-router-dom";
 import EmployeeCard from "../components/adminEmployees/employeeCard";
@@ -33,7 +33,7 @@ class AdminEmployees extends Component {
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
 				<div className="row d-flex">
-					<TopAdminNav currentUser={this.props.currentUser} />
+					<TopNav currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">

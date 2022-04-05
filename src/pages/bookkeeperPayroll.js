@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PayrollOverview from "../components/bookkeeperPayroll/payrollOverview";
 import ProccessPayroll from "../components/bookkeeperPayroll/processPayroll";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
-import TopAdminNav from "../components/navs/topAdminNav";
+import TopNav from "../components/navs/topNav";
 import payrollController from "../controllers/payrollController";
 
 class BookkeeperPayroll extends Component {
@@ -98,7 +98,7 @@ class BookkeeperPayroll extends Component {
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
 				<div className="row d-flex">
-					<TopAdminNav currentUser={this.props.currentUser} />
+					<TopNav currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">

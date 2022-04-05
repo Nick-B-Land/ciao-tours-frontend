@@ -21,11 +21,11 @@ class TopNav extends Component {
 	render() {
 		return (
 			<div className="row basicNavBar">
-				<div className="col d-flex justify-content-between">
+				<div className="col d-flex justify-content-between align-items-center">
 					<img src={logo} alt="CIAO Tours Logo"></img>
 					<h1 className="d-flex align-items-end">CIAO Tours EMS</h1>
 					<Link
-						className="d-flex align-items-center"
+						className="d-flex h-50 btn btn-sm SecondaryButton"
 						onClick={this.handleLogout}
 						to="/"
 					>

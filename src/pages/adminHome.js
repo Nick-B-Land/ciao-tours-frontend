@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
 import employeeController from "../controllers/employeeController";
-import TopAdminNav from "../components/navs/topAdminNav";
+import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
 import FlaggedDay from "../components/flaggedDay.js";
 import EmployeeHours from "../components/employeeHours";
@@ -61,7 +61,7 @@ class AdminHome extends Component {
 		return (
 			<div className="container-fluid p-0 adminHomePage">
 				<div className="row d-flex">
-					<TopAdminNav currentUser={this.props.currentUser} />
+					<TopNav currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">
