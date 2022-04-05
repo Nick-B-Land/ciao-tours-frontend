@@ -237,3 +237,7 @@ div.calenderSize ::-webkit-scrollbar-thumb {
 div.calenderSize ::-webkit-scrollbar-thumb:hover {
 	background: #b30000;
 }
+
+.tableHeader {
+	background-color: #5b642c
+}

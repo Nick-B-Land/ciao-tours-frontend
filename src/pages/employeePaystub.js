@@ -28,7 +28,7 @@ class EmployeePaystubs extends Component {
 		
 		// try making a call using paystub id
 		// put '-' if value is 0
-		let paystubData = paystubController.getPaystubByID();
+		let paystubData = paystubController.getPaystubByEID(this.props.currentUser.eID);
 		console.log(paystubData);
 	};
 
