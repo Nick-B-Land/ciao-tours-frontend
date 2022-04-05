@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * This class holds the Administrator Nav Bar on the top on the screen
+ */
 class BottomAdminNav extends Component {
 	render() {
 		return (

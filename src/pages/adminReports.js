@@ -3,6 +3,10 @@ import "../style/stylesheet.css";
 import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
 
+/**
+ * Purpose: build the page for the administrator reports
+ * 
+ */
 class AdminReports extends Component {
 	render() {
 		return (

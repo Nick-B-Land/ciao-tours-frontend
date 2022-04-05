@@ -8,6 +8,17 @@ import EmployeeHours from "../components/employeeHours";
 import { Link } from "react-router-dom";
 import { flaggedDayData, empHoursData } from "../components/data";
 
+/**
+ * Purpose: builds the Administrator home page for the application
+ * 
+ * Locally-defined variables/functions
+ * 	employeeList - list of employees
+ * 	employeesLoaded - true when all employees are fully loaded
+ * 
+ * Props
+ * 	currentUser - current user of the system
+ * 	
+ */
 class AdminHome extends Component {
 	constructor(props) {
 		super(props);
@@ -22,20 +33,6 @@ class AdminHome extends Component {
 			this.setState({ employeeList: employees.data, employeesLoaded: true });
 		});
 	}
-
-	// renderEmployees = () => {
-	//     console.log("render Employees fired");
-	//     console.log(this.state.employeeList);
-	//     return this.state.employeeList.map(e => {
-
-	//         <EmployeeCard
-	//             key={e.id}
-	//             firstName={e.firstName}
-	//             lastName={e.lastName}
-	//             jobTitle={e.jobTitle}
-	//         />
-	//     })
-	// }
 
 	render() {
 		var adminName = "Administrator";
@@ -157,7 +154,6 @@ class AdminHome extends Component {
 						</div>
 					</div>
 				</div>
-				{/* {this.state.employeesLoaded ? this.renderEmployees() : <h3>Loading</h3>} */}
 			</div>
 		);
 	}

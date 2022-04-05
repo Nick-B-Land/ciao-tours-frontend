@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * This class holds the employee navigation bar on the top of the screen
+ */
 class BottomEmpNav extends Component {
 	render() {
 		return (

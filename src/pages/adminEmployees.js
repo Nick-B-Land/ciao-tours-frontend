@@ -6,6 +6,18 @@ import employeeController from "../controllers/employeeController";
 import { Link } from "react-router-dom";
 import EmployeeCard from "../components/adminEmployees/employeeCard";
 
+/**
+ * This Page lists all of the current employees
+ * 
+ * Locally-defined functions/variables
+ * 	employeeList - list of employees loaded from the controller
+ * 	employeesLoaded - true once all employees are loaded into the page
+ * 
+ * 	getEmployees - calls the employee controller to get the current employees
+ * 	
+ * Props
+ * 	currentUser - the current user of the application
+ */
 class AdminEmployees extends Component {
 	constructor(props) {
 		super(props);
@@ -24,6 +36,10 @@ class AdminEmployees extends Component {
 		});
 	};
 
+	/**
+	 * Uses the employee controller to get the current list of employees
+	 * @returns list of current employees in the system
+	 */
 	getEmployees = async () => {
 		let employees = await employeeController.getEmployees();
 		return employees;

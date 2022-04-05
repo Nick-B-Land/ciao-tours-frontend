@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import loginController from "../../controllers/loginController";
 import logo from "../../style/CAIO logo.png";
 
+/**
+ * holds the top nav bar with the logo and logout button
+ */
 class TopNav extends Component {
 	handleLogout = async () => {
 		let response = await loginController.logout();

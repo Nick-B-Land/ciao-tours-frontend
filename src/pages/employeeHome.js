@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import BottomEmpNav from "../components/navs/bottomEmpNav";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
+/**
+ * Purpose: builds the employee home page
+ */
 class EmployeeHome extends Component {
 	render() {
 		return (
@@ -25,8 +28,6 @@ class EmployeeHome extends Component {
 					</div>
 					<div className="col-2"></div>
 				</div>
-
-				{/* {this.state.employeesLoaded ? this.renderEmployees() : <h3>Loading</h3>} */}
 			</div>
 		);
 	}
