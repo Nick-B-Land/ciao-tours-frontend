@@ -314,6 +314,7 @@ class EmployeePayroll extends Component {
 			};
 
 			let createResponse = await payrollController.createPayroll(newPayroll);
+			this.setState({ selectedPayrollID: createResponse.data.payrollId });
 			console.log(createResponse);
 		} else {
 			//employee does have payroll, search to see if payroll exists for selected month
