@@ -270,23 +270,21 @@ class NewEmployee extends Component {
 				employeeStartDate: this.state.startdate,
 				hourlyWage: this.state.hourlywage,
 				institutionId: this.state.institutionid,
-				isAdmin: 0,
-				isBookkeeper: 0,
 				monthlySalary: this.state.monthlysalary,
 				transitId: this.state.transitid,
 			};
 			//let test = JSON.stringify(employeeObj);
 			//console.log(test);
 
-			let employeeResponse = await employeeController.createEmployee(
-				employeeObj
-			);
+			// let employeeResponse = await employeeController.createEmployee(
+			// 	employeeObj
+			// );
 
-			console.log(employeeResponse);
+			//console.log(employeeResponse);
 
 			let userObj = {
 				username: this.state.username,
-				employeeID: employeeObj,
+				employee: employeeObj,
 				password: this.state.password,
 				roles: this.state.roles,
 			};

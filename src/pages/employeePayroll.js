@@ -100,9 +100,11 @@ class EmployeePayroll extends Component {
 				this.state.selectedPayrollID
 			);
 
+		console.log(payrollDataResponse);
+
 		this.setState({ payrollData: payrollDataResponse.data });
 
-		console.log(this.state.payrollData);
+		console.log("LOAD PAYROLL DATA " + this.state.payrollData);
 	};
 
 	//adds a daily assistance fee type payroll data object
@@ -307,11 +309,8 @@ class EmployeePayroll extends Component {
 			console.log("no payroll");
 
 			let newPayroll = {
-				payrollId: "",
-				employeeId: this.props.currentUser.eID,
+				employee: { employeeId: this.props.currentUser.eID },
 				dateOfPayroll: new Date().toISOString(),
-				isProcessed: 0,
-				isFlagged: 0,
 			};
 
 			let createResponse = await payrollController.createPayroll(newPayroll);
@@ -345,7 +344,7 @@ class EmployeePayroll extends Component {
 					date.getFullYear() == this.state.selectedYear
 				) {
 					//payroll exists for selected month, update payroll id in state
-					console.log("found match");
+					console.log("found match, payroll id: " + payrolls[i].payrollId);
 					foundMatch = true;
 					this.setState({ selectedPayrollID: payrolls[i].payrollId });
 					break;
@@ -356,14 +355,11 @@ class EmployeePayroll extends Component {
 			if (foundMatch === false) {
 				console.log("creating new payroll");
 				let newPayroll = {
-					payrollId: "",
-					employeeId: this.props.currentUser.eID,
+					employee: { employeeId: this.props.currentUser.eID },
 					dateOfPayroll: new Date(
 						this.state.selectedYear,
 						this.state.selectedMonth
 					).toISOString(),
-					isProcessed: 0,
-					isFlagged: 0,
 				};
 
 				let createResponse = await payrollController.createPayroll(newPayroll);
