@@ -29,6 +29,7 @@ class NewEmployee extends Component {
 			username: "",
 			password: "",
 			roleText: "",
+			employeeType: "",
 			showUsernameError: true,
 			showPasswordError: true,
 			showRoleError: true,
@@ -222,6 +223,10 @@ class NewEmployee extends Component {
 		this.setState({ roleText: e.target.value });
 	};
 
+	handleEmployeeType = (e) => {
+		this.setState({ employeeType: e.target.value });
+	};
+
 	uploadFile = () => {
 		this.hiddenFileBtn.current.click();
 	};
@@ -272,6 +277,7 @@ class NewEmployee extends Component {
 				institutionId: this.state.institutionid,
 				monthlySalary: this.state.monthlysalary,
 				transitId: this.state.transitid,
+				employeeType: { employeeTypeId: this.state.employeeType },
 			};
 			//let test = JSON.stringify(employeeObj);
 			//console.log(test);
@@ -380,6 +386,21 @@ class NewEmployee extends Component {
 										<div className="error"> {PasswordError} </div>
 									)}
 								</div>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
+								Type:
+							</div>
+							<div className="col dropdown newEmployeeRow">
+								<select
+									value={this.state.employeeType}
+									onChange={this.handleEmployeeType}
+								>
+									<option value="1">Hourly</option>
+									<option value="2">Salary</option>
+									<option value="3">Italian</option>
+								</select>
 							</div>
 						</div>
 						<div className="row">
