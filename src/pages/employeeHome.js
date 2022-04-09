@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
-import BottomAdminNav from "../components/navs/bottomAdminNav";
 import { CurrentUser } from "../model/currentUser";
 import EmployeePayrollGenerator from "../components/empHomePage/EmployeePayrollGenerator";
 import PaystubEmployeeGenerator from "../components/empHomePage/PaystubEmployeeGenerator";
@@ -9,6 +8,7 @@ import payrollDataController from "../controllers/payrollDataController";
 import paystubController from "../controllers/paystubController";
 import BottomEmpNav from "../components/navs/bottomEmpNav";
 import TopNav from "../components/navs/topNav";
+import { Link } from "react-router-dom";
 
 class EmployeeHome extends Component {
 	constructor(props) {
@@ -16,93 +16,186 @@ class EmployeeHome extends Component {
 		this.state = {
 			pdl: null,
 			ps: null,
+			current: new Date(),
+			month: -1,
+			day: -1,
+			year: -1,
+			selectedPayrollID: 0,
+			payrollData: []
 		};
 	}
 
 	componentDidMount() {
-		let list1 = null;
-		let list2 = null;
-		let list3 = null;
-		let empId = null;
-		let latestDate = null;
-		let counter1 = 0;
-		let counter2 = 0;
-		let counter3 = 0;
+		this.setState({month: this.state.current.getMonth(), day: this.state.current.getDate(), year: this.state.current.getFullYear()});
+	}
 
-		payrollController.getPayroll().then((pd) => {
-			list1 = pd.data;
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.month !== prevState.month) {
+			this.findPayrollObject();
+		} else if (this.state.year !== prevState.year) {
+			this.findPayrollObject();
+		} else if (this.state.selectedPayrollID !== prevState.selectedPayrollID){
+			this.loadPayrollObject();
+		}
+	}
 
-			for (let i = 0; i < pd.data.length; i++) {
-				let item = list1[i];
-				let list2 = Object.values(item);
-				if (latestDate == null || latestDate < Date.parse(list2[2])) {
-					latestDate = Date.parse(list2[2]);
-					counter1 = i;
-				}
-				if (i == pd.data.length - 1) {
-					console.log(Object.values(list1[counter1]));
-					console.log(Object.keys(list1[counter1]));
+	findPayrollObject = async () => {
+		let foundMatch = false;
+		let response = await payrollController.getPayrollByEID(
+			this.props.currentUser.eID
+		);
+
+		if(response.data.length > 0){
+			let payrolls = response.data;
+			for (let i = 0; i < payrolls.length; ++i) {
+				let date = new Date(payrolls[i].dateOfPayroll);
+				if (
+					date.getMonth() == this.state.month &&
+					date.getFullYear() == this.state.year
+				) {
+					//payroll exists for selected month, update payroll id in state
+					console.log("found match, payroll id: " + payrolls[i].payrollId);
+					foundMatch = true;
+					this.setState({ selectedPayrollID: payrolls[i].payrollId });
+					break;
 				}
 			}
-			list1 = Object.values(pd.data)[counter1];
-			list1 = Object.values(list1);
-			empId = list1[1];
-			payrollDataController.getPayrollDataByPayrollID(list1[1]).then((pdi) => {
-				let latestDate = null;
-				let pdList = pdi.data;
-
-				for (let i = 0; i < pdi.data.length; i++) {
-					let currData = Object.values(pdList[i]);
-					let currIndex = Object.values(currData);
-					if (latestDate == null || latestDate < currIndex[3]) {
-						latestDate = currIndex[3];
-						counter2 = i;
-						list2 = currIndex;
-					}
-					if (i == pdi.data.length - 1) {
-						console.log(Object.values(pdList[counter2]));
-						console.log(Object.keys(pdList[counter2]));
-					}
-				}
-
-				paystubController.getPaystubByEID(empId).then((ps) => {
-					latestDate = null;
-					let psList = ps.data;
-
-					for (let i = 0; i < ps.data.length; i++) {
-						let currData = Object.values(psList[i]);
-						let currIndex = Object.values(currData);
-						if (latestDate == null || latestDate < currIndex[2]) {
-							latestDate = currIndex[2];
-							list3 = currData;
-							counter3 = i;
-						}
-						if (i == ps.data.length - 1) {
-							console.log(Object.values(psList[counter3]));
-							console.log(Object.keys(psList[counter3]));
-						}
-					}
-
-					this.setState({
-						pdl: list2,
-						ps: list3,
-					});
-					for (let i = 0; i < list2.length; i++) {
-						console.log(list2[i]);
-					}
-					for (let i = 0; i < list3.length; i++) {
-						console.log(list3[i]);
-					}
-				});
-			});
-		});
+		}
 	}
+
+	loadPayrollObject = async () => {
+		let response = await payrollController.getPayrollDataByPayrollID(
+			this.state.selectedPayrollID
+		);
+		this.setState({ payrollData: response.data });
+	}
+
+	calculateTourBookings() {
+		let filteredTourBookings = this.state.payrollData.filter(
+			(e) => e.tourBookingClient !== null
+		);
+		let tourBookings = filteredTourBookings.length;
+		return tourBookings;
+	}
+
+	calculateAssistanceFees() {
+		let filteredAssistanceFees = this.state.payrollData.filter(
+			(e) => e.dailyAssistanceClient !== null
+		);
+		let fees = filteredAssistanceFees.length;
+		return fees;
+	}
+
+	calculateHours() {
+		let filteredHours = this.state.payrollData.filter(
+			(e) => e.noOfWorkingHours !== null
+		);
+		let hours = filteredHours.length;
+		return hours;
+	}
+
+	calculateExpenses() {
+		let filteredExpenses = this.state.payrollData.filter(
+			(e) => e.tourBookingClient !== null
+		);
+		let expenses = filteredExpenses.length;
+		return expenses;
+	}
+
+	calculateDaysOff() {
+		let filteredDaysOff = this.state.payrollData.filter(
+			(e) => e.tourBookingClient !== null
+		);
+		let days = filteredDaysOff.length;
+		return days;
+	}
+
+	// componentDidMount() {
+	// 	let list1 = null;
+	// 	let list2 = null;
+	// 	let list3 = null;
+	// 	let empId = null;
+	// 	let latestDate = null;
+	// 	let counter1 = 0;
+	// 	let counter2 = 0;
+	// 	let counter3 = 0;
+
+	// 	payrollController.getPayroll().then((pd) => {
+	// 		list1 = pd.data;
+
+	// 		for (let i = 0; i < pd.data.length; i++) {
+	// 			let item = list1[i];
+	// 			let list2 = Object.values(item);
+	// 			if (latestDate == null || latestDate < Date.parse(list2[2])) {
+	// 				latestDate = Date.parse(list2[2]);
+	// 				counter1 = i;
+	// 			}
+	// 			if (i == pd.data.length - 1) {
+	// 				console.log(Object.values(list1[counter1]));
+	// 				console.log(Object.keys(list1[counter1]));
+	// 			}
+	// 		}
+	// 		list1 = Object.values(pd.data)[counter1];
+	// 		list1 = Object.values(list1);
+	// 		empId = list1[1];
+	// 		payrollDataController.getPayrollDataByPayrollID(list1[1]).then((pdi) => {
+	// 			let latestDate = null;
+	// 			let pdList = pdi.data;
+
+	// 			for (let i = 0; i < pdi.data.length; i++) {
+	// 				let currData = Object.values(pdList[i]);
+	// 				let currIndex = Object.values(currData);
+	// 				if (latestDate == null || latestDate < currIndex[3]) {
+	// 					latestDate = currIndex[3];
+	// 					counter2 = i;
+	// 					list2 = currIndex;
+	// 				}
+	// 				if (i == pdi.data.length - 1) {
+	// 					console.log(Object.values(pdList[counter2]));
+	// 					console.log(Object.keys(pdList[counter2]));
+	// 				}
+	// 			}
+
+	// 			paystubController.getPaystubByEID(empId).then((ps) => {
+	// 				latestDate = null;
+	// 				let psList = ps.data;
+
+	// 				for (let i = 0; i < ps.data.length; i++) {
+	// 					let currData = Object.values(psList[i]);
+	// 					let currIndex = Object.values(currData);
+	// 					if (latestDate == null || latestDate < currIndex[2]) {
+	// 						latestDate = currIndex[2];
+	// 						list3 = currData;
+	// 						counter3 = i;
+	// 					}
+	// 					if (i == ps.data.length - 1) {
+	// 						console.log(Object.values(psList[counter3]));
+	// 						console.log(Object.keys(psList[counter3]));
+	// 					}
+	// 				}
+
+	// 				this.setState({
+	// 					pdl: list2,
+	// 					ps: list3,
+	// 				});
+	// 				for (let i = 0; i < list2.length; i++) {
+	// 					console.log(list2[i]);
+	// 				}
+	// 				for (let i = 0; i < list3.length; i++) {
+	// 					console.log(list3[i]);
+	// 				}
+	// 			});
+	// 		});
+	// 	});
+	// }
+
 	getLatestPayroll() {
 		let listV = payrollDataController.getAllPayrollData();
 		if (listV != null) {
 			console.log(listV.length);
 		}
 	}
+
 	render() {
 		var monthName = [
 			"JAN",
@@ -116,12 +209,22 @@ class EmployeeHome extends Component {
 			"SEP",
 			"OCT",
 			"NOV",
-			"DEC",
+			"DEC"
 		];
-		var current = new Date();
-		var month = `${monthName[current.getMonth()]}`;
-		var day = `${current.getDate()}`;
-		var year = `${current.getFullYear()}`;
+		var fullMonths = [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May", 
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December"
+		];
 		return (
 			<div className="container-fluid p-0 adminHomePage text-responsive">
 				<div className="row d-flex">
@@ -130,90 +233,47 @@ class EmployeeHome extends Component {
 				</div>
 				<div className="row">
 					<div className="col-2"></div>
-					<div className="col-8 innerAdmin">
+					<div className="col-8 innerAdmin min-vh-100">
 						<div className="row">
 							<div className="employeeHeader p-4 pt-2 pb-2 text-center">
 								<h1 className="mb-2">Welcome, {CurrentUser.username}</h1>
-								<div className="container">
-									<div className="row">
-										<div className="col-md-10 p-2">
-											<div className="p-3 bg-white pb-4 border rounded-3">
-												<h2 className="text-center">this months paystub</h2>
-												{this.state.ps !== null ? (
-													<PaystubEmployeeGenerator
-														paystubId={this.state.ps[0]}
-														address={this.state.ps[1]}
-														city={this.state.ps[2]}
-														dop={this.state.ps[3]}
-														desc={this.state.ps[4]}
-														emailAdd={this.state.ps[5]}
-														expAmount2={this.state.ps[6]}
-														firstName={this.state.ps[7]}
-														lastName={this.state.ps[8]}
-														hourlyWage={this.state.ps[9]}
-														monthlySal={this.state.ps[10]}
-														nonSalInc={this.state.ps[11]}
-														numDayOff={this.state.ps[12]}
-														numOfHours={this.state.ps[13]}
-														numberOfWork={this.state.ps[14]}
-														rate={this.state.ps[15]}
-														eiDeductions={this.state.ps[16]}
-														grosspay={this.state.ps[17]}
-														netpay={this.state.ps[18]}
-													/>
-												) : null}
-											</div>
-										</div>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col-10 mt-3">
+								<div className="row mb-3 ms-2 align-items-center">
+								<Link to="/employeePaystubs" className="basicLinks p-0">
+									<div className="col p-3 SecondaryButton border rounded-3 ">
+										<h2 className="text-center basicLinks">View {this.state.month-1 === -1 ? fullMonths[11] : fullMonths[this.state.month-1]}'s Paystub</h2>
+									</div>
+								</Link>
+								</div>
+								<div className="row mb-3 ms-2 align-items-center">
+									<div className="col p-3 bg-white border rounded-3">
+										<h2 className="text-center">Current Payroll for {fullMonths[this.state.month]}</h2>
 
-										<div className="col-md-2 p-2 text-center">
-											<div className="p-1 bg-white border rounded-3">
-												<h6>Today's Date</h6>
-												<p className="h2 m-0">{month}</p>
-												<p className="display-1 m-0">{day}</p>
-												<p className="h2 m-0">{year}</p>
-											</div>{" "}
-											<div className="col-md-12 text-center mt-2 pt-5 bkContact">
-												<div className="  bg-white border rounded-3 p-1">
-													<p>
-														If you have any concerns please contact the
-														bookeeper:
-													</p>
-													<b>at:example@example.ca</b>
-												</div>
-											</div>
+									</div>
+								</div>
+							</div>
+							<div className="col-2 mt-3">
+								<div className="row me-2 mb-3">
+									<div className="col">
+										<div className="p-1 bg-white border rounded-3 text-center">
+											<h6>Today's Date</h6>
+											<p className="h2 m-0">{monthName[this.state.month]}</p>
+											<p className="display-1 m-0">{this.state.day}</p>
+											<p className="h2 m-0">{this.state.year}</p>
 										</div>
 									</div>
-
-									<div className="row">
-										<div className="">
-											<div className="bg-white border rounded-3">
-												<h2 className="text-center">latest payroll</h2>
-												{this.state.pdl !== null ? (
-													<EmployeePayrollGenerator
-														payrollDataId={this.state.pdl[0]}
-														payrollId={this.state.pdl[1]}
-														payrollEvent={this.state.pdl[2]}
-														dateOfPayrollData={this.state.pdl[3]}
-														noOfWorkingHours={this.state.pdl[4]}
-														timeOff={this.state.pdl[5]}
-														officeUsage={this.state.pdl[6]}
-														otherUsage={this.state.pdl[7]}
-														usageCost={this.state.pdl[8]}
-														dailyAssistanceClient={this.state.pdl[9]}
-														dailyAssistanceStartDate={this.state.pdl[10]}
-														dailyAssistanceEndDate={this.state.pdl[11]}
-														dailyAssistanceFee={this.state.pdl[12]}
-														tourBookingAdminDescription={this.state.pdl[13]}
-														tourBookingNumOfHours={this.state.pdl[14]}
-														tourBookingClient={this.state.pdl[15]}
-														tourBookingAdminFee={this.state.pdl[16]}
-														dayOfExpense={this.state.pdl[17]}
-														expenseDescription={this.state.pdl[18]}
-														expenseAmount={this.state.pdl[19]}
-														expenseDate={this.state.pdl[20]}
-													/>
-												) : null}
-											</div>
+								</div>
+								<div className="row me-2">
+									<div className="col">
+										<div className="bg-white border rounded-3 p-1">
+											<p>
+												If you have any concerns please contact the
+												bookeeper:
+											</p>
+											<b className="max-width-50">at:example@example.ca</b>
 										</div>
 									</div>
 								</div>
@@ -221,7 +281,6 @@ class EmployeeHome extends Component {
 						</div>
 					</div>
 				</div>
-				{/* {this.state.employeesLoaded ? this.renderEmployees() : <h3>Loading</h3>} */}
 			</div>
 		);
 	}

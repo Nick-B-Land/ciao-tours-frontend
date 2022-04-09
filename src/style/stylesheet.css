@@ -23,6 +23,11 @@ body {
 	text-decoration: underline;
 }
 
+.basicLinks {
+	color: #444444;
+	text-decoration: none;
+}
+
 
 /* for login screen, makes sure photo is taking the full screen height */
 .loginscreen {
