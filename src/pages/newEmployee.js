@@ -415,7 +415,7 @@ class NewEmployee extends Component {
 									<option value="Select">Select</option>
 									<option value="Admin">Admin</option>
 									<option value="Bookkeeper">Bookkeeper</option>
-									<option value="HR">HP</option>
+									<option value="HR">HR</option>
 									<option value="Employee">Employee</option>
 								</select>
 								<div className="row errorText">
