@@ -4,6 +4,7 @@ import ProccessPayroll from "../components/bookkeeperPayroll/processPayroll";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
 import TopNav from "../components/navs/topNav";
 import payrollController from "../controllers/payrollController";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class BookkeeperPayroll extends Component {
 	constructor(props) {
@@ -98,7 +99,7 @@ class BookkeeperPayroll extends Component {
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
 				<div className="row d-flex">
-					<TopNav currentUser={this.props.currentUser} />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">

@@ -69,8 +69,14 @@ class AdminHome extends Component {
 					<div className="col-2"></div>
 					<div className="col-8 innerAdmin">
 						<div className="row">
-							<div className="col mt-2 min-vh-100">
-								<h1 className="mb-2">Welcome, {adminName}</h1>
+							<div className="col min-vh-100">
+								<div className="row mb-4">
+									<div className="employeeHeader p-4 pt-2 pb-2 text-center">
+										<h1 className="py-3">
+											Welcome, {this.props.currentUser.username}
+										</h1>
+									</div>
+								</div>
 								<div className="container">
 									<div className="row">
 										<div className="col-md-9 p-2">

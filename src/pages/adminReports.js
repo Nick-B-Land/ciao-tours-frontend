@@ -4,6 +4,7 @@ import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
 import paystubController from "../controllers/paystubController";
 import Paystub from "../components/paystub";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class AdminReports extends Component {
 	constructor(props) {
@@ -131,7 +132,7 @@ class AdminReports extends Component {
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
 				<div className="row d-flex">
-					<TopNav currentUser={this.props.currentUser} />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">

@@ -40,7 +40,6 @@ class ProccessPayroll extends Component {
 
 	componentDidUpdate = (prevProps, prevState) => {
 		if (prevState.currentEmployee !== this.state.currentEmployee) {
-			console.log(this.state.currentEmployee);
 			// this.loadEmployeeData();
 			// this.loadPayrollData();
 		} else if (prevState.currentPayrollData !== this.state.currentPayrollData) {
@@ -56,10 +55,12 @@ class ProccessPayroll extends Component {
 	};
 
 	loadEmployeeData = async () => {
+		console.log(this.state.currentPayroll);
 		let employee = await employeeController.getEmployeeByID(
 			this.state.currentPayroll.employeeId
 		);
 
+		console.log(employee.data[0]);
 		this.setState({ currentEmployee: employee.data[0] });
 	};
 
@@ -131,7 +132,7 @@ class ProccessPayroll extends Component {
 
 	createPaystubByEmployeeType = () => {
 		//hourly
-		if (this.state.currentEmployee.employeeType === 0) {
+		if (this.state.currentEmployee.employeeType === 1) {
 			let paystubObj = {
 				paystubId: "",
 				employeeId: this.state.currentEmployee.employeeId,
@@ -157,10 +158,11 @@ class ProccessPayroll extends Component {
 				eiDeductions: this.state.eiDeductions,
 				grossPay: this.state.grossPay,
 				netPay: this.state.netPay,
+				employee: { employeeID: this.state.currentEmployee.employeeId },
 			};
 			return paystubObj;
 		} //salary
-		else if (this.state.currentEmployee.employeeType === 1) {
+		else if (this.state.currentEmployee.employeeType === 2) {
 			let paystubObj = {
 				paystubId: "",
 				employeeId: this.state.currentEmployee.employeeId,
@@ -186,10 +188,11 @@ class ProccessPayroll extends Component {
 				eiDeductions: this.state.eiDeductions,
 				grossPay: this.state.grossPay,
 				netPay: this.state.netPay,
+				employee: { employeeID: this.state.currentEmployee.employeeId },
 			};
 			return paystubObj;
 		} // italian
-		else if (this.state.currentEmployee.employeeType === 2) {
+		else if (this.state.currentEmployee.employeeType === 3) {
 			let paystubObj = {
 				paystubId: "",
 				employeeId: this.state.currentEmployee.employeeId,
@@ -273,20 +276,20 @@ class ProccessPayroll extends Component {
 	};
 
 	handleFlagPayroll = async () => {
-		let newPayroll = {
-			payrollId: this.state.currentPayroll.payrollId,
-			employeeId: this.state.currentPayroll.employeeId,
-			dateOfPayroll: this.state.currentPayroll.dateOfPayroll,
-			isProcessed: 0,
-			isFlagged: 1,
-		};
+		// let newPayroll = {
+		// 	payrollId: this.state.currentPayroll.payrollId,
+		// 	employeeId: this.state.currentPayroll.employeeId,
+		// 	dateOfPayroll: this.state.currentPayroll.dateOfPayroll,
+		// 	isProcessed: 0,
+		// 	isFlagged: 1,
+		// };
 
-		let payrollResponse = await payrollController.updatePayroll(
-			newPayroll,
-			this.state.currentPayroll.payrollId
-		);
+		// let payrollResponse = await payrollController.updatePayroll(
+		// 	newPayroll,
+		// 	this.state.currentPayroll.payrollId
+		// );
 
-		console.log(payrollResponse);
+		// console.log(payrollResponse);
 
 		if (this.state.payrollIndex + 1 >= this.props.payrollsToProcess.length) {
 			this.props.loadPayrollsToProcess();
@@ -550,79 +553,81 @@ class ProccessPayroll extends Component {
 	};
 
 	renderPayrollForm = () => {
-		if (this.state.currentEmployee.employeeType === 2) {
-			// console.log("Rendering Italian Payroll -");
-			// console.log(
-			// 	"currentEmployee fname: " + this.state.currentEmployee.firstName
-			// );
-			// console.log("dailyAssistanceFees: " + this.state.dailyAssistanceFees);
-			// console.log("expenseCharges: " + this.state.expenseCharges);
-			// console.log("tourBookingHours: " + this.state.tourBookingHours);
-			return (
-				<ItalianPayroll
-					renderTourAdminFees={this.renderTourAdminFees}
-					renderDailyAssistanceFees={this.renderDailyAssistanceFees}
-					renderExpenses={this.renderExpenses}
-					currentEmployee={this.state.currentEmployee}
-					dailyAssistanceFees={this.state.dailyAssistanceFees}
-					expenseCharges={this.state.expenseCharges}
-					tourBookingHours={this.state.tourBookingHours}
-					setGrossPay={this.setGrossPay}
-					setExpenseCharges={this.setExpenseCharges}
-					setTourBookingHours={this.setTourBookingHours}
-					setTourBookingCharges={this.setTourBookingCharges}
-					setDailyAssistanceFees={this.setDailyAssistanceFees}
-					setDailyAssistanceCharges={this.setDailyAssistanceCharges}
-				/>
-			);
-		} else if (this.state.currentEmployee.employeeType === 1) {
-			// console.log("Rendering Salary Payroll -");
-			// console.log(
-			// 	"currentEmployee Salary: " + this.state.currentEmployee.monthlySalary
-			// );
-			// console.log("timeOffHours: " + this.state.timeOffHours);
-			// console.log("expenseCharges: " + this.state.expenseCharges);
-			return (
-				<DomesticSalaryPayroll
-					renderExpenses={this.renderExpenses}
-					renderTimeOff={this.renderTimeOff}
-					currentEmployee={this.state.currentEmployee}
-					timeOffHours={this.state.timeOffHours}
-					expenseCharges={this.state.expenseCharges}
-					setGrossPay={this.setGrossPay}
-					setNetPay={this.setNetPay}
-					setExpenseCharges={this.setExpenseCharges}
-					setEIDeductions={this.setEIDeductions}
-					setCPPDeductions={this.setCPPDeductions}
-					setIncomeTax={this.setIncomeTax}
-					setStatHours={this.setStatHours}
-				/>
-			);
-		} else if (this.state.currentEmployee.employeeType === 0) {
-			// console.log("Rendering Hourly Payroll -");
-			// console.log(
-			// 	"currentEmployee wage: " + this.state.currentEmployee.hourlyWage
-			// );
-			// console.log("workDayHours: " + this.state.workDayHours);
-			// console.log("expenseCharges: " + this.state.expenseCharges);
-			return (
-				<DomesticHourlyPayroll
-					renderWorkDays={this.renderWorkDays}
-					renderExpenses={this.renderExpenses}
-					currentEmployee={this.state.currentEmployee}
-					workDayHours={this.state.workDayHours}
-					expenseCharges={this.state.expenseCharges}
-					setEIDeductions={this.setEIDeductions}
-					setCPPDeductions={this.setCPPDeductions}
-					setIncomeTax={this.setIncomeTax}
-					setStatHours={this.setStatHours}
-					setExpenseCharges={this.setExpenseCharges}
-					setWorkDayHours={this.setWorkDayHours}
-					setGrossPay={this.setGrossPay}
-					setNetPay={this.setNetPay}
-					setWagePaid={this.setWagePaid}
-				/>
-			);
+		if (this.state.currentEmployee.employeeType) {
+			if (this.state.currentEmployee.employeeType === 3) {
+				// console.log("Rendering Italian Payroll -");
+				// console.log(
+				// 	"currentEmployee fname: " + this.state.currentEmployee.firstName
+				// );
+				// console.log("dailyAssistanceFees: " + this.state.dailyAssistanceFees);
+				// console.log("expenseCharges: " + this.state.expenseCharges);
+				// console.log("tourBookingHours: " + this.state.tourBookingHours);
+				return (
+					<ItalianPayroll
+						renderTourAdminFees={this.renderTourAdminFees}
+						renderDailyAssistanceFees={this.renderDailyAssistanceFees}
+						renderExpenses={this.renderExpenses}
+						currentEmployee={this.state.currentEmployee}
+						dailyAssistanceFees={this.state.dailyAssistanceFees}
+						expenseCharges={this.state.expenseCharges}
+						tourBookingHours={this.state.tourBookingHours}
+						setGrossPay={this.setGrossPay}
+						setExpenseCharges={this.setExpenseCharges}
+						setTourBookingHours={this.setTourBookingHours}
+						setTourBookingCharges={this.setTourBookingCharges}
+						setDailyAssistanceFees={this.setDailyAssistanceFees}
+						setDailyAssistanceCharges={this.setDailyAssistanceCharges}
+					/>
+				);
+			} else if (this.state.currentEmployee.employeeType === 2) {
+				// console.log("Rendering Salary Payroll -");
+				// console.log(
+				// 	"currentEmployee Salary: " + this.state.currentEmployee.monthlySalary
+				// );
+				// console.log("timeOffHours: " + this.state.timeOffHours);
+				// console.log("expenseCharges: " + this.state.expenseCharges);
+				return (
+					<DomesticSalaryPayroll
+						renderExpenses={this.renderExpenses}
+						renderTimeOff={this.renderTimeOff}
+						currentEmployee={this.state.currentEmployee}
+						timeOffHours={this.state.timeOffHours}
+						expenseCharges={this.state.expenseCharges}
+						setGrossPay={this.setGrossPay}
+						setNetPay={this.setNetPay}
+						setExpenseCharges={this.setExpenseCharges}
+						setEIDeductions={this.setEIDeductions}
+						setCPPDeductions={this.setCPPDeductions}
+						setIncomeTax={this.setIncomeTax}
+						setStatHours={this.setStatHours}
+					/>
+				);
+			} else if (this.state.currentEmployee.employeeType === 1) {
+				// console.log("Rendering Hourly Payroll -");
+				// console.log(
+				// 	"currentEmployee wage: " + this.state.currentEmployee.hourlyWage
+				// );
+				// console.log("workDayHours: " + this.state.workDayHours);
+				// console.log("expenseCharges: " + this.state.expenseCharges);
+				return (
+					<DomesticHourlyPayroll
+						renderWorkDays={this.renderWorkDays}
+						renderExpenses={this.renderExpenses}
+						currentEmployee={this.state.currentEmployee}
+						workDayHours={this.state.workDayHours}
+						expenseCharges={this.state.expenseCharges}
+						setEIDeductions={this.setEIDeductions}
+						setCPPDeductions={this.setCPPDeductions}
+						setIncomeTax={this.setIncomeTax}
+						setStatHours={this.setStatHours}
+						setExpenseCharges={this.setExpenseCharges}
+						setWorkDayHours={this.setWorkDayHours}
+						setGrossPay={this.setGrossPay}
+						setNetPay={this.setNetPay}
+						setWagePaid={this.setWagePaid}
+					/>
+				);
+			}
 		}
 	};
 
@@ -657,7 +662,7 @@ class ProccessPayroll extends Component {
 							className="btn SecondaryButton my-5"
 							onClick={this.handleFlagPayroll}
 						>
-							Flag Payroll
+							Skip Payroll
 						</button>
 						<button
 							className="btn PrimaryButton my-5"

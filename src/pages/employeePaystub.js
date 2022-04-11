@@ -5,6 +5,7 @@ import BottomEmpNav from "../components/navs/bottomEmpNav";
 import Paystub from "../components/paystub";
 import { paystubData } from "../components/data";
 import paystubController from "../controllers/paystubController";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class EmployeePaystubs extends Component {
 	constructor(props) {
@@ -23,12 +24,14 @@ class EmployeePaystubs extends Component {
 
 	loadPaystub = (e) => {
 		this.setState({ month: e.target.value });
-		
+
 		//make call to database to grab paystub associated with state year and month
-		
+
 		// try making a call using paystub id
 		// put '-' if value is 0
-		let paystubData = paystubController.getPaystubByEID(this.props.currentUser.eID);
+		let paystubData = paystubController.getPaystubByEID(
+			this.props.currentUser.eID
+		);
 		console.log(paystubData);
 	};
 
@@ -53,9 +56,9 @@ class EmployeePaystubs extends Component {
 	// yearly total example
 	calculateWorkDaysYear = () => {
 		let workdaysYear = 0;
-		
+
 		this.state.paystubsPeriod.forEach((e) => {
-			workdaysYear +=e.workDayCharges;
+			workdaysYear += e.workDayCharges;
 		});
 		return workdaysYear;
 	};
@@ -65,7 +68,7 @@ class EmployeePaystubs extends Component {
 		let dailyAssistanceYear = 0;
 		// get all paystubs leading to selected year and month
 		this.state.paystubsPeriod.forEach((e) => {
-			dailyAssistanceYear +=e.dailyAssistanceCharges;
+			dailyAssistanceYear += e.dailyAssistanceCharges;
 		});
 		return dailyAssistanceYear;
 	};
@@ -75,7 +78,7 @@ class EmployeePaystubs extends Component {
 		let tourBookingYear = 0;
 		// get all paystubs leading to selected year and month
 		this.state.paystubsPeriod.forEach((e) => {
-			tourBookingYear +=e.tourBookingCharges;
+			tourBookingYear += e.tourBookingCharges;
 		});
 		return tourBookingYear;
 	};
@@ -85,7 +88,7 @@ class EmployeePaystubs extends Component {
 		let expenseYear = 0;
 		// get all paystubs leading to selected year and month
 		this.state.paystubsPeriod.forEach((e) => {
-			expenseYear +=e.expenseAmount;
+			expenseYear += e.expenseAmount;
 		});
 		return expenseYear;
 	};
@@ -95,7 +98,7 @@ class EmployeePaystubs extends Component {
 		let cppYear = 0;
 		// get all paystubs leading to selected year and month
 		this.state.paystubsPeriod.forEach((e) => {
-			cppYear +=e.cppDeductions;
+			cppYear += e.cppDeductions;
 		});
 		return cppYear;
 	};
@@ -105,7 +108,7 @@ class EmployeePaystubs extends Component {
 		let eiYear = 0;
 		// get all paystubs leading to selected year and month
 		this.state.paystubsPeriod.forEach((e) => {
-			eiYear +=e.eiDeductions;
+			eiYear += e.eiDeductions;
 		});
 		return eiYear;
 	};
@@ -115,7 +118,7 @@ class EmployeePaystubs extends Component {
 		let incomeYear = 0;
 		// get all paystubs leading to selected year and month
 		this.state.paystubsPeriod.forEach((e) => {
-			incomeYear +=e.incomeTax;
+			incomeYear += e.incomeTax;
 		});
 		return incomeYear;
 	};
@@ -125,7 +128,7 @@ class EmployeePaystubs extends Component {
 		let yearGross = 0;
 		// get all paystubs leading to selected year and month
 		this.state.paystubsPeriod.forEach((e) => {
-			yearGross +=e.grossPay;
+			yearGross += e.grossPay;
 		});
 		return yearGross;
 	};
@@ -135,7 +138,7 @@ class EmployeePaystubs extends Component {
 		let yearDeductions = 0;
 		// get all paystubs leading to selected year and month
 		this.state.paystubsPeriod.forEach((e) => {
-			yearDeductions +=e.eiDeductions + e.cppDeductions + e.incomeTax;
+			yearDeductions += e.eiDeductions + e.cppDeductions + e.incomeTax;
 		});
 		return yearDeductions;
 	};
@@ -145,7 +148,7 @@ class EmployeePaystubs extends Component {
 		let yearNet = 0;
 		// get all paystubs leading to selected year and month
 		this.state.paystubsPeriod.forEach((e) => {
-			yearNet +=e.netPay;
+			yearNet += e.netPay;
 		});
 		return yearNet;
 	};
@@ -180,7 +183,7 @@ class EmployeePaystubs extends Component {
 		return (
 			<div className="container-fluid p-0 employeePaystubsPage">
 				<div className="row">
-					<TopNav />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomEmpNav />
 				</div>
 				<div className="row m-0">

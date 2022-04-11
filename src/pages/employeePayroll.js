@@ -309,8 +309,10 @@ class EmployeePayroll extends Component {
 			console.log("no payroll");
 
 			let newPayroll = {
-				employee: { employeeId: this.props.currentUser.eID },
+				employeeId: this.props.currentUser.eID,
 				dateOfPayroll: new Date().toISOString(),
+				isProcessed: 0,
+				isFlagged: 0,
 			};
 
 			let createResponse = await payrollController.createPayroll(newPayroll);
@@ -325,18 +327,18 @@ class EmployeePayroll extends Component {
 
 			for (let i = 0; i < payrolls.length; ++i) {
 				let date = new Date(payrolls[i].dateOfPayroll);
-				console.log(
-					"Payroll Month: " +
-						date.getMonth() +
-						"| State Month: " +
-						this.state.selectedMonth
-				);
-				console.log(
-					"Payroll Year: " +
-						date.getFullYear() +
-						"| State Year: " +
-						this.state.selectedYear
-				);
+				// console.log(
+				// 	"Payroll Month: " +
+				// 		date.getMonth() +
+				// 		"| State Month: " +
+				// 		this.state.selectedMonth
+				// );
+				// console.log(
+				// 	"Payroll Year: " +
+				// 		date.getFullYear() +
+				// 		"| State Year: " +
+				// 		this.state.selectedYear
+				// );
 
 				//using strict equality was causing this check to fail on updates even when there was a match
 				//something to do with types? Will need more investigation later, for now loose equality will work
@@ -345,7 +347,7 @@ class EmployeePayroll extends Component {
 					date.getFullYear() == this.state.selectedYear
 				) {
 					//payroll exists for selected month, update payroll id in state
-					console.log("found match, payroll id: " + payrolls[i].payrollId);
+					//console.log("found match, payroll id: " + payrolls[i].payrollId);
 					foundMatch = true;
 					this.setState({ selectedPayrollID: payrolls[i].payrollId });
 					break;
@@ -354,13 +356,15 @@ class EmployeePayroll extends Component {
 
 			//no payroll found for selected month, create new one and update state
 			if (foundMatch === false) {
-				console.log("creating new payroll");
+				//console.log("creating new payroll");
 				let newPayroll = {
-					employee: { employeeId: this.props.currentUser.eID },
+					employeeId: this.props.currentUser.eID,
 					dateOfPayroll: new Date(
 						this.state.selectedYear,
 						this.state.selectedMonth
 					).toISOString(),
+					isProcessed: 0,
+					isFlagged: 0,
 				};
 
 				let createResponse = await payrollController.createPayroll(newPayroll);
@@ -443,6 +447,7 @@ class EmployeePayroll extends Component {
 						<EmployeePayrollButtons
 							handleSelectedForm={this.handleSelectedForm}
 							handleSelectedEvents={this.handleSelectedEvents}
+							employeeId={this.props.currentUser.eID}
 						/>
 					</div>
 				</div>

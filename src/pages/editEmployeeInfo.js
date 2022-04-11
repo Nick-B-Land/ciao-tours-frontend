@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../style/stylesheet.css";
 import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class editEmployeeInfo extends Component {
 	data = [
@@ -47,7 +48,7 @@ class editEmployeeInfo extends Component {
 			<form>
 				<div className="container-fluid p-0 myInfoPage">
 					<div className="row d-flex">
-						<TopNav currentUser={this.props.currentUser} />
+						<TopNavWrapper currentUser={this.props.currentUser} />
 						<BottomAdminNav />
 					</div>
 					<div className="row  d-flex">

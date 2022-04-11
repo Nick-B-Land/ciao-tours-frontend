@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import "../style/stylesheet.css";
 import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class Information extends Component {
 	render() {
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
 				<div className="row d-flex">
-					<TopNav currentUser={this.props.currentUser} />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">

@@ -5,6 +5,7 @@ import TopNav from "../components/navs/topNav";
 import employeeController from "../controllers/employeeController";
 import { Link } from "react-router-dom";
 import EmployeeCard from "../components/adminEmployees/employeeCard";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class AdminEmployees extends Component {
 	constructor(props) {
@@ -16,8 +17,6 @@ class AdminEmployees extends Component {
 	}
 
 	componentDidMount = () => {
-		// this.setState({ employeeList: this.getEmployees() });
-		// console.log(this.state.employeeList);
 		employeeController.getEmployees().then((employees) => {
 			this.setState({ employeeList: employees.data, employeesLoaded: true });
 			console.log(this.state.employeeList);
@@ -33,7 +32,7 @@ class AdminEmployees extends Component {
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
 				<div className="row d-flex">
-					<TopNav currentUser={this.props.currentUser} />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">

@@ -5,6 +5,7 @@ import BottomAdminNav from "../components/navs/bottomAdminNav";
 import employeeController from "../controllers/employeeController";
 import { Link } from "react-router-dom";
 import userAccountController from "../controllers/userAccountController";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class NewEmployee extends Component {
 	constructor(props) {
@@ -13,23 +14,26 @@ class NewEmployee extends Component {
 		this.state = {
 			firstname: "",
 			lastname: "",
+			jobTitle: "",
+			dateOfBirth: "",
 			address: "",
 			city: "",
+			postalCode: "",
+			province: "",
+			country: "",
 			email: "",
+			phoneNumber: "",
 			startdate: "",
 			enddate: "",
 			hourlywage: "",
 			monthlysalary: "",
-			file: null,
-			isadmin: false,
-			isbookkeeper: false,
 			institutionid: "",
 			bankaccountnum: "",
 			transitid: "",
 			username: "",
 			password: "",
 			roleText: "",
-			employeeType: "",
+			employeeType: 1,
 			showUsernameError: true,
 			showPasswordError: true,
 			showRoleError: true,
@@ -62,6 +66,30 @@ class NewEmployee extends Component {
 		};
 	}
 
+	handleJobTitleInput = (e) => {
+		this.setState({ jobTitle: e.target.value });
+	};
+
+	handleDOBInput = (e) => {
+		this.setState({ dateOfBirth: e.target.value });
+	};
+
+	handlePostalCodeInput = (e) => {
+		this.setState({ postalCode: e.target.value });
+	};
+
+	handleProvinceInput = (e) => {
+		this.setState({ province: e.target.value });
+	};
+
+	handleCountryInput = (e) => {
+		this.setState({ country: e.target.value });
+	};
+
+	handlePhoneNumberInput = (e) => {
+		this.setState({ phoneNumber: e.target.value });
+	};
+
 	handleFirstnameInput = (e) => {
 		if (e.target.value === "") {
 			this.setState({
@@ -73,6 +101,7 @@ class NewEmployee extends Component {
 		}
 		this.setState({ firstname: e.target.value });
 	};
+
 	handleLastnameInput = (e) => {
 		if (e.target.value === "") {
 			this.setState({
@@ -227,21 +256,7 @@ class NewEmployee extends Component {
 		this.setState({ employeeType: e.target.value });
 	};
 
-	uploadFile = () => {
-		this.hiddenFileBtn.current.click();
-	};
-	saveFile = async (event) => {
-		this.state({ file: event.target.files[0] });
-		this.state({ fileSelected: true });
-	};
-
 	handleNewEmployee = async () => {
-		// need to add in proper handling of is admin/bookkeeper - can't be a bool
-		//but I don't think we even need those fields tbh
-		//should add own handler for this, but roles need more front end work in general
-		//should select and add roles from predefined list, this is hacky way for now
-		//can only add one role via this method
-		// this.setState({ roles: [...this.state.roles, this.state.roleText] });
 		if (
 			this.state.showUsernameError === true ||
 			this.state.showRoleError === true ||
@@ -264,35 +279,38 @@ class NewEmployee extends Component {
 		} else {
 			let employeeObj = {
 				employeeId: "",
+				employeeType: this.state.employeeType,
+				dateOfBirth: this.state.dateOfBirth,
+				jobTitle: this.state.jobTitle,
 				firstName: this.state.firstname,
-				jobTitle: "",
 				lastName: this.state.lastname,
 				address: this.state.address,
-				bankAccountNumber: this.state.bankaccountnum,
+				postalCode: this.state.postalCode,
 				city: this.state.city,
+				province: this.state.province,
+				country: this.state.country,
 				emailAddress: this.state.email,
+				phoneNumber: this.state.phoneNumber,
 				employeeEndDate: this.state.enddate,
 				employeeStartDate: this.state.startdate,
 				hourlyWage: this.state.hourlywage,
 				institutionId: this.state.institutionid,
 				monthlySalary: this.state.monthlysalary,
 				transitId: this.state.transitid,
-				employeeType: { employeeTypeId: this.state.employeeType },
+				bankAccountNumber: this.state.bankaccountnum,
 			};
-			//let test = JSON.stringify(employeeObj);
-			//console.log(test);
 
-			// let employeeResponse = await employeeController.createEmployee(
-			// 	employeeObj
-			// );
+			let employeeResponse = await employeeController.createEmployee(
+				employeeObj
+			);
 
-			//console.log(employeeResponse);
+			console.log(employeeResponse);
 
 			let userObj = {
 				username: this.state.username,
-				employee: employeeObj,
+				employeeID: employeeResponse.data.employeeId,
 				password: this.state.password,
-				roles: this.state.roles,
+				role: this.state.roles,
 			};
 
 			let userResponse = await userAccountController.createUserAccount(userObj);
@@ -334,312 +352,394 @@ class NewEmployee extends Component {
 			TransIDError,
 			error,
 			errorMessage,
-			file,
-			fileSelected,
 		} = this.state;
 
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
 				<div className="row d-flex">
-					<TopNav />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
-				{/* {showUsernameError && <div class="alert alert-danger d-flex  myalert"  role="alert"> <div> An example danger alert with an icon </div>
-
-				</div>}  */}
-
 				<div className="row">
 					<div className="col-2"></div>
 					<div className="col-8 min-vh-100 innerAdmin">
-						<div className="row" style={{ textAlign: "center" }}>
-							<h1>Create New Employee</h1>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Username:
+						<div className="row mb-4">
+							<div className="employeeHeader p-4 pt-2 pb-2 text-center">
+								<h1 className="py-3">Create New Employee</h1>
 							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.username}
-									onChange={this.handleUsernameInput}
-								/>
-								<div className="row errorText">
-									{showUsernameError && (
-										<div className="error "> {UsernameError} </div>
-									)}
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Username</h5>
+									<input
+										type="text"
+										value={this.state.username}
+										onChange={this.handleUsernameInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showUsernameError && (
+											<div className="error "> {UsernameError} </div>
+										)}
+									</div>
 								</div>
 							</div>
 						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Password:
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.password}
-									onChange={this.handlePasswordInput}
-								/>
-								<div className="row errorText">
-									{showPasswordError && (
-										<div className="error"> {PasswordError} </div>
-									)}
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Password</h5>
+									<input
+										type="text"
+										value={this.state.password}
+										onChange={this.handlePasswordInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showPasswordError && (
+											<div className="error"> {PasswordError} </div>
+										)}
+									</div>
 								</div>
 							</div>
 						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Type:
-							</div>
-							<div className="col dropdown newEmployeeRow">
-								<select
-									value={this.state.employeeType}
-									onChange={this.handleEmployeeType}
-								>
-									<option value="1">Hourly</option>
-									<option value="2">Salary</option>
-									<option value="3">Italian</option>
-								</select>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Roles:
-							</div>
-							<div className="col dropdown newEmployeeRow">
-								<select
-									value={this.state.roleText}
-									onChange={this.handleRoleInput}
-								>
-									<option value="Select">Select</option>
-									<option value="Admin">Admin</option>
-									<option value="Bookkeeper">Bookkeeper</option>
-									<option value="HR">HR</option>
-									<option value="Employee">Employee</option>
-								</select>
-								<div className="row errorText">
-									{showRoleError && <div className="error"> {RoleError} </div>}
-								</div>
-							</div>
-						</div>
-						<div className="row">
-							<div
-								className="col-5 d-flex flex-row-revers newEmployeeRow"
-								style={{ textAlign: "right" }}
-							>
-								First Name:
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.firstname}
-									onChange={this.handleFirstnameInput}
-								/>
-								<div className="row errorText">
-									{showFirstnameError && (
-										<div className="error"> {FirstnameError} </div>
-									)}
-								</div>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Last Name:
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.lastname}
-									onChange={this.handleLastnameInput}
-								/>
-								<div className="row errorText">
-									{showLastnameError && (
-										<div className="error"> {LastnameError} </div>
-									)}
-								</div>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Address:
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.address}
-									onChange={this.handleAddressInput}
-								/>
-								<div className="row errorText">
-									{showAddressError && (
-										<div className="error"> {AddressError} </div>
-									)}
-								</div>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								City:
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.city}
-									onChange={this.handleCityInput}
-								/>
-								<div className="row errorText">
-									{showCityError && <div className="error"> {CityError} </div>}
-								</div>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Email:
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.email}
-									onChange={this.handleEmailInput}
-								/>
-								<div className="row errorText">
-									{showEmailError && (
-										<div className="error"> {EmailError} </div>
-									)}
-								</div>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Start Date:
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="date"
-									value={this.state.startdate}
-									onChange={this.handleStartdateInput}
-								/>
-								<div className="row errorText">
-									{showStartDateError && (
-										<div className="error"> {StartDateError} </div>
-									)}
-								</div>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								End Date (if applicable):
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="date"
-									value={this.state.enddate}
-									onChange={this.handleEnddateInput}
-								/>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Hourly Wage (if applicable):
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.hourlywage}
-									onChange={this.handleHourlywageInput}
-								/>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Monthly Salary (if applicable):
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.monthlysalary}
-									onChange={this.handleMonthlySalaryInput}
-								/>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Institution ID (for direct deposit):
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="number"
-									value={this.state.institutionid}
-									onChange={this.handleInstitutionIdInput}
-								/>
-								<div className="row errorText">
-									{showInstituiteIDError && (
-										<div className="error"> {InstituiteIDError} </div>
-									)}
-								</div>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Bank Account Number (for direct deposit):
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.bankaccountnum}
-									onChange={this.handleBankAccountNumInput}
-								/>
-								<div className="row errorText">
-									{showBANError && <div className="error"> {BANError} </div>}
-								</div>
-							</div>
-						</div>
-						<div className="row ">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Transit ID (for direct deposit):
-							</div>
-							<div className="col newEmployeeRow">
-								<input
-									type="text"
-									value={this.state.transitid}
-									onChange={this.handleTransitIdInput}
-								/>
-								<div className="row errorText">
-									{showTransIDError && (
-										<div className="error"> {TransIDError} </div>
-									)}
-								</div>
-							</div>
-						</div>
-						<div className="row ">
-							<div className="col-5 d-flex flex-row-reverse newEmployeeRow">
-								Upload a File:
-							</div>
-							<div className="col newEmployeeRow">
-								<div style={{ width: "60%" }}>
-									<button
-										type="button"
-										className="btn btn-warning m-2"
-										onClick={this.uploadFile}
-										style={{ width: "40%" }}
-										id="employeeCardUploadButton"
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Employee Role</h5>
+									<select
+										value={this.state.roleText}
+										onChange={this.handleRoleInput}
+										className="form-select"
 									>
-										<input
-											type="file"
-											ref={this.hiddenFileBtn}
-											name="Upload File"
-											onChange={this.saveFile}
-											style={{ display: "none" }}
-										/>{" "}
-										Upload File
-									</button>
-									{fileSelected ? <div> {this.file.name}</div> : ""}
+										<option value="Select">Select</option>
+										<option value="Admin">Admin</option>
+										<option value="Bookkeeper">Bookkeeper</option>
+										<option value="HR">HR</option>
+										<option value="Employee">Employee</option>
+									</select>
+									<div className="row errorText">
+										{showRoleError && (
+											<div className="error"> {RoleError} </div>
+										)}
+									</div>
 								</div>
 							</div>
 						</div>
-						<br />
-						<br />
-						<br />
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Employee Type</h5>
+									<select
+										value={this.state.employeeType}
+										onChange={this.handleEmployeeType}
+										className="form-select"
+									>
+										<option value="1">Hourly</option>
+										<option value="2">Salary</option>
+										<option value="3">Italian</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Job Title</h5>
+									<input
+										type="text"
+										value={this.state.jobTitle}
+										onChange={this.handleJobTitleInput}
+										className="form-control"
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>First Name</h5>
+									<input
+										type="text"
+										value={this.state.firstname}
+										onChange={this.handleFirstnameInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showFirstnameError && (
+											<div className="error"> {FirstnameError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Last Name</h5>
+									<input
+										type="text"
+										value={this.state.lastname}
+										onChange={this.handleLastnameInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showLastnameError && (
+											<div className="error"> {LastnameError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Date of Birth</h5>
+									<input
+										type="date"
+										value={this.state.dateOfBirth}
+										onChange={this.handleDOBInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showStartDateError && (
+											<div className="error"> {StartDateError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Street Address</h5>
+									<input
+										type="text"
+										value={this.state.address}
+										onChange={this.handleAddressInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showAddressError && (
+											<div className="error"> {AddressError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Postal Code</h5>
+									<input
+										type="text"
+										value={this.state.postalCode}
+										onChange={this.handlePostalCodeInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showCityError && (
+											<div className="error"> {CityError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>City</h5>
+									<input
+										type="text"
+										value={this.state.city}
+										onChange={this.handleCityInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showCityError && (
+											<div className="error"> {CityError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Province</h5>
+									<input
+										type="text"
+										value={this.state.province}
+										onChange={this.handleProvinceInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showCityError && (
+											<div className="error"> {CityError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Country</h5>
+									<input
+										type="text"
+										value={this.state.country}
+										onChange={this.handleCountryInput}
+										className="form-control"
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Email</h5>
+									<input
+										type="text"
+										value={this.state.email}
+										onChange={this.handleEmailInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showEmailError && (
+											<div className="error"> {EmailError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Phone Number</h5>
+									<input
+										type="text"
+										value={this.state.phoneNumber}
+										onChange={this.handlePhoneNumberInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showEmailError && (
+											<div className="error"> {EmailError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Start Date</h5>
+									<input
+										type="date"
+										value={this.state.startdate}
+										onChange={this.handleStartdateInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showStartDateError && (
+											<div className="error"> {StartDateError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>End Date</h5>
+									<input
+										type="date"
+										value={this.state.enddate}
+										onChange={this.handleEnddateInput}
+										className="form-control"
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Hourly Wage</h5>
+									<input
+										type="text"
+										value={this.state.hourlywage}
+										onChange={this.handleHourlywageInput}
+										className="form-control"
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Monthly Salary</h5>
+									<input
+										type="text"
+										value={this.state.monthlysalary}
+										onChange={this.handleMonthlySalaryInput}
+										className="form-control"
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Bank Institution ID</h5>
+									<input
+										type="number"
+										value={this.state.institutionid}
+										onChange={this.handleInstitutionIdInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showInstituiteIDError && (
+											<div className="error"> {InstituiteIDError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Bank Account Number</h5>
+									<input
+										type="text"
+										value={this.state.bankaccountnum}
+										onChange={this.handleBankAccountNumInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showBANError && <div className="error"> {BANError} </div>}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="row pb-3">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Bank Transit Number</h5>
+									<input
+										type="text"
+										value={this.state.transitid}
+										onChange={this.handleTransitIdInput}
+										className="form-control"
+									/>
+									<div className="row errorText">
+										{showTransIDError && (
+											<div className="error"> {TransIDError} </div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
 						{error && (
 							<div className="row">
 								<div className="col-2"></div>
@@ -653,12 +753,12 @@ class NewEmployee extends Component {
 								<div className="col-2"></div>
 							</div>
 						)}
-						<div className="row">
-							<div className="col d-flex justify-content-between newEmployeeRow">
+						<div className="row my-5">
+							<div className="col d-flex justify-content-around newEmployeeRow">
 								<Link to="/adminEmployees">
 									<button
 										type="button"
-										className="btn btn-small SecondaryButton "
+										className="btn btn-lrg SecondaryButton "
 									>
 										Go Back
 									</button>
@@ -666,7 +766,7 @@ class NewEmployee extends Component {
 
 								<button
 									type="button"
-									className="btn btn-small PrimaryButton "
+									className="btn btn-lrg PrimaryButton "
 									onClick={this.handleNewEmployee}
 								>
 									Submit New Employee

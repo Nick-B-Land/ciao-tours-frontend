@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import "../style/stylesheet.css";
 import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class employeeInfo extends Component {
 	data = [
@@ -26,7 +27,7 @@ class employeeInfo extends Component {
 			<form>
 				<div className="container-fluid p-0 myInfoPage">
 					<div className="row d-flex">
-						<TopNav currentUser={this.props.currentUser} />
+						<TopNavWrapper currentUser={this.props.currentUser} />
 						<BottomAdminNav />
 					</div>
 					<div className="row  d-flex">

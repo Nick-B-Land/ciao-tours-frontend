@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../style/stylesheet.css";
 import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class EmployeePaystubs extends Component {
 	constructor(props) {
@@ -53,7 +54,7 @@ class EmployeePaystubs extends Component {
 		return (
 			<div className="container-fluid p-0 employeePaystubsPage">
 				<div className="row">
-					<TopNav />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row m-0">

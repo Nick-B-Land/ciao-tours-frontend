@@ -9,6 +9,7 @@ import paystubController from "../controllers/paystubController";
 import BottomEmpNav from "../components/navs/bottomEmpNav";
 import TopNav from "../components/navs/topNav";
 import { Link } from "react-router-dom";
+import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 class EmployeeHome extends Component {
 	constructor(props) {
@@ -21,12 +22,16 @@ class EmployeeHome extends Component {
 			day: -1,
 			year: -1,
 			selectedPayrollID: 0,
-			payrollData: []
+			payrollData: [],
 		};
 	}
 
 	componentDidMount() {
-		this.setState({month: this.state.current.getMonth(), day: this.state.current.getDate(), year: this.state.current.getFullYear()});
+		this.setState({
+			month: this.state.current.getMonth(),
+			day: this.state.current.getDate(),
+			year: this.state.current.getFullYear(),
+		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -34,7 +39,7 @@ class EmployeeHome extends Component {
 			this.findPayrollObject();
 		} else if (this.state.year !== prevState.year) {
 			this.findPayrollObject();
-		} else if (this.state.selectedPayrollID !== prevState.selectedPayrollID){
+		} else if (this.state.selectedPayrollID !== prevState.selectedPayrollID) {
 			this.loadPayrollObject();
 		}
 	}
@@ -45,7 +50,7 @@ class EmployeeHome extends Component {
 			this.props.currentUser.eID
 		);
 
-		if(response.data.length > 0){
+		if (response.data.length > 0) {
 			let payrolls = response.data;
 			for (let i = 0; i < payrolls.length; ++i) {
 				let date = new Date(payrolls[i].dateOfPayroll);
@@ -61,14 +66,14 @@ class EmployeeHome extends Component {
 				}
 			}
 		}
-	}
+	};
 
 	loadPayrollObject = async () => {
-		let response = await payrollController.getPayrollDataByPayrollID(
+		let response = await payrollController.getPayrollByID(
 			this.state.selectedPayrollID
 		);
 		this.setState({ payrollData: response.data });
-	}
+	};
 
 	calculateTourBookings() {
 		let filteredTourBookings = this.state.payrollData.filter(
@@ -209,26 +214,26 @@ class EmployeeHome extends Component {
 			"SEP",
 			"OCT",
 			"NOV",
-			"DEC"
+			"DEC",
 		];
 		var fullMonths = [
 			"January",
 			"February",
 			"March",
 			"April",
-			"May", 
+			"May",
 			"June",
 			"July",
 			"August",
 			"September",
 			"October",
 			"November",
-			"December"
+			"December",
 		];
 		return (
 			<div className="container-fluid p-0 adminHomePage text-responsive">
 				<div className="row d-flex">
-					<TopNav />
+					<TopNavWrapper currentUser={this.props.currentUser} />
 					<BottomEmpNav />
 				</div>
 				<div className="row">
@@ -242,16 +247,23 @@ class EmployeeHome extends Component {
 						<div className="row">
 							<div className="col-10 mt-3">
 								<div className="row mb-3 ms-2 align-items-center">
-								<Link to="/employeePaystubs" className="basicLinks p-0">
-									<div className="col p-3 SecondaryButton border rounded-3 ">
-										<h2 className="text-center basicLinks">View {this.state.month-1 === -1 ? fullMonths[11] : fullMonths[this.state.month-1]}'s Paystub</h2>
-									</div>
-								</Link>
+									<Link to="/employeePaystubs" className="basicLinks p-0">
+										<div className="col p-3 SecondaryButton border rounded-3 ">
+											<h2 className="text-center basicLinks">
+												View{" "}
+												{this.state.month - 1 === -1
+													? fullMonths[11]
+													: fullMonths[this.state.month - 1]}
+												's Paystub
+											</h2>
+										</div>
+									</Link>
 								</div>
 								<div className="row mb-3 ms-2 align-items-center">
 									<div className="col p-3 bg-white border rounded-3">
-										<h2 className="text-center">Current Payroll for {fullMonths[this.state.month]}</h2>
-
+										<h2 className="text-center">
+											Current Payroll for {fullMonths[this.state.month]}
+										</h2>
 									</div>
 								</div>
 							</div>
@@ -270,8 +282,7 @@ class EmployeeHome extends Component {
 									<div className="col">
 										<div className="bg-white border rounded-3 p-1">
 											<p>
-												If you have any concerns please contact the
-												bookeeper:
+												If you have any concerns please contact the bookeeper:
 											</p>
 											<b className="max-width-50">at:example@example.ca</b>
 										</div>
