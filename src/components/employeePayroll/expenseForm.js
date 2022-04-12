@@ -28,22 +28,29 @@ class ExpenseForm extends Component {
 			expenseDesc: "",
 			expenseAmount: "",
 			date: new Date(this.props.selectedDay),
-			formattedDate: ""
+			formattedDate: "",
+			dateError: false,
+			dateErrorText: "",
+			descError: false,
+			descErrorText: "",
+			amountError: false,
+			amountErrorText: "",
+
 		};
 	}
 
 	createFormattedDate = () => {
 		this.props.handleSelectedDay(this.state.date);
-		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
+		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth() + 1 < 10 ? "0" + (this.state.date.getMonth() + 1) : (this.state.date.getMonth() + 1)) +
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
-		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
+		this.setState({ formattedDate: newString }, () => console.log("Date after changing: ", this.state.formattedDate));
 	}
 
 	formatDateFromSelectedDay = () => {
 		console.log("Date before formatting", this.state.date);
-		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
+		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth() + 1 < 10 ? "0" + (this.state.date.getMonth() + 1) : (this.state.date.getMonth() + 1)) +
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
-		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
+		this.setState({ formattedDate: newString }, () => console.log("Date after changing: ", this.state.formattedDate));
 	}
 
 	componentDidMount = () => {
@@ -51,32 +58,57 @@ class ExpenseForm extends Component {
 	}
 
 	componentDidUpdate = (preprops, prestate) => {
-		if (preprops.selectedDay !== this.props.selectedDay){
-			this.setState({ date : new Date(this.props.selectedDay) }, () => this.formatDateFromSelectedDay());
+		if (preprops.selectedDay !== this.props.selectedDay) {
+			this.setState({ date: new Date(this.props.selectedDay) }, () => this.formatDateFromSelectedDay());
 		}
 	}
 
 	handleDate = (e) => {
-		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
+		if (e.target.value === "" || e.target.value === undefined) {
+			this.setState({ dateError: true, dateErrorText: "Date can't be empty." })
+		} else {
+			this.setState({ dateError: false, dateErrorText: "" })
+		}
+		this.setState({ date: new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 
 	handleExpenseDescInput = (e) => {
+		if (e.target.value === "" || e.target.value === null) {
+			this.setState({ descError: true, descErrorText: "Desc can't be empty." })
+		} else {
+			this.setState({ descError: false, descErrorText: "" })
+		}
 		this.setState({ expenseDesc: e.target.value });
 	};
 
 	handleExpenseAmountInput = (e) => {
+		if (e.target.value === "" || parseInt(e.target.value) < 0) {
+			this.setState({ amountError: true, amountErrorText: "Amount can't be empty and should be +ve." })
+		} else if (isNaN(+e.target.value)) {
+			this.setState({ amountError: true, amountErrorText: "Amount should be in numbers" })
+		} else {
+			this.setState({ amountError: false, amountErrorText: "" })
+		}
 		this.setState({ expenseAmount: e.target.value });
 	};
 
 	handleExpenseSubmit = () => {
-		this.props.addExpense(this.state.expenseDesc, this.state.expenseAmount, this.state.date);
-		this.props.handleSelectedForm(0);
+		if (this.state.dateError === true || this.state.descError === true || this.state.amountError === true ||
+			this.state.expenseAmount === "" || this.state.expenseDesc === "" || this.state.date === "" || this.state.date === undefined) {
+			this.setState({ error: true, errorMessage: "Please Complete the form." });
+			setInterval(() => this.setState({ error: false, errorMessage: "" }), 4000);
+
+		} else {
+			this.props.addExpense(this.state.expenseDesc, this.state.expenseAmount, this.state.date);
+			this.props.handleSelectedForm(0);
+		}
 	};
 
 	handleCancel = () => {
 		this.props.handleSelectedForm(0);
 	}
 	render() {
+		const { error, errorMessage, dateError, dateErrorText, descError, descErrorText, amountError, amountErrorText } = this.state;
 		return (
 			<>
 				<div className="row">
@@ -94,7 +126,10 @@ class ExpenseForm extends Component {
 							type="date"
 							value={this.state.formattedDate}
 							onChange={this.handleDate}
-						/>
+						/>	<div className="row errorText">
+							{dateError && <div className="error "> {dateErrorText} </div>}
+						</div>
+
 					</div>
 				</div>
 				<div className="row">
@@ -106,7 +141,9 @@ class ExpenseForm extends Component {
 							type="text"
 							value={this.state.expenseDesc}
 							onChange={this.handleExpenseDescInput}
-						/>
+						/><div className="row errorText">
+							{descError && <div className="error "> {descErrorText} </div>}
+						</div>
 					</div>
 				</div>
 				<div className="row">
@@ -118,7 +155,9 @@ class ExpenseForm extends Component {
 							type="text"
 							value={this.state.expenseAmount}
 							onChange={this.handleExpenseAmountInput}
-						/>
+						/><div className="row errorText">
+							{amountError && <div className="error "> {amountErrorText} </div>}
+						</div>
 					</div>
 				</div>
 				<div className="row">
@@ -139,6 +178,17 @@ class ExpenseForm extends Component {
 						</button>
 					</div>
 				</div>
+				{error &&
+					<div className="row">
+						<div className="col-2"></div>
+						<div className=" col-8  alert alert-danger d-flex align-items-center" role="alert">
+							<div>
+								{errorMessage}
+							</div>
+						</div>
+						<div className="col-2"></div>
+					</div>
+				}
 			</>
 		);
 	}

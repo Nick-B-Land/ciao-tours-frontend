@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
-import TopNav from "../components/navs/topNav";
+import TopAdminNav from "../components/navs/topNav";
 import employeeController from "../controllers/employeeController";
 import { Link } from "react-router-dom";
 import EmployeeCard from "../components/adminEmployees/employeeCard";
@@ -16,8 +16,6 @@ class AdminEmployees extends Component {
 	}
 
 	componentDidMount = () => {
-		// this.setState({ employeeList: this.getEmployees() });
-		// console.log(this.state.employeeList);
 		employeeController.getEmployees().then((employees) => {
 			this.setState({ employeeList: employees.data, employeesLoaded: true });
 			console.log(this.state.employeeList);
@@ -33,14 +31,14 @@ class AdminEmployees extends Component {
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
 				<div className="row d-flex">
-					<TopNav currentUser={this.props.currentUser} />
+					<TopAdminNav currentUser={this.props.currentUser} />
 					<BottomAdminNav />
 				</div>
 				<div className="row">
 					<div className="col-2"></div>
 					<div className="col-8 min-vh-100 innerAdmin">
 						<div className="row">
-							<div className="employeeHeader p-4 pt-2 pb-2 text-center">
+							<div className="employeeHeader p-4 pt-2 pb-2">
 								<h1>List Of Employees</h1>
 							</div>
 						</div>

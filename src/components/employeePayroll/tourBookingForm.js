@@ -30,23 +30,31 @@ class TourBookingForm extends Component {
 			numHours: "",
 			clientName: "",
 			date: new Date(this.props.selectedDay),
-			formattedDate: ""
+			formattedDate: "",
+			dateError: false,
+			dateErrorText: "",
+			descError: false,
+			descErrorText: "",
+			hoursError: false,
+			hoursErrorText: "",
+			clientError: false,
+			clientErrorText: ""
 		};
 	}
 
 	createFormattedDate = () => {
 		console.log("Date before formatting", this.state.date);
 		this.props.handleSelectedDay(this.state.date);
-		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
+		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth() + 1 < 10 ? "0" + (this.state.date.getMonth() + 1) : (this.state.date.getMonth() + 1)) +
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
-		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
+		this.setState({ formattedDate: newString }, () => console.log("Date after changing: ", this.state.formattedDate));
 	}
 
 	formatDateFromSelectedDay = () => {
 		console.log("Date before formatting", this.state.date);
-		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
+		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth() + 1 < 10 ? "0" + (this.state.date.getMonth() + 1) : (this.state.date.getMonth() + 1)) +
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
-		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
+		this.setState({ formattedDate: newString }, () => console.log("Date after changing: ", this.state.formattedDate));
 	}
 
 	componentDidMount = () => {
@@ -55,35 +63,66 @@ class TourBookingForm extends Component {
 	}
 
 	componentDidUpdate = (preprops, prestate) => {
-		if (preprops.selectedDay !== this.props.selectedDay){
-			this.setState({ date : new Date(this.props.selectedDay) }, () => this.formatDateFromSelectedDay());
+		if (preprops.selectedDay !== this.props.selectedDay) {
+			this.setState({ date: new Date(this.props.selectedDay) }, () => this.formatDateFromSelectedDay());
 		}
 	}
 
 	handleDate = (e) => {
-		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
+		if (e.target.value === "" || e.target.value === undefined) {
+			this.setState({ dateError: true, dateErrorText: "Date can't be empty." })
+		} else {
+			this.setState({ dateError: false, dateErrorText: "" })
+		}
+		this.setState({ date: new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 
 	handleClientNameInput = (e) => {
+		if (e.target.value === "" || e.target.value === null) {
+			this.setState({ clientError: true, clientErrorText: "Name Can't be empty." })
+		} else {
+			this.setState({ clientError: false, clientErrorText: "" })
+		}
 		this.setState({ clientName: e.target.value });
 	};
 
 	handleBookingDescInput = (e) => {
+		if (e.target.value === "" || e.target.value === null) {
+			this.setState({ descError: true, descErrorText: "Desc can't be empty." })
+		} else {
+			this.setState({ descError: false, descErrorText: "" })
+		}
 		this.setState({ bookingDesc: e.target.value });
 	};
 
 	handleNumHoursInput = (e) => {
+		if (e.target.value === "" || parseInt(e.target.value) < 0) {
+			this.setState({ hoursError: true, hoursErrorText: "Hours can't be empty and should be +ve." })
+		} else if (isNaN(+e.target.value)) {
+			this.setState({ hoursError: true, hoursErrorText: "Hours should be in numbers" })
+		} else {
+			this.setState({ hoursError: false, hoursErrorText: "" })
+		}
 		this.setState({ numHours: e.target.value });
 	};
 
 	handleTourBookingSubmit = () => {
-		this.props.addTourBooking(
-			this.state.bookingDesc,
-			this.state.numHours,
-			this.state.clientName,
-			this.state.date
-		);
-		this.props.handleSelectedForm(0);
+		if(this.state.dateError ===true || this.state.descError ===true || this.state.hoursError === true || this.state.clientError===true||
+			this.state.bookingDesc===""||this.state.numHours===""||this.state.clientName===""||this.state.date===""|| this.state.date===undefined )
+			{
+			this.setState({ error: true, errorMessage: "Please Complete the form." });
+			setInterval(() => this.setState({ error: false, errorMessage: "" }), 4000);
+			
+		}else{
+			this.props.addTourBooking(
+				this.state.bookingDesc,
+				this.state.numHours,
+				this.state.clientName,
+				this.state.date
+			);
+			this.props.handleSelectedForm(0);
+	
+		}
 	};
 
 	handleCancel = () => {
@@ -91,6 +130,7 @@ class TourBookingForm extends Component {
 	}
 
 	render() {
+		const{error,errorMessage,descError,descErrorText,clientError,clientErrorText,hoursError,hoursErrorText,dateError,dateErrorText} = this.state;
 		return (
 			<>
 				<div className="row">
@@ -109,6 +149,10 @@ class TourBookingForm extends Component {
 							value={this.state.formattedDate}
 							onChange={this.handleDate}
 						/>
+						<div className="row errorText">
+							{dateError && <div className="error "> {dateErrorText} </div>}
+						</div>
+
 					</div>
 				</div>
 				<div className="row">
@@ -121,6 +165,10 @@ class TourBookingForm extends Component {
 							value={this.state.bookingDesc}
 							onChange={this.handleBookingDescInput}
 						/>
+						<div className="row errorText">
+							{descError && <div className="error "> {descErrorText} </div>}
+						</div>
+
 					</div>
 				</div>
 				<div className="row">
@@ -133,6 +181,10 @@ class TourBookingForm extends Component {
 							value={this.state.numHours}
 							onChange={this.handleNumHoursInput}
 						/>
+						<div className="row errorText">
+							{hoursError && <div className="error "> {hoursErrorText} </div>}
+						</div>
+
 					</div>
 				</div>
 				<div className="row">
@@ -145,6 +197,10 @@ class TourBookingForm extends Component {
 							value={this.state.clientName}
 							onChange={this.handleClientNameInput}
 						/>
+						<div className="row errorText">
+							{clientError&& <div className="error "> {clientErrorText} </div>}
+						</div>
+
 					</div>
 				</div>
 				<div className="row">
@@ -165,6 +221,17 @@ class TourBookingForm extends Component {
 						</button>
 					</div>
 				</div>
+				{error &&
+					<div className="row">
+						<div className="col-2"></div>
+						<div className=" col-8  alert alert-danger d-flex align-items-center" role="alert">
+							<div>
+								{errorMessage}
+							</div>
+						</div>
+						<div className="col-2"></div>
+					</div>
+				}
 			</>
 		);
 	}

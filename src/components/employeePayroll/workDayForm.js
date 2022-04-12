@@ -24,23 +24,30 @@ class WorkDayForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			
 			numHours: "",
 			date: new Date(this.props.selectedDay),
-			formattedDate: ""
+			formattedDate: "",
+			hourError: false,
+			dateError:false,
+			hourErrorText:"",
+			dateErrorText:"",
+			error:false,
+			errorMessage:""
 		};
 	}
 
 	createFormattedDate = () => {
 		this.props.handleSelectedDay(this.state.date);
-		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
+		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth() + 1 < 10 ? "0" + (this.state.date.getMonth() + 1) : (this.state.date.getMonth() + 1)) +
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
-		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
+		this.setState({ formattedDate: newString }, () => console.log("Date after changing: ", this.state.formattedDate));
 	}
 
 	formatDateFromSelectedDay = () => {
-		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
+		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth() + 1 < 10 ? "0" + (this.state.date.getMonth() + 1) : (this.state.date.getMonth() + 1)) +
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
-		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
+		this.setState({ formattedDate: newString }, () => console.log("Date after changing: ", this.state.formattedDate));
 	}
 
 	componentDidMount = () => {
@@ -49,20 +56,44 @@ class WorkDayForm extends Component {
 	}
 
 	componentDidUpdate = (preprops, prestate) => {
-		if (preprops.selectedDay !== this.props.selectedDay){
-			this.setState({ date : new Date(this.props.selectedDay) }, () => this.formatDateFromSelectedDay());
+		if (preprops.selectedDay !== this.props.selectedDay) {
+			this.setState({ date: new Date(this.props.selectedDay) }, () => this.formatDateFromSelectedDay());
 		}
 	}
 
 	handleDate = (e) => {
-		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
+		if (e.target.value === "" || e.target.value === undefined) {
+			this.setState({ dateError: true, dateErrorText: "Date can't be empty." })
+		} else{
+			this.setState({ dateError: false, dateErrorText: "" })
+		}
+		this.setState({ date: new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
+		
 	}
 
 	handleNumHoursInput = (e) => {
+		if (e.target.value === "" || parseInt(e.target.value) <0) {
+			this.setState({ hourError: true, hourErrorText: "Hours can't be empty and should be +ve." })
+		} else if (isNaN(+e.target.value)) {
+			this.setState({ hourError: true, hourErrorText: "Hours should be in numbers" })
+		} else{
+			this.setState({ hourError: false, hourErrorText: "" })
+		}
 		this.setState({ numHours: e.target.value });
+		
 	};
 
 	handleWorkDaySubmit = () => {
+		if (this.state.hourError=== true ||
+			this.state.dateError=== true ||
+			this.state.numHours==="" ||
+			this.state.date ===""|| this.state.date===undefined
+		) {
+			this.setState({ error: true, errorMessage: "Please check the all inputs." });
+			setInterval(() => this.setState({ error: false, errorMessage: "" }), 4000);
+		} else {
+
+		}
 		this.props.addWorkDay(this.state.numHours, this.state.date);
 	};
 
@@ -71,6 +102,7 @@ class WorkDayForm extends Component {
 	}
 
 	render() {
+		const {dateError,dateErrorText,hourError,hourErrorText,error,errorMessage} = this.state;
 		return (
 			<>
 				<div className="row">
@@ -88,6 +120,9 @@ class WorkDayForm extends Component {
 							value={this.state.formattedDate}
 							onChange={this.handleDate}
 						/>
+							<div className="row errorText">
+									{dateError && <div className="error"> {dateErrorText} </div>}
+								</div>
 					</div>
 				</div>
 				<div className="row">
@@ -100,6 +135,9 @@ class WorkDayForm extends Component {
 							value={this.state.numHours}
 							onChange={this.handleNumHoursInput}
 						/>
+							<div className="row errorText">
+									{hourError && <div className="error"> {hourErrorText} </div>}
+								</div>
 					</div>
 				</div>
 				<div className="row">
@@ -121,6 +159,17 @@ class WorkDayForm extends Component {
 					</div>
 					
 				</div>
+				{error &&
+					<div className="row">
+						<div className="col-2"></div>
+						<div className=" col-8  alert alert-danger d-flex align-items-center" role="alert">
+							<div>
+								{errorMessage}
+							</div>
+						</div>
+						<div className="col-2"></div>
+					</div>
+				}
 			</>
 		);
 	}

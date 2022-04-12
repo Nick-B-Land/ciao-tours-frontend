@@ -10,7 +10,7 @@ import userAccountController from "../controllers/userAccountController";
 class NewEmployee extends Component {
 	constructor(props) {
 		super(props);
-		this.hiddenFileBtn=React.createRef();
+		this.hiddenFileBtn = React.createRef();
 		this.state = {
 			firstname: "",
 			lastname: "",
@@ -21,7 +21,7 @@ class NewEmployee extends Component {
 			enddate: "",
 			hourlywage: "",
 			monthlysalary: "",
-			file:null,
+			file: null,
 			isadmin: false,
 			isbookkeeper: false,
 			institutionid: "",
@@ -42,8 +42,9 @@ class NewEmployee extends Component {
 			showInstituiteIDError: true,
 			showBANError: true,
 			showTransIDError: true,
-			fileSelected:false,
-
+			fileSelected: false,
+			showHWageError: false,
+			showSWageError: false,
 			UsernameError: "",
 			PasswordError: "",
 			RoleError: "",
@@ -56,7 +57,7 @@ class NewEmployee extends Component {
 			InstituiteIDError: "",
 			BANError: "",
 			TransIDError: "",
-			
+			wageError: "",
 			error: false,
 			errorMessage: ""
 		};
@@ -102,9 +103,15 @@ class NewEmployee extends Component {
 	};
 
 	handleEmailInput = (e) => {
+		// eslint-disable-next-line
+		const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 		if (e.target.value === "") {
 			this.setState({ showEmailError: true, EmailError: "Email can't be empty." })
-		} else {
+		} else if (regex.test(e.target.value) === false) {
+			this.setState({ showEmailError: true, EmailError: "Check your Email." })
+
+		}
+		else {
 			this.setState({ showEmailError: false, EmailError: "" })
 		}
 		this.setState({ email: e.target.value });
@@ -125,11 +132,43 @@ class NewEmployee extends Component {
 	};
 
 	handleHourlywageInput = (e) => {
+		// if (e.target.value === "" && this.state.monthlySalary != "") {
+		// 	this.setState({ showHWageError: true, wageError: "An Employee can't have both wages at a same time." });
+		// } else {
+		// 	if (this.state.monthlySalary === "" && e.target.value === "") {
+		// 		this.setState({ showHWageError: true, wageError: "Hourly Wage Can't be Empty." });
+		// 	} else if (this.state.monthlySalary === "" && (parseInt(e.target.value) < 0 || isNaN(+e.target.value))) {
+		// 		this.setState({ showHWageError: true, wageError: "Hourly Wage should be in numbers and +ve." });
+		// 	}else if(this.state.monthlysalary===""){
+		// 		this.setState({ showHWageError: false, wageError: "" });
+		// 	}
+		// 	this.setState({ hourlywage: e.target.value });
+		// }
+		// if (e.target.value === "") {
+		// 	
+		// }
 		this.setState({ hourlywage: e.target.value });
 	};
 
 	handleMonthlySalaryInput = (e) => {
-		this.setState({ monthlysalary: e.target.value });
+		// if (e.target.value === "" && this.state.hourlywage != "") {
+		// 	this.setState({ showSWageError: true, wageError: "An Employee can't have both wages at a same time." });
+		// } else {
+		// 	if (this.state.hourlywage === "" && e.target.value === "") {
+		// 		this.setState({ showSWageError: true, wageError: "Salary Can't be Empty." });
+		// 	} else if (this.state.hourlywage === "" && (parseInt(e.target.value) < 0 || !isNaN(+e.target.value))) {
+		// 		this.setState({ showSWageError: true, wageError: "Salary should be in numbers and +ve." });
+		// 	}else if(this.state.hourlywage===""){
+		// 		this.setState({ showSWageError: false, wageError: "" });
+		// 	}
+		// 	this.setState({ monthlysalary: e.target.value });
+		// }
+		// if (e.target.value === "") {
+		// }
+
+
+		this.setState({ monthlySalary: e.target.value });
+
 	};
 
 	handleInstitutionIdInput = (e) => {
@@ -191,15 +230,15 @@ class NewEmployee extends Component {
 		}
 		this.setState({ roleText: e.target.value });
 	};
-	
-	uploadFile =() => {
+
+	uploadFile = () => {
 		this.hiddenFileBtn.current.click();
 
 	};
 	saveFile = async (event) => {
-		this.state({file:event.target.files[0]});
-		this.state({fileSelected:true});
-	
+		this.state({ file: event.target.files[0] });
+		this.state({ fileSelected: true });
+
 	};
 
 
@@ -218,6 +257,7 @@ class NewEmployee extends Component {
 			this.state.showLastnameError === true ||
 			this.state.showAddressError === true ||
 			this.state.showEmailError === true ||
+			(this.state.hourlywage==="" && this.state.monthlysalary==="")||
 			this.state.showCityError === true ||
 			this.state.showInstituiteIDError === true ||
 			this.state.showBANError === true ||
@@ -271,8 +311,8 @@ class NewEmployee extends Component {
 
 	render() {
 		const { showUsernameError, showPasswordError, showFirstnameError, showLastnameError, showRoleError, showAddressError, showCityError, showEmailError
-			, showStartDateError, showInstituiteIDError, showBANError, showTransIDError, UsernameError,hiddenFileBtn,
-			PasswordError, RoleError, FirstnameError, LastnameError, AddressError, CityError, EmailError, StartDateError, InstituiteIDError, BANError, TransIDError, error, errorMessage,file, fileSelected } = this.state;
+			, showStartDateError, showInstituiteIDError, showBANError, showTransIDError, UsernameError, hiddenFileBtn,showHWageError,showSWageError, wageError,
+			PasswordError, RoleError, FirstnameError, LastnameError, AddressError, CityError, EmailError, StartDateError, InstituiteIDError, BANError, TransIDError, error, errorMessage, file, fileSelected } = this.state;
 
 		return (
 			<div className="container-fluid p-0 adminEmployeesPage">
@@ -433,6 +473,9 @@ class NewEmployee extends Component {
 									value={this.state.hourlywage}
 									onChange={this.handleHourlywageInput}
 								/>
+								<div className="row errorText">
+									{showHWageError && <div className="error"> {wageError} </div>}
+								</div>
 							</div>
 						</div>
 						<div className="row">
@@ -445,6 +488,9 @@ class NewEmployee extends Component {
 									value={this.state.monthlysalary}
 									onChange={this.handleMonthlySalaryInput}
 								/>
+								<div className="row errorText">
+									{showSWageError && <div className="error"> {wageError} </div>}
+								</div>
 							</div>
 						</div>
 						<div className="row">
@@ -497,18 +543,18 @@ class NewEmployee extends Component {
 								Upload a File:
 							</div>
 							<div className="col newEmployeeRow">
-							<div style={{width:"60%"}}>
-								<button
-									type="button"
-									className="btn btn-warning m-2"
-									onClick={this.uploadFile}
-									style={{width: "40%"}}
-									id="employeeCardUploadButton">
-										<input type="file" ref={this.hiddenFileBtn} name="Upload File" onChange={this.saveFile} style={{display:"none"}}/> Upload File
+								<div style={{ width: "60%" }}>
+									<button
+										type="button"
+										className="btn btn-warning m-2"
+										onClick={this.uploadFile}
+										style={{ width: "40%" }}
+										id="employeeCardUploadButton">
+										<input type="file" ref={this.hiddenFileBtn} name="Upload File" onChange={this.saveFile} style={{ display: "none" }} /> Upload File
 									</button>
-									{fileSelected?(<div> {this.file.name}</div>):""}
+									{fileSelected ? (<div> {this.file.name}</div>) : ""}
 								</div>
-								
+
 							</div>
 						</div><br /><br /><br />
 						{error &&

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
-import TopAdminNav from "../components/navs/topAdminNav";
+import TopAdminNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
 import { CurrentUser } from "../model/currentUser";
 import EmployeePayrollGenerator from "../components/empHomePage/EmployeePayrollGenerator";
