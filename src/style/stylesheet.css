@@ -201,6 +201,10 @@ body {
 	padding-top: 0;
 }
 
+.tableHeader {
+	background-color: #5b642c;
+}
+
 .paystubTable {
 	width: 95%;
 	margin-left: auto;
