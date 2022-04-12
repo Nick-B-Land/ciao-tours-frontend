@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
-import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
 import employeeController from "../controllers/employeeController";
 import { Link } from "react-router-dom";
@@ -368,8 +367,366 @@ class NewEmployee extends Component {
 								<h1 className="py-3">Create New Employee</h1>
 							</div>
 						</div>
-						<div className="row pb-3">
-							<div className="col d-flex justify-content-center">
+
+						<div className="row">
+							<div className="col-md-6">
+								<div className="table-responsive">
+									<table class="table newEmpTable">
+										<tbody>
+											<tr className="form-group">
+												<td className="text-end">Username</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.username}
+														onChange={this.handleUsernameInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showUsernameError && (
+														<div className="error "> {UsernameError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Password</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.password}
+														onChange={this.handlePasswordInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showPasswordError && (
+														<div className="error"> {PasswordError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Job Title</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.jobTitle}
+														onChange={this.handleJobTitleInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">First Name</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.firstname}
+														onChange={this.handleFirstnameInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showFirstnameError && (
+														<div className="error"> {FirstnameError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Last Name</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.lastname}
+														onChange={this.handleLastnameInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showLastnameError && (
+														<div className="error"> {LastnameError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Date of Birth</td>
+												<td>
+													<input
+														type="date"
+														value={this.state.dateOfBirth}
+														onChange={this.handleDOBInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showStartDateError && (
+														<div className="error"> {StartDateError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Street Address</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.address}
+														onChange={this.handleAddressInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showAddressError && (
+														<div className="error"> {AddressError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Postal Code</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.postalCode}
+														onChange={this.handlePostalCodeInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showCityError && (
+														<div className="error"> {CityError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">City</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.city}
+														onChange={this.handleCityInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showCityError && (
+														<div className="error"> {CityError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Province</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.province}
+														onChange={this.handleProvinceInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showCityError && (
+														<div className="error"> {CityError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Country</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.country}
+														onChange={this.handleCountryInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div className="col-md-6">
+								<div className="table-responsive">
+									<table class="table borderless newEmpTable">
+										<tbody>
+											<tr className="form-group">
+												<td className="text-end">Employee Role</td>
+												<td>
+													<select
+														value={this.state.roleText}
+														onChange={this.handleRoleInput}
+														className="form-select">
+														<option value="Select">Select</option>
+														<option value="Admin">Admin</option>
+														<option value="Bookkeeper">Bookkeeper</option>
+														<option value="HR">HR</option>
+														<option value="Employee">Employee</option>
+													</select>
+												</td>
+												<td className="errorText">
+													{showRoleError && (
+														<div className="error"> {RoleError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Employee Type</td>
+												<td>
+													<select
+														value={this.state.employeeType}
+														onChange={this.handleEmployeeType}
+														className="form-select">
+														<option value="1">Hourly</option>
+														<option value="2">Salary</option>
+														<option value="3">Italian</option>
+													</select>
+												</td>
+												<td className="errorText">
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Email</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.email}
+														onChange={this.handleEmailInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showEmailError && (
+														<div className="error"> {EmailError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Phone Number</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.phoneNumber}
+														onChange={this.handlePhoneNumberInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showEmailError && (
+														<div className="error"> {EmailError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Start Date</td>
+												<td>
+													<input
+														type="date"
+														value={this.state.startdate}
+														onChange={this.handleStartdateInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showStartDateError && (
+														<div className="error"> {StartDateError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">End Date</td>
+												<td>
+													<input
+														type="date"
+														value={this.state.enddate}
+														onChange={this.handleEnddateInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Hourly Wage</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.hourlywage}
+														onChange={this.handleHourlywageInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Monthly Salary</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.monthlysalary}
+														onChange={this.handleMonthlySalaryInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Bank Institution ID</td>
+												<td>
+													<input
+														type="number"
+														value={this.state.institutionid}
+														onChange={this.handleInstitutionIdInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showInstituiteIDError && (
+														<div className="error"> {InstituiteIDError} </div>
+													)}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Bank Account Number</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.bankaccountnum}
+														onChange={this.handleBankAccountNumInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showBANError && <div className="error"> {BANError} </div>}
+												</td>
+											</tr>
+											<tr className="form-group">
+												<td className="text-end">Bank Transit Number</td>
+												<td>
+													<input
+														type="text"
+														value={this.state.transitid}
+														onChange={this.handleTransitIdInput}
+														className="form-control"
+													/>
+												</td>
+												<td className="errorText">
+													{showTransIDError && (
+														<div className="error"> {TransIDError} </div>
+													)}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+						{/* <div className="col d-flex justify-content-center">
 								<div className="form-group">
 									<h5>Username</h5>
 									<input
@@ -385,7 +742,6 @@ class NewEmployee extends Component {
 									</div>
 								</div>
 							</div>
-						</div>
 						<div className="row pb-3">
 							<div className="col d-flex justify-content-center">
 								<div className="form-group">
@@ -739,7 +1095,7 @@ class NewEmployee extends Component {
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> */}
 						{error && (
 							<div className="row">
 								<div className="col-2"></div>

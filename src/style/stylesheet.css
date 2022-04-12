@@ -247,3 +247,8 @@ body {
 .errorText {
 	color: #f84111;
 }
+
+.newEmpTable td {
+	width: 33%;
+	border-bottom: 0;
+}
