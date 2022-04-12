@@ -276,20 +276,20 @@ class ProccessPayroll extends Component {
 	};
 
 	handleFlagPayroll = async () => {
-		// let newPayroll = {
-		// 	payrollId: this.state.currentPayroll.payrollId,
-		// 	employeeId: this.state.currentPayroll.employeeId,
-		// 	dateOfPayroll: this.state.currentPayroll.dateOfPayroll,
-		// 	isProcessed: 0,
-		// 	isFlagged: 1,
-		// };
+		let newPayroll = {
+			payrollId: this.state.currentPayroll.payrollId,
+			employeeId: this.state.currentPayroll.employeeId,
+			dateOfPayroll: this.state.currentPayroll.dateOfPayroll,
+			isProcessed: 0,
+			isFlagged: 1,
+		};
 
-		// let payrollResponse = await payrollController.updatePayroll(
-		// 	newPayroll,
-		// 	this.state.currentPayroll.payrollId
-		// );
+		let payrollResponse = await payrollController.updatePayroll(
+			newPayroll,
+			this.state.currentPayroll.payrollId
+		);
 
-		// console.log(payrollResponse);
+		console.log(payrollResponse);
 
 		if (this.state.payrollIndex + 1 >= this.props.payrollsToProcess.length) {
 			this.props.loadPayrollsToProcess();
@@ -662,7 +662,7 @@ class ProccessPayroll extends Component {
 							className="btn SecondaryButton my-5"
 							onClick={this.handleFlagPayroll}
 						>
-							Skip Payroll
+							Flag Payroll
 						</button>
 						<button
 							className="btn PrimaryButton my-5"

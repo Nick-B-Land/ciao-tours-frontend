@@ -26,11 +26,13 @@ class App extends Component {
 							path="/"
 							element={<LoginWrapper currentUser={this.props.currentUser} />}
 						/>
+
 						<Route
 							exact
 							path="/admin"
 							element={<AdminHome currentUser={this.props.currentUser} />}
 						/>
+
 						<Route
 							exact
 							path="/employee"
@@ -88,7 +90,9 @@ class App extends Component {
 						<Route
 							exact
 							path="/employeePaystubs"
-							element={<EmployeePaystubs currentUser={this.props.currentUser} />}
+							element={
+								<EmployeePaystubs currentUser={this.props.currentUser} />
+							}
 						/>
 					</Routes>
 				</BrowserRouter>
