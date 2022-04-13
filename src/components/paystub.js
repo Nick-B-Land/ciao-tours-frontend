@@ -2,7 +2,6 @@ import React from "react";
 import "../style/stylesheet.css";
 
 const Paystub = ({
-	period,
 	paystubId,
 	firstName,
 	lastName,
@@ -32,13 +31,10 @@ const Paystub = ({
 	incomeTax,
 	incomeYear,
 	grossPay,
-	curDeductions,
 	netPay,
-	payMethod,
 	yearGross,
 	yearDeductions,
 	yearNet,
-	refNum,
 }) => {
 	const getMonthName = (month) => {
 		if (month === 0) return "January";
@@ -114,15 +110,15 @@ const Paystub = ({
 											? hourlyWage
 											: "-"}
 									</td>
-									<td>{monthlySalary ? 160 - timeOffHours : workDayHours}</td>
-									<td>{workDayCharges}</td>
-									<td>{regYearHours}</td>
-									<td>{regYearEarnings}</td>
+									<td>{monthlySalary ? 160 - timeOffHours : workDayHours }</td>
+									<td>{workDayCharges > 0 ? workDayCharges : "-" }</td>
+									<td>{regYearHours > 0 ? regYearHours : "-"}</td>
+									<td>{regYearEarnings > 0 ? regYearEarnings : "-"}</td>
 								</tr>
 								<tr>
 									<td>Time Off </td>
 									<td>-</td>
-									<td>{timeOffHours}</td>
+									<td>{timeOffHours > 0 ? timeOffHours : "-"}</td>
 									<td>-</td>
 									<td>-</td>
 									<td>-</td>
@@ -130,23 +126,23 @@ const Paystub = ({
 								<tr>
 									<td>Daily Assistance</td>
 									<td>{dailyAssistanceNumber > 0 ? "9" : "-"}</td>
-									<td>{dailyAssistanceNumber}</td>
-									<td>{dailyAssistanceCharges}</td>
+									<td>{dailyAssistanceNumber > 0 ? dailyAssistanceNumber : "-"}</td>
+									<td>{dailyAssistanceCharges > 0 ? dailyAssistanceCharges : "-"}</td>
 									<td>-</td>
-									<td>{dailyAssistanceCharges}</td>
+									<td>{dailyAssistanceCharges > 0 ? dailyAssistanceCharges : "-"}</td>
 								</tr>
 								<tr>
 									<td>Tour Booking</td>
 									<td>{tourBookingHours > 0 ? hourlyWage : "-"}</td>
-									<td>{tourBookingHours}</td>
-									<td>{tourBookingCharges}</td>
+									<td>{tourBookingHours > 0 ? tourBookingHours : "-"}</td>
+									<td>{tourBookingCharges > 0 ? tourBookingCharges : "-"}</td>
 									<td>-</td>
-									<td>{tourBookingCharges}</td>
+									<td>{tourBookingCharges > 0 ? tourBookingCharges : "-"}</td>
 								</tr>
 								<tr>
 									<td>Statutory</td>
 									<td>{statHours > 0 ? hourlyWage * 1.5 : "-"}</td>
-									<td>{statHours}</td>
+									<td>{statHours > 0 ? statHours : "-"}</td>
 									<td>-</td>
 									<td>-</td>
 									<td>-</td>
@@ -155,9 +151,9 @@ const Paystub = ({
 									<td>Expense</td>
 									<td>-</td>
 									<td>-</td>
-									<td>{expenseAmount}</td>
+									<td>{expenseAmount > 0 ? expenseAmount : "-"}</td>
 									<td>-</td>
-									<td>{expenseYear}</td>
+									<td>{expenseYear > 0 ? expenseYear : "-"}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -168,7 +164,7 @@ const Paystub = ({
 						<table className="table mb-0 table-borderless dBody">
 							<thead>
 								<tr className="table-active dHeader">
-									<th colSpan="3">Deductions</th>
+									<th colSpan="3">DEDUCTIONS</th>
 								</tr>
 							</thead>
 							<tbody className="table-light">
@@ -179,18 +175,18 @@ const Paystub = ({
 								</tr>
 								<tr>
 									<td>CPP</td>
-									<td>{cppDeductions}</td>
-									<td>{cppYear}</td>
+									<td>{cppDeductions > 0 ? cppDeductions : "-"}</td>
+									<td>{cppYear > 0 ? cppYear : "-"}</td>
 								</tr>
 								<tr>
 									<td>EI</td>
-									<td>{eiDeductions}</td>
-									<td>{eiYear}</td>
+									<td>{eiDeductions > 0 ? eiDeductions : "-"}</td>
+									<td>{eiYear > 0 ? eiYear : "-"}</td>
 								</tr>
 								<tr>
 									<td>Income Tax</td>
-									<td>{incomeTax}</td>
-									<td>{incomeYear}</td>
+									<td>{incomeTax > 0 ? incomeTax : "-"}</td>
+									<td>{incomeYear > 0 ? incomeYear : "-"}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -214,14 +210,14 @@ const Paystub = ({
 									<td>{grossPay}</td>
 									<td>{eiDeductions + cppDeductions + incomeTax}</td>
 									<td>{netPay}</td>
-									<td>{payMethod}</td>
+									<td>Direct Deposit</td>
 								</tr>
 								<tr>
 									<th>YEAR-TO-DATE</th>
 									<td>{yearGross}</td>
 									<td>{yearDeductions}</td>
 									<td>{yearNet}</td>
-									<td>REFERENCE #: {refNum}</td>
+									<td>REFERENCE #: {employeeId}{paystubId}</td>
 								</tr>
 							</tbody>
 						</table>
