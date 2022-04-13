@@ -1,6 +1,5 @@
 import React, { Component, useEffect } from "react";
 import "../style/stylesheet.css";
-import TopNav from "../components/navs/topNav";
 import BottomEmpNav from "../components/navs/bottomEmpNav";
 import Paystub from "../components/paystub";
 import { paystubData } from "../components/data";
