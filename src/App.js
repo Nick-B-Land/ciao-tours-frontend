@@ -14,11 +14,7 @@ import EmployeePayroll from "./pages/employeePayroll";
 import EmployeePaystubs from "./pages/employeePaystub";
 import BookkeeperPayroll from "./pages/bookkeeperPayroll";
 import EmployeeInfo from "./pages/employeeInfo";
-<<<<<<< Updated upstream
-import EmployeeInfoAdmin from "./pages/employeeInfoAdmin";
-=======
 import AdminResetPassword from "./pages/adminResetPassword";
->>>>>>> Stashed changes
 
 class App extends Component {
 	render() {
@@ -73,14 +69,6 @@ class App extends Component {
 							exact
 							path="/employeeInfo"
 							element={<EmployeeInfo currentUser={this.props.currentUser} />}
-<<<<<<< Updated upstream
-						/>
-						<Route
-							exact
-							path="/employeeInfoAdmin"
-							element={<EmployeeInfoAdmin currentUser={this.props.currentUser} />}
-=======
->>>>>>> Stashed changes
 						/>
 						<Route
 							exact

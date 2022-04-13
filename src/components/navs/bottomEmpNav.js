@@ -22,13 +22,9 @@ class BottomEmpNav extends Component {
 						</Link>
 					</li>
 					<li className="nav-item">
-<<<<<<< Updated upstream
-						<Link to="/employeeInfo" className="nav-link basicNavBarItem">My Information</Link>
-=======
 						<Link to="/employeeInfo" className="nav-link basicNavBarItem">
 							My Information
 						</Link>
->>>>>>> Stashed changes
 					</li>
 				</ul>
 			</div>
