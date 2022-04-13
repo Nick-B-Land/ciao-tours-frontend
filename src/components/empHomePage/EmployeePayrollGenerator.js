@@ -25,7 +25,7 @@ const EmployeePayrollGenerator = ({
   expenseDate,
 }) => {
   return (
-    <div id="pegWrapper" className="container row  text-responsive">
+    <div id="pegWrapper" className="row  text-responsive">
       <div id="pwLeft" className="col w-25 ">
         <table className="table">
           <tbody>

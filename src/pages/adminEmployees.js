@@ -54,30 +54,16 @@ class AdminEmployees extends Component {
 						</div>
 						<div className="row">
 							<div className="col p-0">
-								<div>
-									<ul className="accordion">
-										{this.state.employeesLoaded
-											? this.state.employeeList.map((e) => (
-													<EmployeeCard
-														key={e.employeeId}
-														empId={e.employeeId}
-														fName={e.firstName}
-														lName={e.lastName}
-														email={e.emailAddress}
-														city={e.city}
-														address={e.address}
-														startDate={e.employeeStartDate}
-														endDate={e.employeeEndDate}
-														hourlyRate={e.hourlyWage}
-														monthlySal={e.monthlySalary}
-														bankAccount={e.bankAccountNumber}
-														institutionId={e.institutionId}
-														transitId={e.transitId}
-													/>
-											  ))
-											: "Loading"}
-									</ul>
-								</div>
+								<ul className="accordion">
+									{this.state.employeesLoaded
+										? this.state.employeeList.map((props) => (
+												<EmployeeCard
+												key={props.employeeId}
+													{...props}
+												/>
+										))
+										: "Loading"}
+								</ul>
 							</div>
 						</div>
 					</div>

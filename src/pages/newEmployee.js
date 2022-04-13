@@ -30,7 +30,7 @@ class NewEmployee extends Component {
 			bankaccountnum: "",
 			transitid: "",
 			username: "",
-			password: "",
+			password: "password",
 			roleText: "",
 			employeeType: 1,
 			showUsernameError: true,

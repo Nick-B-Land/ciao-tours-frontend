@@ -19,7 +19,7 @@ class BottomAdminNav extends Component {
 						<Link to="/adminPayroll" className="basicNavBarItem">Run Payroll</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/admin" className="basicNavBarItem">My Information</Link>
+						<Link to="/employeeInfoAdmin" className="basicNavBarItem">My Information</Link>
 					</li>
 				</ul>
 			</div>

@@ -2,40 +2,51 @@ import React, { useState } from "react";
 import employeeController from "../../controllers/employeeController";
 import "../../style/stylesheet.css";
 
+
 const EmployeeCard = ({
-	empId,
-	fName,
-	lName,
-	email,
+	props,
+	employeeId,
+	firstName,
+	lastName,
+	emailAddress,
 	city,
 	address,
-	startDate,
-	endDate,
-	hourlyRate,
-	monthlySal,
-	bankAccount,
+	employeeStartDate,
+	employeeEndDate,
+	hourlyWage,
+	monthlySalary,
+	bankAccountNumber,
 	institutionId,
 	transitId,
-	file
+	jobTitle, 
+	dateOfBirth,
+	postalCode,
+	country,
+	province,
+	phoneNumber
+
 }) => {
 	const [isActive, setIsActive] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
-	const [stateEmpId, setStateEmpId] = useState(empId);
-	const [statefName, setStatefName] = useState(fName);
-	const [statelName, setStatelName] = useState(lName);
-	const [stateEmail, setStateEmail] = useState(email);
+	const [stateEmpId, setStateEmpId] = useState(employeeId);
+	const [statefName, setStatefName] = useState(firstName);
+	const [statelName, setStatelName] = useState(lastName);
+	const [stateEmail, setStateEmail] = useState(emailAddress);
 	const [stateCity, setStateCity] = useState(city);
 	const [stateAddress, setStateAddress] = useState(address);
-	const [stateStartDate, setStateStartDate] = useState(startDate);
-	const [stateEndDate, setStateEndDate] = useState(endDate);
-	const [stateHourlyRate, setStateHourlyRate] = useState(hourlyRate);
-	const [stateMonthlySal, setStateMonthlySal] = useState(monthlySal);
-	const [stateBankAccount, setStateBankAccount] = useState(bankAccount);
+	const [stateStartDate, setStateStartDate] = useState(employeeStartDate);
+	const [stateEndDate, setStateEndDate] = useState(employeeEndDate);
+	const [stateHourlyRate, setStateHourlyRate] = useState(hourlyWage);
+	const [stateMonthlySal, setStateMonthlySal] = useState(monthlySalary);
+	const [stateBankAccount, setStateBankAccount] = useState(bankAccountNumber);
 	const [stateInstitutionId, setStateInstitutionId] = useState(institutionId);
 	const [stateTransitId, setStateTransitId] = useState(transitId);
-	const [selectedFile, setSelectedFile] = useState(file);
-	const [isFilePicked, setIsFilePicked] = useState(false);
-	const hiddenFileBtn = React.useRef(null);
+	const [stateJobTitle, setStateJobTitle] = useState(jobTitle);
+	const [stateBirthday, setStateBirthday] = useState(dateOfBirth);
+	const [statePostal, setStatePostal] = useState(postalCode);
+	const [stateCountry, setStateCountry] = useState(country);
+	const [stateProvince, setStateProvince] = useState(province);
+	const [statePhone, setStatePhone] = useState(phoneNumber);
 	const buildEmployeeObj = () => {
 		let employeeObj = {
 			employeeId: stateEmpId,
@@ -54,7 +65,6 @@ const EmployeeCard = ({
 			isBookkeeper: 0,
 			monthlySalary: stateMonthlySal,
 			transitId: stateTransitId,
-			file: selectedFile
 		};
 
 		return employeeObj;
@@ -62,16 +72,6 @@ const EmployeeCard = ({
 
 	const deleteMode = async () => {
 		setIsEdit(false);
-	};
-
-	const uploadFile = (event) => {
-		hiddenFileBtn.current.click();
-
-	};
-	const saveFile = async (event) => {
-		setSelectedFile(event.target.files[0]);
-		setIsFilePicked(true);
-	
 	};
 
 	const editMode = async () => {
@@ -110,14 +110,14 @@ const EmployeeCard = ({
 		} else {
 			let response = await employeeController.updateEmployee(
 				buildEmployeeObj(),
-				empId
+				stateEmpId
 			);
 			console.log(response);
 		}
 	};
 
 	const handleDelete = async () => {
-		let response = await employeeController.deleteEmployee(empId);
+		let response = await employeeController.deleteEmployee(stateEmpId);
 
 		document.location.reload();
 		console.log(response);
@@ -130,7 +130,7 @@ const EmployeeCard = ({
 					className="accordion-toggle"
 					onClick={() => setIsActive(!isActive)}
 				>
-					<h3>{fName + " " + lName}</h3>
+					<h3>{statefName + " " + statelName}</h3>
 					<span>{isActive ? "-" : "+"}</span>
 				</div>
 				{isActive && (
@@ -167,7 +167,19 @@ const EmployeeCard = ({
 								/>
 							</div>
 						</div>
-
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Job Title:
+							</div>
+							<div className="col">
+								<input
+									type="text"
+									id="employeeCardEmail"
+									defaultValue={stateJobTitle}
+									onChange={(e) => setStateJobTitle(e.target.value)}
+								/>
+							</div>
+						</div>
 						<div className="row ecLi">
 							<div className="col-5 d-flex flex-row-reverse">
 								Employee Email Address:
@@ -181,7 +193,45 @@ const EmployeeCard = ({
 								/>
 							</div>
 						</div>
-
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Phone Number:
+							</div>
+							<div className="col">
+								<input
+									type="text"
+									id="employeeCardPhone"
+									defaultValue={statePhone}
+									onChange={(e) => setStatePhone(e.target.value)}
+								/>
+							</div>
+						</div>
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Date Of Birth:
+							</div>
+							<div className="col">
+								<input
+									type="text"
+									id="employeeCardBday"
+									defaultValue={stateBirthday}
+									onChange={(e) => setStateBirthday(e.target.value)}
+								/>
+							</div>
+						</div>
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Address:{" "}
+							</div>
+							<div className="col">
+								<input
+									type="text"
+									defaultValue={stateAddress}
+									onChange={(e) => setStateAddress(e.target.value)}
+									id="employeeCardAddress"
+								/>
+							</div>
+						</div>
 						<div className="row ecLi">
 							<div className="col-5 d-flex flex-row-reverse">
 								Employee City:
@@ -195,17 +245,42 @@ const EmployeeCard = ({
 								/>
 							</div>
 						</div>
-
 						<div className="row ecLi">
 							<div className="col-5 d-flex flex-row-reverse">
-								Employee Address:{" "}
+								Employee Province:
 							</div>
 							<div className="col">
 								<input
 									type="text"
-									defaultValue={stateAddress}
-									onChange={(e) => setStateAddress(e.target.value)}
-									id="employeeCardAddress"
+									defaultValue={stateProvince}
+									onChange={(e) => setStateProvince(e.target.value)}
+									id="employeeCardProv"
+								/>
+							</div>
+						</div>
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Country:
+							</div>
+							<div className="col">
+								<input
+									type="text"
+									defaultValue={stateCountry}
+									onChange={(e) => setStateCountry(e.target.value)}
+									id="employeeCardCountry"
+								/>
+							</div>
+						</div>
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Postal Code:{" "}
+							</div>
+							<div className="col">
+								<input
+									type="text"
+									defaultValue={statePostal}
+									onChange={(e) => setStatePostal(e.target.value)}
+									id="employeeCardPostal"
 								/>
 							</div>
 						</div>
@@ -300,19 +375,8 @@ const EmployeeCard = ({
 							</div>
 						</div>
 
-						<div className="row">
+						<div className="row justify-content-between">
 							<div className="col-5 d-flex flex-row-reverse">
-								<div style={{width:"100%"}}>
-								<button
-									type="button"
-									className="btn btn-warning m-2"
-									onClick={uploadFile}
-									style={{width: "40%"}}
-									id="employeeCardUploadButton">
-										<input type="file" ref={hiddenFileBtn} name="Upload File" onChange={saveFile} style={{display:"none"}}/> Upload File
-									</button>
-									{isFilePicked?(<div> {selectedFile.name}</div>):""}
-								</div>
 								<button
 									type="button"
 									className="btn btn-success m-2 "
@@ -328,30 +392,7 @@ const EmployeeCard = ({
 									onClick={deleteMode}
 									id="employeeCardallowRemoveButton"
 								>
-									go Back
-								</button>
-							</div>
-							<div className="col-5 d-flex flex-row-reverse">
-								<button
-									type="button"
-									className="btn btn-warning m-2"
-									onClick={editMode}
-									style={{ display: this ? null : "none" }}
-									id="employeeCardEditButton"
-								>
-									Edit Information
-								</button>
-							</div>
-							
-							<div className="col">
-								<button
-									type="button"
-									className="btn btn-danger m-2"
-									onClick={handleDelete}
-									style={{ display: this ? null : "none" }}
-									id="employeeCardRemoveButton"
-								>
-									Remove Employee
+									Go Back
 								</button>
 							</div>
 						</div>
@@ -366,7 +407,7 @@ const EmployeeCard = ({
 					className="accordion-toggle"
 					onClick={() => setIsActive(!isActive)}
 				>
-					<h3>{fName + " " + lName}</h3>
+					<h3>{statefName + " " + statelName}</h3>
 					<span>{isActive ? "-" : "+"}</span>
 				</div>
 				{isActive && (
@@ -393,6 +434,14 @@ const EmployeeCard = ({
 								<p>{statelName}</p>
 							</div>
 						</div>
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Job Title:
+							</div>
+							<div className="col">
+								<p>{stateJobTitle}</p>
+							</div>
+						</div>
 
 						<div className="row ecLi">
 							<div className="col-5 d-flex flex-row-reverse">
@@ -402,7 +451,30 @@ const EmployeeCard = ({
 								<p>{stateEmail}</p>
 							</div>
 						</div>
-
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Phone Number:
+							</div>
+							<div className="col">
+								<p>{statePhone}</p>
+							</div>
+						</div>
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Date of Birth: 
+							</div>
+							<div className="col">
+								<p>{stateBirthday}</p>
+							</div>
+						</div>
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Address:{" "}
+							</div>
+							<div className="col">
+								<p>{stateAddress}</p>
+							</div>
+						</div>
 						<div className="row ecLi">
 							<div className="col-5 d-flex flex-row-reverse">
 								Employee City:
@@ -411,13 +483,28 @@ const EmployeeCard = ({
 								<p>{stateCity}</p>
 							</div>
 						</div>
-
 						<div className="row ecLi">
 							<div className="col-5 d-flex flex-row-reverse">
-								Employee Address:{" "}
+								Employee Provice:
 							</div>
 							<div className="col">
-								<p>{stateAddress}</p>
+								<p>{stateProvince}</p>
+							</div>
+						</div>
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Country:
+							</div>
+							<div className="col">
+								<p>{stateCountry}</p>
+							</div>
+						</div>
+						<div className="row ecLi">
+							<div className="col-5 d-flex flex-row-reverse">
+								Employee Postal Code:
+							</div>
+							<div className="col">
+								<p>{statePostal}</p>
 							</div>
 						</div>
 						<div className="row ecLi">

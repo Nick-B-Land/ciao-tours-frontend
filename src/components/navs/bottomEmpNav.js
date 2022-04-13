@@ -22,7 +22,7 @@ class BottomEmpNav extends Component {
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/employee" className="nav-link basicNavBarItem">My Information</Link>
+						<Link to="/employeeInfo" className="nav-link basicNavBarItem">My Information</Link>
 					</li>
 				</ul>
 			</div>
