@@ -649,15 +649,10 @@ class ProccessPayroll extends Component {
 						<h3>
 							Current Payroll:
 							{" " + this.state.currentEmployee.firstName
-
 								? this.state.currentEmployee.firstName
-
 								: ""}
-
 							{this.state.currentEmployee.lastName
-
 								? this.state.currentEmployee.lastName
-
 								: ""}
 						</h3>
 					</div>

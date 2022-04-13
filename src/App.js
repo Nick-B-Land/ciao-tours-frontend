@@ -13,6 +13,8 @@ import NewEmployeeWrapper from "./functionalComponents/newEmployeeWrapper";
 import EmployeePayroll from "./pages/employeePayroll";
 import EmployeePaystubs from "./pages/employeePaystub";
 import BookkeeperPayroll from "./pages/bookkeeperPayroll";
+import EmployeeInfo from "./pages/employeeInfo";
+import AdminResetPassword from "./pages/adminResetPassword";
 
 class App extends Component {
 	render() {
@@ -26,13 +28,11 @@ class App extends Component {
 							path="/"
 							element={<LoginWrapper currentUser={this.props.currentUser} />}
 						/>
-
 						<Route
 							exact
 							path="/admin"
 							element={<AdminHome currentUser={this.props.currentUser} />}
 						/>
-
 						<Route
 							exact
 							path="/employee"
@@ -62,18 +62,13 @@ class App extends Component {
 						/>
 						<Route
 							exact
-							path="/myinfo"
-							element={<Myinfo currentUser={this.props.currentUser} />}
-						/>
-						<Route
-							exact
 							path="/editEmployeeInfo"
 							element={<EditMyinfo currentUser={this.props.currentUser} />}
 						/>
 						<Route
 							exact
 							path="/employeeInfo"
-							element={<Information currentUser={this.props.currentUser} />}
+							element={<EmployeeInfo currentUser={this.props.currentUser} />}
 						/>
 						<Route
 							exact
@@ -86,6 +81,13 @@ class App extends Component {
 							exact
 							path="/employeePayroll"
 							element={<EmployeePayroll currentUser={this.props.currentUser} />}
+						/>
+						<Route
+							exact
+							path="/resetPassword"
+							element={
+								<AdminResetPassword currentUser={this.props.currentUser} />
+							}
 						/>
 						<Route
 							exact
