@@ -6,17 +6,21 @@ const UPDATE_EMPLOYEE_API_URL = "http://localhost:8080/api/v1/update-employee/";
 const DELETE_EMPLOYEE_API_URL = "http://localhost:8080/api/v1/delete-employee/";
 const GET_EMPLOYEE_BY_ID_API_URL = "http://localhost:8080/api/v1/employees/";
 
+/**
+ * Controller for accessing database regarding employees
+ * includes
+ * 	creating, updating, deleting employees
+ * 	getting employee inforamtion
+ */
 class EmployeeController {
 	getEmployees() {
 		return axios.get(GET_ALL_EMPLOYEES_API_URL, {
-			//headers: { "Access-Control-Allow-Credentials": "true" },
 			withCredentials: true,
 		});
 	}
 
 	createEmployee(newEmployee) {
 		return axios.post(CREATE_NEW_EMPLOYEE_API_URL, newEmployee, {
-			//headers: { "Access-Control-Allow-Credentials": "true" },
 			withCredentials: true,
 		});
 	}

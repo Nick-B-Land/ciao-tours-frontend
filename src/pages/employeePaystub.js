@@ -43,14 +43,25 @@ class EmployeePaystubs extends Component {
 		}
 	};
 
+	/**
+	 * handles state for month
+	 * @param {*} e 
+	 */
 	handleMonthChange = (e) => {
 		this.setState({ selectedMonth: e.target.value });
 	};
 
+	/**
+	 * handles state for year
+	 * @param {*} e 
+	 */
 	handleYearChange = (e) => {
 		this.setState({ selectedYear: e.target.value });
 	};
 
+	/**
+	 * loads paystubs for a given employee
+	 */
 	loadEmployeePaystubs = async () => {
 		let response = await paystubController.getPaystubByEID(
 			this.props.currentUser.eID
@@ -76,6 +87,10 @@ class EmployeePaystubs extends Component {
 		}
 	};
 
+	/**
+	 * renders the selected paystub for the chosen month/year
+	 * @returns 
+	 */
 	renderSelectedPaystub = () => {
 		if (this.state.selectedPaystub.paystubId) {
 			return <Paystub {...this.state.selectedPaystub} />;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CalendarEvent from "./calendarEvent";
 import "../../style/employeeCalendarCSS.css";
-/*
+/**
 Local Functions
 	handleDayClick - updates the selected day and events for that day, runs when a day is clicked on
 	  in the calendar
@@ -51,7 +51,9 @@ class PayrollCalenderDay extends Component {
 		}
 	}
 
-	// updates the day that was clicked and the days events
+	/**
+	 * updates the day that was clicked and the days events
+	 */
 	handleDayClick = () => {
 		this.props.handleSelectedEvents(this.state.events);
 
@@ -59,7 +61,9 @@ class PayrollCalenderDay extends Component {
 		this.props.handleSelectedDay(day);
 	};
 
-	//filters all payroll events to only events that match the components date
+	/**
+	 * filters all payroll events to only events that match the components date
+	 */
 	filterPayrollData = () => {
 		let payrollEvents = [];
 
@@ -76,7 +80,10 @@ class PayrollCalenderDay extends Component {
 		this.setState({ events: payrollEvents });
 	};
 
-	// maps out the events for the calendar day and loads them into the calendar as components
+	/**
+	 * maps out the events for the calendar day and loads them into the calendar as components
+	 * @returns div of days events lines
+	 */
 	renderPayrollEvents = () => {
 		let type;
 		let bg;

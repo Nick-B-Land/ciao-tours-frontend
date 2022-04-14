@@ -34,6 +34,9 @@ class TourBookingForm extends Component {
 		};
 	}
 
+	/**
+	 * changes the selected day on the calendar and converts the date object into string format for input tag to read
+	 */
 	createFormattedDate = () => {
 		console.log("Date before formatting", this.state.date);
 		this.props.handleSelectedDay(this.state.date);
@@ -42,6 +45,9 @@ class TourBookingForm extends Component {
 		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
 	}
 
+	/**
+	 * converts the date object into string format for input tag to read
+	 */
 	formatDateFromSelectedDay = () => {
 		console.log("Date before formatting", this.state.date);
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
@@ -60,22 +66,41 @@ class TourBookingForm extends Component {
 		}
 	}
 
+	/**
+	 * handles the state of selected date 
+	 * @param {*} e 
+	 */
 	handleDate = (e) => {
 		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 
+	/**
+	 * handles state for client
+	 * @param {*} e 
+	 */
 	handleClientNameInput = (e) => {
 		this.setState({ clientName: e.target.value });
 	};
 
+	/**
+	 * handles state of booking description
+	 * @param {*} e 
+	 */
 	handleBookingDescInput = (e) => {
 		this.setState({ bookingDesc: e.target.value });
 	};
 
+	/**
+	 * handles state of hours entered
+	 * @param {} e 
+	 */
 	handleNumHoursInput = (e) => {
 		this.setState({ numHours: e.target.value });
 	};
 
+	/**
+	 * handles the form submit
+	 */
 	handleTourBookingSubmit = () => {
 		this.props.addTourBooking(
 			this.state.bookingDesc,
@@ -86,6 +111,9 @@ class TourBookingForm extends Component {
 		this.props.handleSelectedForm(0);
 	};
 
+	/**
+	 * handles the cancel of form by clearing form from screen
+	 */
 	handleCancel = () => {
 		this.props.handleSelectedForm(0);
 	}

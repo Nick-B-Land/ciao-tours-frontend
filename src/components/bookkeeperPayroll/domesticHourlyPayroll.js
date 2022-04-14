@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 
+/**
+ * DomesticHourlyPayroll
+ * Purpose: holds all of the functions for filing a domestic hourly payroll
+ */
 class DomesticHourlyPayroll extends Component {
 	constructor(props) {
 		super(props);
@@ -21,16 +25,6 @@ class DomesticHourlyPayroll extends Component {
 	};
 
 	componentDidUpdate = (prevProps, prevState) => {
-		// console.log("Hourly Payroll Props - CDU");
-		// console.log(
-		// 	"currentEmployee wage: " + this.props.currentEmployee.hourlyWage
-		// );
-		// console.log("workDayHours prop: " + this.props.workDayHours);
-		// console.log("expenseCharges prop: " + this.props.expenseCharges);
-		// console.log("workDayHours state: " + this.state.workDayHours);
-		// console.log("expenseCharges state: " + this.state.expenseCharges);
-		// console.log("wagePaid state: " + this.state.wagePaid);
-
 		if (prevProps.workDayHours !== this.props.workDayHours) {
 			this.setState({ workDayHours: this.props.workDayHours }, () => {
 				this.setWagePaid();
@@ -48,6 +42,9 @@ class DomesticHourlyPayroll extends Component {
 		}
 	};
 
+	/**
+	 * controlling the state for the wages paid by company
+	 */
 	setWagePaid = () => {
 		let wage = this.props.workDayHours * this.props.currentEmployee.hourlyWage;
 		this.props.setWagePaid(wage);
@@ -67,8 +64,10 @@ class DomesticHourlyPayroll extends Component {
 		);
 	};
 
+	/**
+	 * sets the gross pay for the payroll object
+	 */
 	setGrossPay = () => {
-		console.log("Set gross pay called");
 		let wagePaid =
 			this.state.workDayHours * this.props.currentEmployee.hourlyWage;
 		let gross = wagePaid;
@@ -88,6 +87,9 @@ class DomesticHourlyPayroll extends Component {
 		this.setState({ grossPay: gross }, this.setNetPay);
 	};
 
+	/**
+	 * sets the net pay for the payroll object
+	 */
 	setNetPay = () => {
 		let deductions =
 			Number(this.state.cppDeducted) +
@@ -100,31 +102,55 @@ class DomesticHourlyPayroll extends Component {
 		this.setState({ netPay: net });
 	};
 
+	/**
+	 * controls state for work day hours
+	 * @param {*} e 
+	 */
 	handleWorkDayHours = (e) => {
 		this.props.setWorkDayHours(e.target.value);
 		this.setState({ workDayHours: e.target.value }, this.setGrossPay);
 	};
 
+	/**
+	 * control state expense for payroll
+	 * @param {*} e 
+	 */
 	handleExpenseCharges = (e) => {
 		this.props.setExpenseCharges(e.target.value);
 		this.setState({ expenseCharges: e.target.value }, this.setGrossPay);
 	};
 
+	/**
+	 * control state for stat hours worked
+	 * @param {*} e 
+	 */
 	handleStatHoursWorked = (e) => {
 		this.props.setStatHours(e.target.value);
 		this.setState({ statHoursWorked: e.target.value }, this.setGrossPay);
 	};
 
+	/**
+	 * controls state for income tax deductions
+	 * @param {} e 
+	 */
 	handleIncomeTaxDeducted = (e) => {
 		this.props.setIncomeTax(e.target.value);
 		this.setState({ incomeTaxDeducted: e.target.value }, this.setNetPay);
 	};
 
+	/**
+	 * controls state for cpp deductions
+	 * @param {*} e 
+	 */
 	handleCppDeducted = (e) => {
 		this.props.setCPPDeductions(e.target.value);
 		this.setState({ cppDeducted: e.target.value }, this.setNetPay);
 	};
 
+	/**
+	 * controls state for ei deductions
+	 * @param {*} e 
+	 */
 	handleEiDeducted = (e) => {
 		this.props.setEIDeductions(e.target.value);
 		this.setState({ eiDeducted: e.target.value }, this.setNetPay);

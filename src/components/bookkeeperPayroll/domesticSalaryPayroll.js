@@ -20,13 +20,6 @@ class DomesticSalaryPayroll extends Component {
 	};
 
 	componentDidUpdate = (prevProps, prevState) => {
-		// console.log("Salary Payroll Props - CDU");
-		// console.log(
-		// 	"currentEmployee Salary: " + this.props.currentEmployee.monthlySalary
-		// );
-		// console.log("timeOffHours: " + this.props.timeOffHours);
-		// console.log("expenseCharges: " + this.props.expenseCharges);
-
 		if (prevProps.timeOffHours !== this.props.timeOffHours) {
 			this.setState({ timeOffHours: this.props.timeOffHours });
 			this.setState({ expenseCharges: this.props.expenseCharges }, () =>
@@ -40,6 +33,9 @@ class DomesticSalaryPayroll extends Component {
 		}
 	};
 
+	/**
+	 * sets the gross pay for the payroll object
+	 */
 	setGrossPay = () => {
 		let gross = this.props.currentEmployee.monthlySalary;
 
@@ -61,6 +57,9 @@ class DomesticSalaryPayroll extends Component {
 		);
 	};
 
+	/**
+	 * sets the net pay for the payroll object
+	 */
 	setNetPay = () => {
 		let deductions =
 			Number(this.state.cppDeducted) +
@@ -73,26 +72,46 @@ class DomesticSalaryPayroll extends Component {
 		this.setState({ netPay: net });
 	};
 
+	/**
+	 * control state for stat hours worked
+	 * @param {*} e 
+	 */
 	handleStatHoursWorked = (e) => {
 		this.props.setStatHours(e.target.value);
 		this.setState({ statHoursWorked: e.target.value }, this.setGrossPay);
 	};
 
+	/**
+	 * controls state for expenses
+	 * @param {*} e 
+	 */
 	handleExpenseCharges = (e) => {
 		this.props.setExpenseCharges(e.target.value);
 		this.setState({ expenseCharges: e.target.value }, this.setGrossPay);
 	};
 
+	/**
+	 * controls state for income taxes
+	 * @param {*} e 
+	 */
 	handleIncomeTaxDeducted = (e) => {
 		this.props.setIncomeTax(e.target.value);
 		this.setState({ incomeTaxDeducted: e.target.value }, this.setNetPay);
 	};
 
+	/**
+	 * controls state for cpp deductions
+	 * @param {*} e 
+	 */
 	handleCppDeducted = (e) => {
 		this.props.setCPPDeductions(e.target.value);
 		this.setState({ cppDeducted: e.target.value }, this.setNetPay);
 	};
 
+	/**
+	 * controls state for ei deductions
+	 * @param {*} e 
+	 */
 	handleEiDeducted = (e) => {
 		this.props.setEIDeductions(e.target.value);
 		this.setState({ eiDeducted: e.target.value }, this.setNetPay);

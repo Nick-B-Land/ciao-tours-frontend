@@ -6,6 +6,10 @@ class PayrollOverview extends Component {
 		this.state = {};
 	}
 
+	/**
+	 * gets the number of flagged payrolls
+	 * @returns num of flagged payrolls
+	 */
 	getFlaggedPayrollNum = () => {
 		let flaggedPayrolls = 0;
 
@@ -18,6 +22,9 @@ class PayrollOverview extends Component {
 		return flaggedPayrolls;
 	};
 
+	/**
+	 * controls start of payroll
+	 */
 	handleStartPayroll = () => {
 		if (this.props.payrollsToProcess.length > 0) {
 			this.props.handleSceneChange(1);

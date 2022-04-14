@@ -8,6 +8,13 @@ const GET_PAYROLL_BY_IS_PROCESSED_API_URL =
 	"http://localhost:8080/api/v1/payroll/is-processed/";
 const UPDATE_PAYROLL_API_URL = "http://localhost:8080/api/v1/update-payroll/";
 
+/**
+ * Controller for accessing database regarding payrolls
+ * includes
+ * 	creating new payrolls
+ * 	getting a payroll by id, eid, or processed
+ * 	updating payroll
+ */
 class PayrollController {
 	getPayroll() {
 		return axios.get(GET_ALL_PAYROLL_API_URL);

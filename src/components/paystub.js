@@ -51,6 +51,10 @@ const Paystub = ({
 		else if (month === 11) return "December";
 	};
 
+	/**
+	 * calculates the total deductions for paystub
+	 * @returns 
+	 */
 	const calculateDeductions = () => {
 		let deductions =
 			Number(eiDeductions) + Number(cppDeductions) + Number(incomeTax);

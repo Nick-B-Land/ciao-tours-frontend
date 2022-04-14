@@ -255,6 +255,9 @@ class NewEmployee extends Component {
 		this.setState({ employeeType: e.target.value });
 	};
 
+	/**
+	 * adds a new employee to the database with the inputted information
+	 */
 	handleNewEmployee = async () => {
 		if (
 			this.state.showUsernameError === true ||

@@ -8,6 +8,12 @@ const GET_PAYSTUB_BY_EID_API_URL =
 const GET_PAYSTUB_BY_DATE_OF_PAYSTUB_API_URL =
   "http://localhost:8080/api/v1/paystubs/date/";
 
+/**
+ * Controller for accessing database regarding paystubs
+ * includes:
+ *  creating a new paystub
+ *  getting paystub by id, eid, date
+ */
 class PaystubController {
   getPaystub() {
     return axios.get(GET_ALL_PAYSTUB_API_URL);

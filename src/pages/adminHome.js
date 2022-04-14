@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import "../style/stylesheet.css";
 import employeeController from "../controllers/employeeController";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
-import FlaggedDay from "../components/flaggedDay.js";
-import EmployeeHours from "../components/employeeHours";
 import { Link } from "react-router-dom";
-import { flaggedDayData, empHoursData } from "../components/data";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
 /**

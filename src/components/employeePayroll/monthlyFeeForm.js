@@ -27,20 +27,35 @@ class MonthlyFeeForm extends Component {
 		}
 	};
 
+	/**
+	 * removes an event from payroll
+	 * @param {*} payrollDataId 
+	 */
 	deletePayrollDataEvent = async (payrollDataId) => {
 		let response = await payrollDataController.deletePayrollDataEvent(
 			payrollDataId
 		);
 	};
 
+	/**
+	 * controls state for office usage value
+	 * @param {} e 
+	 */
 	handleOfficeUsage = (e) => {
 		this.setState({ officeUsage: e.target.value });
 	};
 
+	/**
+	 * controls state for phone usage value
+	 * @param {*} e 
+	 */
 	handlePhoneUsage = (e) => {
 		this.setState({ phoneUsage: e.target.value });
 	};
 
+	/**
+	 * handles the submit of the new values, saves to database
+	 */
 	handleUsageSubmit = () => {
 		if (this.state.monthlyFee.length > 0) {
 			this.deletePayrollDataEvent(this.state.monthlyFee[0].payrollDataId);
@@ -52,6 +67,9 @@ class MonthlyFeeForm extends Component {
 		this.props.handleSelectedForm(0);
 	};
 
+	/**
+	 * cancels form by clearing the screen
+	 */
 	handleCancel = () => {
 		this.props.handleSelectedForm(0);
 	};

@@ -30,6 +30,9 @@ class WorkDayForm extends Component {
 		};
 	}
 
+	/**
+	 * changes the selected day on the calendar and converts the date object into string format for input tag to read
+	 */
 	createFormattedDate = () => {
 		this.props.handleSelectedDay(this.state.date);
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
@@ -37,6 +40,9 @@ class WorkDayForm extends Component {
 		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
 	}
 
+	/**
+	 * converts the date object into string format for input tag to read
+	 */
 	formatDateFromSelectedDay = () => {
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
 			"-" + (this.state.date.getDate() < 10 ? "0" + this.state.date.getDate() : this.state.date.getDate());
@@ -54,18 +60,32 @@ class WorkDayForm extends Component {
 		}
 	}
 
+	/**
+	 * controls state for selected date
+	 * @param {} e 
+	 */
 	handleDate = (e) => {
 		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 
+	/**
+	 * controls state of number of hours inputted
+	 * @param {} e 
+	 */
 	handleNumHoursInput = (e) => {
 		this.setState({ numHours: e.target.value });
 	};
 
+	/**
+	 * handles the form submit
+	 */
 	handleWorkDaySubmit = () => {
 		this.props.addWorkDay(this.state.numHours, this.state.date);
 	};
 
+	/**
+	 * handles the cancel of form by clearing form from screen
+	 */
 	handleCancel = () => {
 		this.props.handleSelectedForm(0);
 	}

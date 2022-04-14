@@ -17,6 +17,9 @@ class EmployeeChangePassword extends Component {
 		};
 	}
 
+	/**
+	 * checks if two new passwords match
+	 */
 	handlePasswordMatch = () => {
 		if (
 			this.state.newPassword1 &&
@@ -29,6 +32,10 @@ class EmployeeChangePassword extends Component {
 		}
 	};
 
+	/**
+	 * handles the state for old password
+	 * @param {*} e 
+	 */
 	handleOldPassword = (e) => {
 		if (this.state.submitFailed) {
 			this.setState({ oldPassword: e.target.value, submitFailed: false });
@@ -37,14 +44,25 @@ class EmployeeChangePassword extends Component {
 		}
 	};
 
+	/**
+	 * handles state for new password
+	 * @param {*} e 
+	 */
 	handleNewPassword1 = (e) => {
 		this.setState({ newPassword1: e.target.value }, this.handlePasswordMatch);
 	};
 
+	/**
+	 * handles state for confirm password
+	 * @param {*} e 
+	 */
 	handleNewPassword2 = (e) => {
 		this.setState({ newPassword2: e.target.value }, this.handlePasswordMatch);
 	};
 
+	/**
+	 * handles resetting the password by calling the user controller and making an update
+	 */
 	handleResetPassword = async () => {
 		if (
 			this.props.currentUser.eID &&

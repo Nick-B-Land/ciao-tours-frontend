@@ -27,19 +27,7 @@ class ItalianPayroll extends Component {
 	};
 
 	componentDidUpdate = (prevProps, prevState) => {
-		// console.log("Italian Payroll Props - CDU");
-		// console.log(
-		// 	"currentEmployee fName: " + this.props.currentEmployee.firstName
-		// );
-		// console.log("dailyAssistanceFees props: " + this.props.dailyAssistanceFees);
-		// console.log("expenseCharges props: " + this.props.expenseCharges);
-		// console.log("tourBookingHours props: " + this.props.tourBookingHours);
-		// console.log("dailyAssistanceFees state: " + this.state.dailyAssistanceFees);
-		// console.log("expenseCharges state: " + this.state.expenseCharges);
-		// console.log("tourBookingHours state: " + this.state.tourBookingHours);
-
 		if (prevProps.dailyAssistanceFees !== this.props.dailyAssistanceFees) {
-			console.log("UPDATING DAF");
 			this.setState(
 				{ dailyAssistanceFees: this.props.dailyAssistanceFees },
 				() => this.setDailyAssistanceCharges()
@@ -52,7 +40,6 @@ class ItalianPayroll extends Component {
 				this.setTourCharges
 			);
 		} else if (prevProps.expenseCharges !== this.props.expenseCharges) {
-			console.log("UPDATING EXPENSECHARGES");
 			this.setState(
 				{ dailyAssistanceFees: this.props.dailyAssistanceFees },
 				() => this.setDailyAssistanceCharges()
@@ -65,7 +52,6 @@ class ItalianPayroll extends Component {
 				this.setTourCharges
 			);
 		} else if (prevProps.tourBookingHours !== this.props.tourBookingHours) {
-			console.log("UPDATING TBH");
 			this.setState(
 				{ dailyAssistanceFees: this.props.dailyAssistanceFees },
 				() => this.setDailyAssistanceCharges()
@@ -80,8 +66,10 @@ class ItalianPayroll extends Component {
 		}
 	};
 
+	/**
+	 * controls the state for tour charges
+	 */
 	setTourCharges = () => {
-		console.log("SET TOUR CHARGES: " + this.state.tourBookingCharges);
 		const tourBookingHourRate = 13;
 		let tourCharges =
 			Number(this.state.tourBookingHours) * Number(tourBookingHourRate);
@@ -92,8 +80,10 @@ class ItalianPayroll extends Component {
 		);
 	};
 
+	/**
+	 * controls the state and amount for assistance charges
+	 */
 	setDailyAssistanceCharges = () => {
-		console.log("SET DAF CHARGES: " + this.state.dailyAssistanceFees);
 		const dailyAssistanceRate = 9;
 		let totalDailyCharges =
 			Number(this.state.dailyAssistanceFees) * Number(dailyAssistanceRate);
@@ -104,8 +94,10 @@ class ItalianPayroll extends Component {
 		});
 	};
 
+	/**
+	 * controls state for the gross pay for emp
+	 */
 	setGrossPay = () => {
-		console.log("set gross pay called");
 
 		let gross =
 			Number(this.state.dailyAssistanceCharges) +
@@ -118,6 +110,10 @@ class ItalianPayroll extends Component {
 		});
 	};
 
+	/**
+	 * controls state of daily assistance fees
+	 * @param {*} e 
+	 */
 	handleDAFInput = (e) => {
 		this.props.setDailyAssistanceFees(e.target.value);
 		this.setState({ dailyAssistanceFees: e.target.value }, () =>
@@ -125,6 +121,10 @@ class ItalianPayroll extends Component {
 		);
 	};
 
+	/**
+	 * controls state of assistance fee charges
+	 * @param {} e 
+	 */
 	handleDAFChargesInput = (e) => {
 		this.props.setDailyAssistanceCharges(e.target.value);
 		this.setState({ dailyAssistanceCharges: e.target.value }, () =>
@@ -132,15 +132,27 @@ class ItalianPayroll extends Component {
 		);
 	};
 
+	/**
+	 * controls expense charges for emp
+	 * @param {} e 
+	 */
 	handleExpenseInput = (e) => {
 		this.props.setExpenseCharges(e.target.value);
 		this.setState({ expenseCharges: e.target.value }, this.setGrossPay);
 	};
 
+	/**
+	 * controls state of booking hours
+	 * @param {*} e 
+	 */
 	handleBookingHoursInput = (e) => {
 		this.setState({ tourBookingHours: e.target.value }, this.setTourCharges);
 	};
 
+	/**
+	 * controls state of booking fees
+	 * @param {*} e 
+	 */
 	handleBookingFeesInput = (e) => {
 		this.setState({ tourBookingCharges: e.target.value }, this.setGrossPay);
 	};

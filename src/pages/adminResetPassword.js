@@ -12,12 +12,13 @@ class AdminResetPassword extends Component {
 		};
 	}
 
-	componentDidMount = () => {};
-
 	handleEmployeeId = (e) => {
 		this.setState({ employeeId: e.target.value });
 	};
 
+	/**
+	 * resets the password on the admin side, autos to password and the emp can go in and change it
+	 */
 	handleResetPassword = async () => {
 		let employeeResponse = await employeeController.getEmployeeByID(
 			this.state.employeeId

@@ -330,6 +330,11 @@ class EmployeePayroll extends Component {
 		this.loadPayrollData();
 	};
 
+	/**
+	 * adds monthly fees type payroll data object
+	 * @param {*} officeUsage 
+	 * @param {*} phoneUsage 
+	 */
 	addMonthlyFees = async (officeUsage, phoneUsage) => {
 		let newPayrollData = {
 			payrollDataId: "",

@@ -33,12 +33,18 @@ class BookkeeperPayroll extends Component {
 		}
 	};
 
+	/**
+	 * controls the state of number of errors
+	 */
 	setNoPayrollError = () => {
 		this.setState({ noPayrollError: true }, () =>
 			setInterval(() => this.setState({ noPayrollError: false }), 4000)
 		);
 	};
 
+	/**
+	 * loads all of the payrolls needing to be processed
+	 */
 	loadPayrollsToProcess = async () => {
 		let payrolls = await payrollController.getPayrollByIsProcessed(0);
 
@@ -57,14 +63,26 @@ class BookkeeperPayroll extends Component {
 		this.setState({ payrollsToProcess: filteredToSelectedPeriod });
 	};
 
+	/**
+	 * handle state for month 
+	 * @param {*} e 
+	 */
 	handleMonthChange = (e) => {
 		this.setState({ selectedMonth: e.target.value });
 	};
 
+	/**
+	 * handle state for year
+	 * @param {*} e 
+	 */
 	handleYearChange = (e) => {
 		this.setState({ selectedYear: e.target.value });
 	};
 
+	/**
+	 * handle state for scene (what its rendering at a time)
+	 * @param {*} e 
+	 */
 	handleSceneChange = (e) => {
 		this.setState({ scene: e });
 	};

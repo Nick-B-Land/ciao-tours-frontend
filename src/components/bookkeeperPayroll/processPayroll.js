@@ -39,45 +39,39 @@ class ProccessPayroll extends Component {
 	};
 
 	componentDidUpdate = (prevProps, prevState) => {
-		if (prevState.currentEmployee !== this.state.currentEmployee) {
-			// this.loadEmployeeData();
-			// this.loadPayrollData();
-		} else if (prevState.currentPayrollData !== this.state.currentPayrollData) {
-			//console.log(this.state.currentPayrollData);
-			// this.loadEmployeeData();
-			// this.loadPayrollData();
-		} else if (prevState.currentPayroll !== this.state.currentPayroll) {
-			console.log("reloading payroll data");
-			console.log("");
+		if (prevState.currentPayroll !== this.state.currentPayroll) {
 			this.loadEmployeeData();
 			this.loadPayrollData();
 		}
 	};
 
+	/**
+	 * loads employee data for given employee
+	 */
 	loadEmployeeData = async () => {
 		console.log(this.state.currentPayroll);
 		let employee = await employeeController.getEmployeeByID(
 			this.state.currentPayroll.employeeId
 		);
-
-		console.log(employee.data[0]);
 		this.setState({ currentEmployee: employee.data[0] });
 	};
 
+	/**
+	 * loads payroll data for a given payroll
+	 */
 	loadPayrollData = async () => {
 		let payrollData = await payrollDataController.getPayrollDataByPayrollID(
 			this.state.currentPayroll.payrollId
 		);
-
-		//this is bad, shouldnt have two set states together
-		//no gurantee on what finishes first (i thinkm)
 		this.setState({ currentPayrollData: payrollData.data }, () => {
 			this.handlePayrollData();
 		});
 	};
 
+	/**
+	 * counts the monthly totals for different payroll data types
+	 */
 	handlePayrollData = () => {
-		console.log("handle payroll data called");
 		let totalAdminHours = 0;
 		let totalExpenses = 0;
 		let totalWorkDayHours = 0;
@@ -119,8 +113,6 @@ class ProccessPayroll extends Component {
 			totalExpenses += e.expenseAmount;
 		});
 
-		//console.log("Parent daily assistance: " + dailyAssistanceFees.length * 9);
-
 		this.setState({
 			dailyAssistanceFees: dailyAssistanceFees.length,
 			tourBookingHours: totalAdminHours,
@@ -130,6 +122,10 @@ class ProccessPayroll extends Component {
 		});
 	};
 
+	/**
+	 * creates paystub based on the type of employee
+	 * @returns employeepaystub
+	 */
 	createPaystubByEmployeeType = () => {
 		//hourly
 		if (this.state.currentEmployee.employeeType === 1) {
@@ -223,58 +219,113 @@ class ProccessPayroll extends Component {
 		}
 	};
 
+	/**
+	 * controls state for workday hours
+	 * @param {*} wdHours 
+	 */
 	setWorkDayHours = (wdHours) => {
 		this.setState({ workDayHours: wdHours });
 	};
 
+	/**
+	 * controls state for booking hours
+	 * @param {*} tbHours 
+	 */
 	setTourBookingHours = (tbHours) => {
 		this.setState({ tourBookingHours: tbHours });
 	};
 
+	/**
+	 * controls state for booking charges
+	 * @param {*} tbCharges 
+	 */
 	setTourBookingCharges = (tbCharges) => {
 		this.setState({ tourBookingCharges: tbCharges });
 	};
 
+	/**
+	 * controls state for assistance fees
+	 * @param {*} daf new daf
+	 */
 	setDailyAssistanceFees = (daf) => {
 		this.setState({ dailyAssistanceFees: daf });
 	};
 
+	/**
+	 * controls state for assistance charges
+	 * @param {*} daCharges 
+	 */
 	setDailyAssistanceCharges = (daCharges) => {
 		this.setState({ dailyAssistanceCharges: daCharges });
 	};
 
+	/**
+	 * controls state for expense charges
+	 * @param {} exp 
+	 */
 	setExpenseCharges = (exp) => {
 		this.setState({ expenseAmount: exp });
 	};
 
+	/**
+	 * controls state for waid paid out
+	 * @param {*} wageEarned 
+	 */
 	setWagePaid = (wageEarned) => {
 		this.setState({ wagePaid: wageEarned });
 	};
 
+	/**
+	 * controls state for stat hours
+	 * @param {*} sHours 
+	 */
 	setStatHours = (sHours) => {
 		this.setState({ statHours: sHours });
 	};
 
+	/**
+	 * controls state for income tax
+	 * @param {} iTax 
+	 */
 	setIncomeTax = (iTax) => {
 		this.setState({ incomeTax: iTax });
 	};
 
+	/**
+	 * controls state for cpp
+	 * @param {*} cpp 
+	 */
 	setCPPDeductions = (cpp) => {
 		this.setState({ cppDeductions: cpp });
 	};
 
+	/**
+	 * controls state for ei
+	 * @param {} ei 
+	 */
 	setEIDeductions = (ei) => {
 		this.setState({ eiDeductions: ei });
 	};
 
+	/**
+	 * controls state for gross pay
+	 * @param {} gross 
+	 */
 	setGrossPay = (gross) => {
 		this.setState({ grossPay: gross });
 	};
 
+	/**
+	 * controls state for net pay
+	 * @param {*} net 
+	 */
 	setNetPay = (net) => {
 		this.setState({ netPay: net });
 	};
 
+	/**
+	 * sets payroll as flagged in the database
+	 */
 	handleFlagPayroll = async () => {
 		let newPayroll = {
 			payrollId: this.state.currentPayroll.payrollId,
@@ -304,14 +355,15 @@ class ProccessPayroll extends Component {
 		}
 	};
 
+	/**
+	 * handles the paystub creation
+	 */
 	handlePaystub = async () => {
 		//do paystub submission and error handling (update payroll is processed, create new paystub)
 
 		let paystub = this.createPaystubByEmployeeType();
 
 		let paystubResponse = await paystubController.createPaystub(paystub);
-
-		console.log(paystubResponse);
 
 		if (paystubResponse.status === 200) {
 		}
@@ -329,8 +381,6 @@ class ProccessPayroll extends Component {
 			this.state.currentPayroll.payrollId
 		);
 
-		console.log(payrollResponse);
-
 		if (this.state.payrollIndex + 1 >= this.props.payrollsToProcess.length) {
 			this.props.loadPayrollsToProcess();
 			this.props.handleSceneChange(0);
@@ -344,6 +394,12 @@ class ProccessPayroll extends Component {
 		}
 	};
 
+	/**
+	 * calculates number of days per client for assistance fees
+	 * @param {*} payrollData 
+	 * @param {*} clientName 
+	 * @returns 
+	 */
 	calculateDAFPerClient = (payrollData, clientName) => {
 		let count = 0;
 
@@ -354,6 +410,12 @@ class ProccessPayroll extends Component {
 		return count;
 	};
 
+	/**
+	 * calculates the start and end dates for a daily assistance fee for client
+	 * @param {*} payrollData 
+	 * @param {*} clientName 
+	 * @returns 
+	 */
 	calculateStartEndDates = (payrollData, clientName) => {
 		let startDate, endDate;
 
@@ -555,13 +617,6 @@ class ProccessPayroll extends Component {
 	renderPayrollForm = () => {
 		if (this.state.currentEmployee.employeeType) {
 			if (this.state.currentEmployee.employeeType === 3) {
-				// console.log("Rendering Italian Payroll -");
-				// console.log(
-				// 	"currentEmployee fname: " + this.state.currentEmployee.firstName
-				// );
-				// console.log("dailyAssistanceFees: " + this.state.dailyAssistanceFees);
-				// console.log("expenseCharges: " + this.state.expenseCharges);
-				// console.log("tourBookingHours: " + this.state.tourBookingHours);
 				return (
 					<ItalianPayroll
 						renderTourAdminFees={this.renderTourAdminFees}
@@ -580,12 +635,6 @@ class ProccessPayroll extends Component {
 					/>
 				);
 			} else if (this.state.currentEmployee.employeeType === 2) {
-				// console.log("Rendering Salary Payroll -");
-				// console.log(
-				// 	"currentEmployee Salary: " + this.state.currentEmployee.monthlySalary
-				// );
-				// console.log("timeOffHours: " + this.state.timeOffHours);
-				// console.log("expenseCharges: " + this.state.expenseCharges);
 				return (
 					<DomesticSalaryPayroll
 						renderExpenses={this.renderExpenses}
@@ -603,12 +652,6 @@ class ProccessPayroll extends Component {
 					/>
 				);
 			} else if (this.state.currentEmployee.employeeType === 1) {
-				// console.log("Rendering Hourly Payroll -");
-				// console.log(
-				// 	"currentEmployee wage: " + this.state.currentEmployee.hourlyWage
-				// );
-				// console.log("workDayHours: " + this.state.workDayHours);
-				// console.log("expenseCharges: " + this.state.expenseCharges);
 				return (
 					<DomesticHourlyPayroll
 						renderWorkDays={this.renderWorkDays}

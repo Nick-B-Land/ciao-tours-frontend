@@ -33,6 +33,9 @@ class AdminReports extends Component {
 		}
 	};
 
+	/**
+	 * loads the paystubs to process for reporting period
+	 */
 	loadPaystubsToProcess = async () => {
 		let paystubs = await paystubController.getPaystub();
 
@@ -51,18 +54,34 @@ class AdminReports extends Component {
 		this.setState({ paystubsToProcess: filteredToSelectedPeriod });
 	};
 
+	/**
+	 * handles the state for selected month
+	 * @param {*} e 
+	 */
 	handleMonthChange = (e) => {
 		this.setState({ selectedMonth: e.target.value });
 	};
 
+	/**
+	 * handles the state for selected year
+	 * @param {*} e 
+	 */
 	handleYearChange = (e) => {
 		this.setState({ selectedYear: e.target.value });
 	};
 
+	/**
+	 * handles state for employee search
+	 * @param {*} e 
+	 */
 	handleEmployeeSearch = (e) => {
 		this.setState({ employeeSearchValue: e.target.value });
 	};
 
+	/**
+	 * calculates the total pay by period
+	 * @returns 
+	 */
 	calculateTotalGrossPaidByPeriod = () => {
 		let gross = 0;
 
@@ -73,6 +92,10 @@ class AdminReports extends Component {
 		return gross.toFixed(2);
 	};
 
+	/**
+	 * calculates the net pay by period
+	 * @returns 
+	 */
 	calculateTotalNetPaidByPeriod = () => {
 		let net = 0;
 
@@ -94,6 +117,10 @@ class AdminReports extends Component {
 		);
 	};
 
+	/**
+	 * filter the paystubs by the employee name
+	 * @returns 
+	 */
 	filterPaystubsBySearchValue = () => {
 		let filteredPaystubs = [];
 
