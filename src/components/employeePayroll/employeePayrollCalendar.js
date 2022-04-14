@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import PayrollCalenderDay from "../employeePayroll/payrollCalendarDay";
 
-/*
+/**
 Locally-Defined Functions/Variables
 	getDaysInMonth - gets the number of days in a provided month
-
-
+	
 Props
 	selectedYear - currently selected year
 	selectedMonth - currently selected month
@@ -49,7 +48,9 @@ class EmployeePayrollCalender extends Component {
 		} 
 	}
 
-	// gets the number of days in a provided month
+	/**
+	 * gets the number of days in a provided month
+	*/
 	getDaysInMonth = (anyDateInMonth) => {
 		return new Date(
 			anyDateInMonth.getFullYear(),
@@ -58,7 +59,10 @@ class EmployeePayrollCalender extends Component {
 		).getDate();
 	};
 
-	//see comment on renderFourWeeks
+	/**
+	 * renders the calendar to look like a proper month
+	 * @returns fragment for the calendar piece of the page
+	 */
 	renderCalender = () => {
 		let numDays = 1;
 		let extraDays = this.state.daysInMonth - 28;

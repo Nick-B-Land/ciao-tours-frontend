@@ -1,3 +1,5 @@
+import React, { Component } from "react";
+import payrollDataController from "../../controllers/payrollDataController";
 
 
 class MonthlyFeeForm extends Component {
@@ -9,16 +11,23 @@ class MonthlyFeeForm extends Component {
 		}
 	}
 
-	handleOfficeUsage(e) {
+	componentDidMount = async () => {
+		let payrolldata = await payrollDataController.getPayrollDataByPayrollID(this.props.payrollID);
+		let monthlyFee = payrolldata.filter(e => e.payrollEvent === 5);
+		this.setState({officeUsage: monthlyFee[0].officeUsage, phoneUsage: monthlyFee[0].otherUsage});
+	}
 
+	handleOfficeUsage(e) {
+		this.setState({officeUsage: e.target.value});
 	}
 
 	handlePhoneUsage(e) {
-
+		this.setState({phoneUsage: e.target.value});
 	}
 
 	handleUsageSubmit() {
-
+		this.props.addMonthlyFees(this.state.officeUsage, this.state.phoneUsage);
+		this.props.handleSelectedForm(0);
 	}
 
 	handleCancel = () => {
@@ -80,3 +89,4 @@ class MonthlyFeeForm extends Component {
 		);
 	}
 }
+export default MonthlyFeeForm;

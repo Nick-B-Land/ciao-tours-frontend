@@ -5,9 +5,12 @@ import ExpenseForm from "./expenseForm";
 import TimeOffForm from "./timeOffForm";
 import TourBookingForm from "./tourBookingForm";
 import WorkDayForm from "./workDayForm";
+import MonthlyFeeForm from "./monthlyFeeForm";
 
-/*
-props
+/**
+ * EmployeePayrollForm
+ * Purpose: handles which form component to load into the space based on the button that was clicked
+Props
 	selectedDay - currently selected day
 	
 	addWorkDay - adds a work day to the database
@@ -21,7 +24,6 @@ props
 	handleSelectedForm - controls the state of the currently selected form
 */
 
-//handles which form component to load into the space based on the button that was clicked
 class EmployeePayrollForm extends Component {
 	handleRender = () => {
 		if (this.props.selectedForm === 1) {
@@ -60,7 +62,15 @@ class EmployeePayrollForm extends Component {
 					handleSelectedForm={this.props.handleSelectedForm}
 				/>
 			);
-		} else if (this.props.selectedForm === 7) {
+		} else if (this.props.selectedForm === 5) {
+			return(
+				<MonthlyFeeForm
+					addMonthlyFees={this.props.addMonthlyFees}
+					handleSelectedForm={this.props.handleSelectedForm}
+					payrollID={this.props.payrollID}
+				/>
+			);
+		}else if (this.props.selectedForm === 7) {
 			return (
 				<ExpenseForm
 					addExpense={this.props.addExpense}

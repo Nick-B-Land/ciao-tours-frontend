@@ -3,11 +3,12 @@ import payrollDataController from "../../controllers/payrollDataController";
 import "../../style/employeeCalendarCSS.css";
 import "../../style/stylesheet.css";
 
-/*
-local functions/variables
+/** 
+Locally-defined functions and variables
+Functions
 	deletePayrollDataEvent - deletes a selected payroll data event from the database and calendar 
 	
-props
+Props
 	selectedEvents - an array of the current day's events
 	
 	handleReloadEvents - calls on the update of calendar
@@ -21,13 +22,16 @@ class CalendarDayReport extends Component {
 		};
 	}
 
+	/**
+	 * deletes an event from the payrolldata table in database
+	 * @param {*} payrollDataId the id of the one to delete
+	 */
 	deletePayrollDataEvent = async (payrollDataId) => {
 		let response = await payrollDataController.deletePayrollDataEvent(
 			payrollDataId
 		);
 
 		this.props.handleReloadEvents();
-		console.log(response);
 	};
 
 	render() {

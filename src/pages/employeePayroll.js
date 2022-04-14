@@ -331,6 +331,38 @@ class EmployeePayroll extends Component {
 		this.loadPayrollData();
 	};
 
+	addMonthlyFees = async (officeUsage, phoneUsage) => {
+		let newPayrollData = {
+			payrollDataId: "",
+			payrollId: this.state.selectedPayrollID,
+			payrollEvent: 5,
+			dateOfPayrollData: null,
+			noOfWorkingHours: null,
+			timeOff: null,
+			officeUsage: officeUsage,
+			otherUsage: phoneUsage,
+			usageCost: null,
+			dailyAssistanceClient: null,
+			dailyAssistanceStartDate: null,
+			dailyAssistanceEndDate: null,
+			dailyAssistanceFee: null,
+			tourBookingAdminDescription: null,
+			tourBookingNumOfHours: null,
+			tourBookingClient: null,
+			tourBookingAdminFee: null,
+			dayOfExpense: null,
+			expenseDescription: null,
+			expenseAmount: null,
+			expenseDate: null,
+		};
+
+		let response = await payrollDataController.createPayrollData(
+			newPayrollData
+		);
+
+		this.loadPayrollData();
+	}
+
 	/**
 	 * function for handling loading and creating payroll objects for the selected month
 	 */
@@ -516,6 +548,7 @@ class EmployeePayroll extends Component {
 									addTimeOff={this.addTimeOff}
 									addExpense={this.addExpense}
 									handleReloadEvents={this.handleReloadEvents}
+									payrollID={this.state.selectedPayrollID}
 								/>
 							</div>
 						</div>

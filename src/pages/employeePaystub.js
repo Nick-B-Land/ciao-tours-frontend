@@ -38,26 +38,26 @@ class EmployeePaystubs extends Component {
 	 * loads current paystub
 	 * @param {'*'} e selected month
 	 */
-	loadPaystub = (e) => {
-		this.setState({ month: e.target.value });
+	// loadPaystub = (e) => {
+	// 	this.setState({ month: e.target.value });
 
-		let filteredPeriods = paystub.data.filter(
-					(e) =>
-						new Date(e.dateOfPaystub).getFullYear() ===
-							new Date(
-								this.state.selectedYear,
-								this.state.selectedMonth
-							).getFullYear() &&
-						new Date(e.dateOfPaystub).getMonth() ===
-							new Date(this.state.selectedYear, this.state.selectedMonth).getMonth()
-				);
+	// 	let filteredPeriods = paystub.data.filter(
+	// 				(e) =>
+	// 					new Date(e.dateOfPaystub).getFullYear() ===
+	// 						new Date(
+	// 							this.state.selectedYear,
+	// 							this.state.selectedMonth
+	// 						).getFullYear() &&
+	// 					new Date(e.dateOfPaystub).getMonth() ===
+	// 						new Date(this.state.selectedYear, this.state.selectedMonth).getMonth()
+	// 			);
 
-		// try making a call using paystub id
-		// put '-' if value is 0
-		let paystubData = paystubController.getPaystubByEID(
-			this.props.currentUser.eID
-		);
-	};
+	// 	// try making a call using paystub id
+	// 	// put '-' if value is 0
+	// 	let paystubData = paystubController.getPaystubByEID(
+	// 		this.props.currentUser.eID
+	// 	);
+	// };
 
 	handleYearChange = (e) => {
 		this.setState({ selectedYear: e.target.value });
@@ -118,8 +118,7 @@ class EmployeePaystubs extends Component {
 		});
 		return tourBookingYear;
 	};
-
-	};
+	
 	/**
 	 * calculates cpp deductions
 	 * @returns cpp total
@@ -225,7 +224,7 @@ class EmployeePaystubs extends Component {
 					.includes(this.state.employeeSearchValue.toUpperCase())
 			)
 				filteredPaystubs.push(e);
-		});
+			});
 
 		return filteredPaystubs;
 	};
@@ -243,7 +242,7 @@ class EmployeePaystubs extends Component {
 			return this.state.paystubsToDisplay.map((paystub) => (
 				<Paystub key={paystub.paystubId} {...paystub} />
 			));
-		};
+		}
 	};
 
 	render() {
@@ -308,7 +307,7 @@ class EmployeePaystubs extends Component {
 				</div>
 			</div>
 		);
-	}
+	};
 }
 
 export default EmployeePaystubs;

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "../../style/employeeCalendarCSS.css";
 
-//component for a single event written to the calendar
+/**
+ * component for a single event written to the calendar
+*/
 class CalendarEvent extends Component {
 	constructor(props) {
 		super(props);

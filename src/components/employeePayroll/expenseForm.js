@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
-/*
-locally-defined functions/variables
+/**
+ * ExpenseForm
+ * Purpose: returns the expense form back to the payroll page to be shown on screen and controls input
+ * 
+Locally-defined functions/variables
 	createFormattedDate - changes the selected day on the calendar and converts the date object into string format for input tag to read
 	formatDateFromSelectedDay - converts the date object into string format for input tag to read
 	handleDate - updates the date state object and calls to recreate formatted date
@@ -10,7 +13,7 @@ locally-defined functions/variables
 	handleExpenseSubmit - controls the form submit by calling to add expense to database
 	handleCancel - cancels the form by setting the chosen form to 0 (none selected)
 
-props
+Props
 	selectedDay - currenly selected day
 
 	handleSelectedDay - controls state of currently selected day
@@ -32,6 +35,9 @@ class ExpenseForm extends Component {
 		};
 	}
 
+	/**
+	 * changes the selected day on the calendar and converts the date object into string format for input tag to read
+	 */
 	createFormattedDate = () => {
 		this.props.handleSelectedDay(this.state.date);
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
@@ -39,6 +45,9 @@ class ExpenseForm extends Component {
 		this.setState({ formattedDate : newString }, () => console.log("Date after changing: ", this.state.formattedDate));
 	}
 
+	/**
+	 * converts the date object into string format for input tag to read
+	 */
 	formatDateFromSelectedDay = () => {
 		console.log("Date before formatting", this.state.date);
 		let newString = this.state.date.getFullYear() + "-" + (this.state.date.getMonth()+1 < 10 ? "0" + (this.state.date.getMonth()+1) : (this.state.date.getMonth()+1)) + 
@@ -56,23 +65,41 @@ class ExpenseForm extends Component {
 		}
 	}
 
+	/**
+	 * handles the date input for form 
+	 * @param {*} e new date
+	 */
 	handleDate = (e) => {
 		this.setState({ date : new Date(e.target.value + "T12:00:00") }, () => this.createFormattedDate());
 	}
 
+	/**
+	 * handles the expense desc for form 
+	 * @param {*} e new desc
+	 */
 	handleExpenseDescInput = (e) => {
 		this.setState({ expenseDesc: e.target.value });
 	};
 
+	/**
+	 * handles state expense amount for form
+	 * @param {*} e new amount
+	 */
 	handleExpenseAmountInput = (e) => {
 		this.setState({ expenseAmount: e.target.value });
 	};
 
+	/**
+	 * handles the form submit
+	 */
 	handleExpenseSubmit = () => {
 		this.props.addExpense(this.state.expenseDesc, this.state.expenseAmount, this.state.date);
 		this.props.handleSelectedForm(0);
 	};
 
+	/**
+	 * handles the cancel of form by clearing form from screen
+	 */
 	handleCancel = () => {
 		this.props.handleSelectedForm(0);
 	}

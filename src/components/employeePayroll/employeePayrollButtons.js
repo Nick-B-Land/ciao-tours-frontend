@@ -26,6 +26,10 @@ class EmployeePayrollButtons extends Component {
 		this.setState({ employeeType: empResponse.data[0].employeeType });
 	};
 
+	/**
+	 * loads the correct buttons for hourly employee
+	 * @returns div with correct buttons
+	 */
 	renderHourlyButtons = () => {
 		return (
 			<div className="d-flex justify-content-end">
@@ -47,6 +51,10 @@ class EmployeePayrollButtons extends Component {
 		);
 	};
 
+	/**
+	 * loads buttons needed for salary employees
+	 * @returns div with correct buttons
+	 */
 	renderSalaryButtons = () => {
 		return (
 			<div className="d-flex justify-content-end">
@@ -68,6 +76,10 @@ class EmployeePayrollButtons extends Component {
 		);
 	};
 
+	/**
+	 * loads buttons for italian employees
+	 * @returns div with correct buttons
+	 */
 	renderItalianButtons = () => {
 		return (
 			<div className="d-flex justify-content-end">
@@ -92,13 +104,17 @@ class EmployeePayrollButtons extends Component {
 				>
 					Add Tour Booking
 				</button>
-				<button type="button" className="btn btn-sm m-3 payrollButton shadow">
+				<button type="button" className="btn btn-sm m-3 payrollButton shadow" onClick={() => this.props.handleSelectedForm(5)}>
 					Add Monthly Fee
 				</button>
 			</div>
 		);
 	};
 
+	/**
+	 * decides which set of buttons to return based on employee type
+	 * @returns the div with correct buttons
+	 */
 	renderEmployeeTypeButtons = () => {
 		if (this.state.employeeType === 1) {
 			return this.renderHourlyButtons();
