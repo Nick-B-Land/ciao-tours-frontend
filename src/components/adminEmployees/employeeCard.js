@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import employeeController from "../../controllers/employeeController";
 import "../../style/stylesheet.css";
@@ -6,18 +5,18 @@ import "../../style/stylesheet.css";
 /**
  * EmployeeCard returns a list item which holds an accordian style piece that holds the employees personal information for admin/own employee
  * @returns accordian style list item
- * 
+ *
  * Locally-defined Functions and Variables
  * Variables
  * 	variables for each field of an employee
- * 
+ *
  * Functions
  * 	deleteMode - resets the edit mode to false
  * 	editMode - sets edit mode to true
  * 	handleEdit - controls the edit fields validation
  */
 const EmployeeCard = ({
-	props,
+	isEmployee,
 	employeeId,
 	firstName,
 	lastName,
@@ -31,13 +30,12 @@ const EmployeeCard = ({
 	bankAccountNumber,
 	institutionId,
 	transitId,
-	jobTitle, 
+	jobTitle,
 	dateOfBirth,
 	postalCode,
 	country,
 	province,
-	phoneNumber
-
+	phoneNumber,
 }) => {
 	const [isActive, setIsActive] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
@@ -406,7 +404,7 @@ const EmployeeCard = ({
 								>
 									Submit
 								</button>
-								
+
 								<button
 									type="button"
 									className="btn btn-secondary m-2 "
@@ -482,7 +480,7 @@ const EmployeeCard = ({
 						</div>
 						<div className="row ecLi">
 							<div className="col-5 d-flex flex-row-reverse">
-								Employee Date of Birth: 
+								Employee Date of Birth:
 							</div>
 							<div className="col">
 								<p>{stateBirthday}</p>
@@ -596,14 +594,16 @@ const EmployeeCard = ({
 									Edit Information
 								</button>
 
-								<button
-									type="button"
-									className="btn btn-danger m-2"
-									onClick={handleDelete}
-									id="employeeCardRemoveButton"
-								>
-									Remove Employee
-								</button>
+								{isEmployee ? null : (
+									<button
+										type="button"
+										className="btn btn-danger m-2"
+										onClick={handleDelete}
+										id="employeeCardRemoveButton"
+									>
+										Remove Employee
+									</button>
+								)}
 							</div>
 							<div className="col">
 								<button
@@ -624,7 +624,7 @@ const EmployeeCard = ({
 									onClick={deleteMode}
 									id="employeeCardallowRemoveButton"
 								>
-									dont edit
+									Dont edit
 								</button>
 							</div>
 						</div>

@@ -51,33 +51,45 @@ const Paystub = ({
 		else if (month === 11) return "December";
 	};
 
+	const calculateDeductions = () => {
+		let deductions =
+			Number(eiDeductions) + Number(cppDeductions) + Number(incomeTax);
+
+		return deductions.toFixed(2);
+	};
+
 	return (
 		<table className="table text-white paystubTable">
 			<thead>
 				<tr className="table text-white tableHeader">
-					<th colSpan="4" class="text-white">
-						<h3 class="text-white ">
+					<th colSpan="4" className="text-white">
+						<h3 className="text-white ">
 							Paystub for Period:{" "}
 							{getMonthName(new Date(dateOfPaystub).getMonth()) +
 								" " +
 								new Date(dateOfPaystub).getFullYear()}
 						</h3>
 					</th>
-					
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="table tableHeader">
-					<th class="text-white">{firstName} {lastName}</th>
-					<th class="text-white">Employer: CIAO Tours</th>
-					<th class="text-white">Employee ID: {employeeId}</th>
-					<th class="text-white">Date: {new Date(dateOfPaystub).toLocaleDateString()}</th>
+				<tr className="table tableHeader">
+					<th className="text-white">
+						{firstName} {lastName}
+					</th>
+					<th className="text-white">Employer: CIAO Tours</th>
+					<th className="text-white">Employee ID: {employeeId}</th>
+					<th className="text-white">
+						Date: {new Date(dateOfPaystub).toLocaleDateString()}
+					</th>
 				</tr>
-				<tr class="table text-white tableHeader">
-					<th class="text-white">{address}, {city}</th>
-					<th class="text-white">{emailAddress}</th>
-					<th class="text-white"></th>
-					<th class="text-white">Paystub ID: {paystubId}</th>
+				<tr className="table text-white tableHeader">
+					<th className="text-white">
+						{address}, {city}
+					</th>
+					<th className="text-white">{emailAddress}</th>
+					<th className="text-white"></th>
+					<th className="text-white">Paystub ID: {paystubId}</th>
 				</tr>
 				<tr>
 					<td colSpan="4" className="table-light">
@@ -110,8 +122,8 @@ const Paystub = ({
 											? hourlyWage
 											: "-"}
 									</td>
-									<td>{monthlySalary ? 160 - timeOffHours : workDayHours }</td>
-									<td>{workDayCharges > 0 ? workDayCharges : "-" }</td>
+									<td>{monthlySalary ? 160 - timeOffHours : workDayHours}</td>
+									<td>{workDayCharges > 0 ? workDayCharges : "-"}</td>
 									<td>{regYearHours > 0 ? regYearHours : "-"}</td>
 									<td>{regYearEarnings > 0 ? regYearEarnings : "-"}</td>
 								</tr>
@@ -126,10 +138,16 @@ const Paystub = ({
 								<tr>
 									<td>Daily Assistance</td>
 									<td>{dailyAssistanceNumber > 0 ? "9" : "-"}</td>
-									<td>{dailyAssistanceNumber > 0 ? dailyAssistanceNumber : "-"}</td>
-									<td>{dailyAssistanceCharges > 0 ? dailyAssistanceCharges : "-"}</td>
+									<td>
+										{dailyAssistanceNumber > 0 ? dailyAssistanceNumber : "-"}
+									</td>
+									<td>
+										{dailyAssistanceCharges > 0 ? dailyAssistanceCharges : "-"}
+									</td>
 									<td>-</td>
-									<td>{dailyAssistanceCharges > 0 ? dailyAssistanceCharges : "-"}</td>
+									<td>
+										{dailyAssistanceCharges > 0 ? dailyAssistanceCharges : "-"}
+									</td>
 								</tr>
 								<tr>
 									<td>Tour Booking</td>
@@ -175,17 +193,17 @@ const Paystub = ({
 								</tr>
 								<tr>
 									<td>CPP</td>
-									<td>{cppDeductions > 0 ? cppDeductions : "-"}</td>
+									<td>{cppDeductions > 0 ? cppDeductions.toFixed(2) : "-"}</td>
 									<td>{cppYear > 0 ? cppYear : "-"}</td>
 								</tr>
 								<tr>
 									<td>EI</td>
-									<td>{eiDeductions > 0 ? eiDeductions : "-"}</td>
+									<td>{eiDeductions > 0 ? eiDeductions.toFixed(2) : "-"}</td>
 									<td>{eiYear > 0 ? eiYear : "-"}</td>
 								</tr>
 								<tr>
 									<td>Income Tax</td>
-									<td>{incomeTax > 0 ? incomeTax : "-"}</td>
+									<td>{incomeTax > 0 ? incomeTax.toFixed(2) : "-"}</td>
 									<td>{incomeYear > 0 ? incomeYear : "-"}</td>
 								</tr>
 							</tbody>
@@ -207,9 +225,9 @@ const Paystub = ({
 							<tbody className="table-light">
 								<tr>
 									<th>CURRENT</th>
-									<td>{grossPay}</td>
-									<td>{eiDeductions + cppDeductions + incomeTax}</td>
-									<td>{netPay}</td>
+									<td>{grossPay.toFixed(2)}</td>
+									<td>{calculateDeductions()}</td>
+									<td>{netPay.toFixed(2)}</td>
 									<td>Direct Deposit</td>
 								</tr>
 								<tr>
@@ -217,7 +235,10 @@ const Paystub = ({
 									<td>{yearGross}</td>
 									<td>{yearDeductions}</td>
 									<td>{yearNet}</td>
-									<td>REFERENCE #: {employeeId}{paystubId}</td>
+									<td>
+										REFERENCE #: {employeeId}
+										{paystubId}
+									</td>
 								</tr>
 							</tbody>
 						</table>

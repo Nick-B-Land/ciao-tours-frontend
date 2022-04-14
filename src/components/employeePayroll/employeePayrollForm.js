@@ -63,14 +63,14 @@ class EmployeePayrollForm extends Component {
 				/>
 			);
 		} else if (this.props.selectedForm === 5) {
-			return(
+			return (
 				<MonthlyFeeForm
 					addMonthlyFees={this.props.addMonthlyFees}
 					handleSelectedForm={this.props.handleSelectedForm}
 					payrollID={this.props.payrollID}
 				/>
 			);
-		}else if (this.props.selectedForm === 7) {
+		} else if (this.props.selectedForm === 7) {
 			return (
 				<ExpenseForm
 					addExpense={this.props.addExpense}

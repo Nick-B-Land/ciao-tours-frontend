@@ -64,7 +64,7 @@ class PayrollOverview extends Component {
 						<h1>Payroll Overview</h1>
 					</div>
 				</div>
-				<div className="row py-4 align-items-center">
+				<div className="row py-4 align-items-center justify-content-center">
 					<div className="col-auto d-inline-flex">
 						<select
 							className="form-select h-50"
@@ -98,7 +98,11 @@ class PayrollOverview extends Component {
 							<option value={11}>December</option>
 						</select>
 					</div>
-					<div className="col-auto d-flex">{this.renderPayrollStatus()}</div>
+				</div>
+				<div className="row my-3">
+					<div className="col d-flex justify-content-center">
+						{this.renderPayrollStatus()}
+					</div>
 				</div>
 				<div className="row">
 					<div className="col d-flex justify-content-center">

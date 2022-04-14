@@ -79,7 +79,7 @@ class EmployeePayroll extends Component {
 	};
 
 	/**
-	 * handles the state of reloadEvents 
+	 * handles the state of reloadEvents
 	 */
 	handleReloadEvents = () => {
 		this.setState({ reloadEvents: !this.state.reloadEvents });
@@ -98,8 +98,8 @@ class EmployeePayroll extends Component {
 
 	/**
 	 * runs if the state objects are updated
-	 * @param {*} prevProps 
-	 * @param {*} prevState 
+	 * @param {*} prevProps
+	 * @param {*} prevState
 	 */
 	componentDidUpdate(prevProps, prevState) {
 		console.log("componentDidUpdate Fired");
@@ -118,7 +118,6 @@ class EmployeePayroll extends Component {
 		}
 	}
 
-	
 	/**
 	 * loads payrollData objects for the selected months payroll
 	 */
@@ -361,7 +360,7 @@ class EmployeePayroll extends Component {
 		);
 
 		this.loadPayrollData();
-	}
+	};
 
 	/**
 	 * function for handling loading and creating payroll objects for the selected month
@@ -547,6 +546,7 @@ class EmployeePayroll extends Component {
 									addWorkDay={this.addWorkDay}
 									addTimeOff={this.addTimeOff}
 									addExpense={this.addExpense}
+									addMonthlyFees={this.addMonthlyFees}
 									handleReloadEvents={this.handleReloadEvents}
 									payrollID={this.state.selectedPayrollID}
 								/>

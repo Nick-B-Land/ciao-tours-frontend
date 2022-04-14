@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 /**
  * EmployeeInfo
  * Purpose: loads the logged in user their employee information and allows them to edit
- * 
+ *
  * Locally-Defined Functions and Variables
  * Variables
  * 	employeeObject - current logged in users employee information, grabbed from controller
- * 
+ *
  * Functions
  * 	componentDidMount - loads the employee information
  * 	loadEmployeeInfo - uses id to load the current users personal information
@@ -62,11 +62,21 @@ class EmployeeInfo extends Component {
 							</div>
 						</div>
 						<div className="row">
+							<div className="col d-flex justify-content-center p-4">
+								<Link to="/changePassword">
+									<button className="btn btn-lg PrimaryButton" type="button">
+										Change Password
+									</button>
+								</Link>
+							</div>
+						</div>
+						<div className="row">
 							<div className="col p-0">
 								<ul className="accordion">
 									{this.state.employeeObject ? (
 										<EmployeeCard
 											key={this.state.employeeObject.employeeId}
+											isEmployee={true}
 											{...this.state.employeeObject}
 										/>
 									) : null}

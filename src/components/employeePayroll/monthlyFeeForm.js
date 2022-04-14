@@ -1,40 +1,62 @@
 import React, { Component } from "react";
 import payrollDataController from "../../controllers/payrollDataController";
 
-
 class MonthlyFeeForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			officeUsage: "",
-			phoneUsage: ""
-		}
+			phoneUsage: "",
+			monthlyFee: [],
+		};
 	}
 
 	componentDidMount = async () => {
-		let payrolldata = await payrollDataController.getPayrollDataByPayrollID(this.props.payrollID);
-		let monthlyFee = payrolldata.filter(e => e.payrollEvent === 5);
-		this.setState({officeUsage: monthlyFee[0].officeUsage, phoneUsage: monthlyFee[0].otherUsage});
-	}
+		let payrolldata = await payrollDataController.getPayrollDataByPayrollID(
+			this.props.payrollID
+		);
+		let monthlyFee = payrolldata.data.filter((e) => e.payrollEvent === 5);
 
-	handleOfficeUsage(e) {
-		this.setState({officeUsage: e.target.value});
-	}
+		console.log(monthlyFee);
+		if (monthlyFee.length > 0) {
+			this.setState({
+				officeUsage: monthlyFee[0].officeUsage,
+				phoneUsage: monthlyFee[0].otherUsage,
+				monthlyFee: monthlyFee,
+			});
+		}
+	};
 
-	handlePhoneUsage(e) {
-		this.setState({phoneUsage: e.target.value});
-	}
+	deletePayrollDataEvent = async (payrollDataId) => {
+		let response = await payrollDataController.deletePayrollDataEvent(
+			payrollDataId
+		);
+	};
 
-	handleUsageSubmit() {
-		this.props.addMonthlyFees(this.state.officeUsage, this.state.phoneUsage);
+	handleOfficeUsage = (e) => {
+		this.setState({ officeUsage: e.target.value });
+	};
+
+	handlePhoneUsage = (e) => {
+		this.setState({ phoneUsage: e.target.value });
+	};
+
+	handleUsageSubmit = () => {
+		if (this.state.monthlyFee.length > 0) {
+			this.deletePayrollDataEvent(this.state.monthlyFee[0].payrollDataId);
+			this.props.addMonthlyFees(this.state.officeUsage, this.state.phoneUsage);
+		} else {
+			this.props.addMonthlyFees(this.state.officeUsage, this.state.phoneUsage);
+		}
+
 		this.props.handleSelectedForm(0);
-	}
+	};
 
 	handleCancel = () => {
 		this.props.handleSelectedForm(0);
-	}
+	};
 
-    render() {
+	render() {
 		return (
 			<>
 				<div className="row">
@@ -73,7 +95,7 @@ class MonthlyFeeForm extends Component {
 							className="btn PrimaryButton mt-3 ms-0"
 							onClick={this.handleUsageSubmit}
 						>
-							Add WorkDay
+							Add Fees
 						</button>
 						<button
 							type="button"
@@ -83,7 +105,6 @@ class MonthlyFeeForm extends Component {
 							Cancel
 						</button>
 					</div>
-					
 				</div>
 			</>
 		);

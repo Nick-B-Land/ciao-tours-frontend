@@ -30,7 +30,7 @@ class NewEmployee extends Component {
 			bankaccountnum: "",
 			transitid: "",
 			username: "",
-			password: "password",
+			password: "",
 			roleText: "",
 			employeeType: 1,
 			showUsernameError: true,
@@ -415,8 +415,7 @@ class NewEmployee extends Component {
 														className="form-control"
 													/>
 												</td>
-												<td className="errorText">
-												</td>
+												<td className="errorText"></td>
 											</tr>
 											<tr className="form-group">
 												<td className="text-end">First Name</td>
@@ -540,8 +539,7 @@ class NewEmployee extends Component {
 														className="form-control"
 													/>
 												</td>
-												<td className="errorText">
-												</td>
+												<td className="errorText"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -557,7 +555,8 @@ class NewEmployee extends Component {
 													<select
 														value={this.state.roleText}
 														onChange={this.handleRoleInput}
-														className="form-select">
+														className="form-select"
+													>
 														<option value="Select">Select</option>
 														<option value="Admin">Admin</option>
 														<option value="Bookkeeper">Bookkeeper</option>
@@ -577,14 +576,14 @@ class NewEmployee extends Component {
 													<select
 														value={this.state.employeeType}
 														onChange={this.handleEmployeeType}
-														className="form-select">
+														className="form-select"
+													>
 														<option value="1">Hourly</option>
 														<option value="2">Salary</option>
 														<option value="3">Italian</option>
 													</select>
 												</td>
-												<td className="errorText">
-												</td>
+												<td className="errorText"></td>
 											</tr>
 											<tr className="form-group">
 												<td className="text-end">Email</td>
@@ -644,8 +643,7 @@ class NewEmployee extends Component {
 														className="form-control"
 													/>
 												</td>
-												<td className="errorText">
-												</td>
+												<td className="errorText"></td>
 											</tr>
 											<tr className="form-group">
 												<td className="text-end">Hourly Wage</td>
@@ -657,8 +655,7 @@ class NewEmployee extends Component {
 														className="form-control"
 													/>
 												</td>
-												<td className="errorText">
-												</td>
+												<td className="errorText"></td>
 											</tr>
 											<tr className="form-group">
 												<td className="text-end">Monthly Salary</td>
@@ -670,8 +667,7 @@ class NewEmployee extends Component {
 														className="form-control"
 													/>
 												</td>
-												<td className="errorText">
-												</td>
+												<td className="errorText"></td>
 											</tr>
 											<tr className="form-group">
 												<td className="text-end">Bank Institution ID</td>
@@ -700,7 +696,9 @@ class NewEmployee extends Component {
 													/>
 												</td>
 												<td className="errorText">
-													{showBANError && <div className="error"> {BANError} </div>}
+													{showBANError && (
+														<div className="error"> {BANError} </div>
+													)}
 												</td>
 											</tr>
 											<tr className="form-group">

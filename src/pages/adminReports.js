@@ -70,7 +70,7 @@ class AdminReports extends Component {
 			gross += e.grossPay;
 		});
 
-		return gross;
+		return gross.toFixed(2);
 	};
 
 	calculateTotalNetPaidByPeriod = () => {
@@ -80,7 +80,7 @@ class AdminReports extends Component {
 			net += e.netPay;
 		});
 
-		return net;
+		return net.toFixed(2);
 	};
 
 	renderPayrollTotals = () => {
