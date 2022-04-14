@@ -7,19 +7,24 @@ class BottomAdminNav extends Component {
 			<div className="row border basicNavBar">
 				<ul className="nav nav-pills nav-fill">
 					<li className="nav-item">
-						<Link to="/admin" className="basicNavBarItem">Home</Link>
+						<Link to="/admin" className="basicNavBarItem">
+							Home
+						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/adminEmployees" className="basicNavBarItem">Employees</Link>
+						<Link to="/adminEmployees" className="basicNavBarItem">
+							Employees
+						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/adminReports" className="basicNavBarItem">Reports</Link>
+						<Link to="/adminReports" className="basicNavBarItem">
+							Reports
+						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/adminPayroll" className="basicNavBarItem">Run Payroll</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/employeeInfoAdmin" className="basicNavBarItem">My Information</Link>
+						<Link to="/adminPayroll" className="basicNavBarItem">
+							Run Payroll
+						</Link>
 					</li>
 				</ul>
 			</div>

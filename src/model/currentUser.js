@@ -1,9 +1,9 @@
 //for testing I hard coded values, should not exist in live
 export let CurrentUser = {
-	eID: 0,
+	eID: -1,
 	username: "",
 	roles: [],
-	uID: 0,
+	uID: -1,
 };
 
 CurrentUser.Set = () => {

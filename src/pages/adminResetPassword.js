@@ -30,12 +30,10 @@ class AdminResetPassword extends Component {
 			);
 
 			let user = userResponse.data[0];
+			console.log(user);
 			user.password = "password";
 
-			let resetResponse = await userAccountController.updateUser(
-				user,
-				user.user_id
-			);
+			let resetResponse = await userAccountController.updateUser(user, user.id);
 
 			console.log(resetResponse);
 		}
@@ -51,17 +49,34 @@ class AdminResetPassword extends Component {
 				<div className="row">
 					<div className="col-2"></div>
 					<div className="col-8 min-vh-100 innerAdmin">
-						<input
-							type="text"
-							value={this.state.employeeId}
-							onChange={this.handleEmployeeId}
-						/>
-						<button
-							className="btn PrimaryButton"
-							onClick={this.handleResetPassword}
-						>
-							Reset Password
-						</button>
+						<div className="row mb-4">
+							<div className="employeeHeader p-4 pt-2 pb-2 text-center">
+								<h1 className="py-3">Reset a Password</h1>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col d-flex justify-content-center">
+								<div className="form-group">
+									<h5>Employee ID</h5>
+									<input
+										type="text"
+										value={this.state.employeeId}
+										onChange={this.handleEmployeeId}
+										className="form-control"
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="row my-3">
+							<div className="col d-flex justify-content-center">
+								<button
+									className="btn PrimaryButton"
+									onClick={this.handleResetPassword}
+								>
+									Reset Password
+								</button>
+							</div>
+						</div>
 					</div>
 					<div className="col-2"></div>
 				</div>

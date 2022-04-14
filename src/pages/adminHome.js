@@ -77,7 +77,7 @@ class AdminHome extends Component {
 									</div>
 								</div>
 								<div className="row">
-									<div className="col-md-3 p-2 text-center">
+									<div className="col p-2 text-center">
 										<div className="p-3 bg-white border rounded-3">
 											<h6>Today's Date</h6>
 											<p className="h2 m-0">{month}</p>
@@ -85,7 +85,7 @@ class AdminHome extends Component {
 											<p className="h2 m-0">{year}</p>
 										</div>
 									</div>
-									<div className="col-md-6 p-2">
+									<div className="col p-2">
 										<div className="p-3 bg-white border rounded-3">
 											<div className="d-flex justify-content-center">
 												<Link to="/newEmployee">

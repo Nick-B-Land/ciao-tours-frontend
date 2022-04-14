@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
-import TopNav from "../components/navs/topNav";
 import employeeController from "../controllers/employeeController";
 import { Link } from "react-router-dom";
 import EmployeeCard from "../components/adminEmployees/employeeCard";
@@ -57,11 +56,8 @@ class AdminEmployees extends Component {
 								<ul className="accordion">
 									{this.state.employeesLoaded
 										? this.state.employeeList.map((props) => (
-												<EmployeeCard
-												key={props.employeeId}
-													{...props}
-												/>
-										))
+												<EmployeeCard key={props.employeeId} {...props} />
+										  ))
 										: "Loading"}
 								</ul>
 							</div>

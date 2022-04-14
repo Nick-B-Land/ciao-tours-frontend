@@ -51,9 +51,20 @@ class DomesticHourlyPayroll extends Component {
 	setWagePaid = () => {
 		let wage = this.props.workDayHours * this.props.currentEmployee.hourlyWage;
 		this.props.setWagePaid(wage);
-		this.setState({ wagePaid: wage }, () => {
-			this.setGrossPay();
-		});
+		this.props.setIncomeTax(wage * 0.15);
+		this.props.setCPPDeductions(wage * 0.0525);
+		this.props.setEIDeductions(wage * 0.019);
+		this.setState(
+			{
+				wagePaid: wage,
+				incomeTaxDeducted: wage * 0.15,
+				cppDeducted: wage * 0.0525,
+				eiDeducted: wage * 0.019,
+			},
+			() => {
+				this.setGrossPay();
+			}
+		);
 	};
 
 	setGrossPay = () => {
@@ -133,10 +144,10 @@ class DomesticHourlyPayroll extends Component {
 						<i>Total Hours: {this.props.workDayHours}</i>
 					</div>
 					<div className="col">
-						<i>Wage: ${this.props.currentEmployee.hourlyWage}/hr</i>
+						<i>Wage: ${this.props.currentEmployee.hourlyWage.toFixed(2)}/hr</i>
 					</div>
 					<div className="col">
-						<i>Total Paid: ${this.state.wagePaid} </i>
+						<i>Total Paid: ${this.state.wagePaid.toFixed(2)} </i>
 					</div>
 				</div>
 				<div className="row">
@@ -147,7 +158,7 @@ class DomesticHourlyPayroll extends Component {
 				{this.props.renderExpenses()}
 				<div className="row">
 					<div className="col">
-						<i>Total Expenses: ${this.state.expenseCharges}</i>
+						<i>Total Expenses: ${this.state.expenseCharges.toFixed(2)}</i>
 					</div>
 				</div>
 				<div className="row">
@@ -158,7 +169,6 @@ class DomesticHourlyPayroll extends Component {
 				<div className="row">
 					<div className="col">
 						<p>Hours Worked: </p>
-						{" $ "}
 						<input
 							type="text"
 							value={this.state.workDayHours}
@@ -167,7 +177,6 @@ class DomesticHourlyPayroll extends Component {
 					</div>
 					<div className="col">
 						<p>Stat Hours Worked: </p>
-						{" $ "}
 						<input
 							type="text"
 							value={this.state.statHoursWorked}
@@ -179,7 +188,7 @@ class DomesticHourlyPayroll extends Component {
 						{" $ "}
 						<input
 							type="text"
-							value={this.state.expenseCharges}
+							value={this.state.expenseCharges.toFixed(2)}
 							onChange={this.handleExpenseCharges}
 						/>
 					</div>
@@ -190,7 +199,7 @@ class DomesticHourlyPayroll extends Component {
 						{" $ "}
 						<input
 							type="text"
-							value={this.state.incomeTaxDeducted}
+							value={this.state.incomeTaxDeducted.toFixed(2)}
 							onChange={this.handleIncomeTaxDeducted}
 						/>
 					</div>
@@ -199,7 +208,7 @@ class DomesticHourlyPayroll extends Component {
 						{" $ "}
 						<input
 							type="text"
-							value={this.state.cppDeducted}
+							value={this.state.cppDeducted.toFixed(2)}
 							onChange={this.handleCppDeducted}
 						/>
 					</div>
@@ -208,7 +217,7 @@ class DomesticHourlyPayroll extends Component {
 						{" $ "}
 						<input
 							type="text"
-							value={this.state.eiDeducted}
+							value={this.state.eiDeducted.toFixed(2)}
 							onChange={this.handleEiDeducted}
 						/>
 					</div>
@@ -217,12 +226,16 @@ class DomesticHourlyPayroll extends Component {
 					<div className="col">
 						<p>Gross Pay: </p>
 						{" $ "}
-						<input type="text" value={this.state.grossPay} readOnly />
+						<input
+							type="text"
+							value={this.state.grossPay.toFixed(2)}
+							readOnly
+						/>
 					</div>
 					<div className="col">
 						<p>Net Pay: </p>
 						{" $ "}
-						<input type="text" value={this.state.netPay} readOnly />
+						<input type="text" value={this.state.netPay.toFixed(2)} readOnly />
 					</div>
 				</div>
 			</>

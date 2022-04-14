@@ -45,8 +45,20 @@ class DomesticSalaryPayroll extends Component {
 
 		if (this.state.expenseCharges) gross += Number(this.state.expenseCharges);
 
+		this.props.setIncomeTax(gross * 0.15);
+		this.props.setCPPDeductions(gross * 0.0525);
+		this.props.setEIDeductions(gross * 0.019);
+
 		this.props.setGrossPay(gross);
-		this.setState({ grossPay: gross }, this.setNetPay);
+		this.setState(
+			{
+				grossPay: gross,
+				incomeTaxDeducted: gross * 0.15,
+				cppDeducted: gross * 0.0525,
+				eiDeducted: gross * 0.019,
+			},
+			this.setNetPay
+		);
 	};
 
 	setNetPay = () => {
@@ -118,7 +130,7 @@ class DomesticSalaryPayroll extends Component {
 				{this.props.renderExpenses()}
 				<div className="row">
 					<div className="col">
-						<i>Total Expenses: ${this.state.expenseCharges}</i>
+						<i>Total Expenses: ${this.state.expenseCharges.toFixed(2)}</i>
 					</div>
 				</div>
 				<div className="row">
@@ -150,7 +162,7 @@ class DomesticSalaryPayroll extends Component {
 						{" $ "}
 						<input
 							type="text"
-							value={this.state.expenseCharges}
+							value={this.state.expenseCharges.toFixed(2)}
 							onChange={this.handleExpenseCharges}
 						/>
 					</div>
@@ -161,7 +173,7 @@ class DomesticSalaryPayroll extends Component {
 						{" $ "}
 						<input
 							type="text"
-							value={this.state.incomeTaxDeducted}
+							value={this.state.incomeTaxDeducted.toFixed(2)}
 							onChange={this.handleIncomeTaxDeducted}
 						/>
 					</div>
@@ -170,7 +182,7 @@ class DomesticSalaryPayroll extends Component {
 						{" $ "}
 						<input
 							type="text"
-							value={this.state.cppDeducted}
+							value={this.state.cppDeducted.toFixed(2)}
 							onChange={this.handleCppDeducted}
 						/>
 					</div>
@@ -179,7 +191,7 @@ class DomesticSalaryPayroll extends Component {
 						{" $ "}
 						<input
 							type="text"
-							value={this.state.eiDeducted}
+							value={this.state.eiDeducted.toFixed(2)}
 							onChange={this.handleEiDeducted}
 						/>
 					</div>
@@ -188,12 +200,20 @@ class DomesticSalaryPayroll extends Component {
 					<div className="col">
 						<p>Gross Pay: </p>
 						{" $ "}
-						<input type="text" value={this.state.grossPay} readOnly={true} />
+						<input
+							type="text"
+							value={this.state.grossPay.toFixed(2)}
+							readOnly={true}
+						/>
 					</div>
 					<div className="col">
 						<p>Net Pay: </p>
 						{" $ "}
-						<input type="text" value={this.state.netPay} readOnly={true} />
+						<input
+							type="text"
+							value={this.state.netPay.toFixed(2)}
+							readOnly={true}
+						/>
 					</div>
 				</div>
 			</>

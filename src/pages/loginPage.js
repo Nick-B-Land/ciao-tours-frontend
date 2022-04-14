@@ -48,9 +48,9 @@ class LoginPage extends Component {
 			this.props.currentUser.Set();
 			let employeeTypes = responseData.roles;
 			console.log(responseData);
-
+			console.log(this.props.currentUser);
 			if (employeeTypes.includes("ROLE_EMPLOYEE")) {
-				this.props.navigate("employee");
+				this.props.navigate("/employee");
 			} else {
 				this.props.navigate("/admin");
 			}
