@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PayrollOverview from "../components/bookkeeperPayroll/payrollOverview";
 import ProccessPayroll from "../components/bookkeeperPayroll/processPayroll";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
-import TopNav from "../components/navs/topNav";
 import payrollController from "../controllers/payrollController";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 

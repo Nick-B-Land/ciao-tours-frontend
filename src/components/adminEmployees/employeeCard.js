@@ -1,8 +1,21 @@
+
 import React, { useState } from "react";
 import employeeController from "../../controllers/employeeController";
 import "../../style/stylesheet.css";
 
-
+/**
+ * EmployeeCard returns a list item which holds an accordian style piece that holds the employees personal information for admin/own employee
+ * @returns accordian style list item
+ * 
+ * Locally-defined Functions and Variables
+ * Variables
+ * 	variables for each field of an employee
+ * 
+ * Functions
+ * 	deleteMode - resets the edit mode to false
+ * 	editMode - sets edit mode to true
+ * 	handleEdit - controls the edit fields validation
+ */
 const EmployeeCard = ({
 	props,
 	employeeId,
@@ -70,16 +83,24 @@ const EmployeeCard = ({
 		return employeeObj;
 	};
 
+	/**
+	 * resets the edit mode to false (just view mode)
+	 */
 	const deleteMode = async () => {
 		setIsEdit(false);
 	};
 
+	/**
+	 * sets edit mode to true
+	 */
 	const editMode = async () => {
 		setIsEdit(true);
 	};
 
+	/**
+	 * controls the edit side of the card
+	 */
 	const handleEdit = async () => {
-		console.log(buildEmployeeObj());
 		let dateFrom = new Date("02/05/2001");
 		let onlyAlph = /^[A-Za-z]+$/;
 		if (
@@ -112,15 +133,15 @@ const EmployeeCard = ({
 				buildEmployeeObj(),
 				stateEmpId
 			);
-			console.log(response);
 		}
 	};
 
+	/**
+	 * deletes the employee from the database
+	 */
 	const handleDelete = async () => {
 		let response = await employeeController.deleteEmployee(stateEmpId);
-
 		document.location.reload();
-		console.log(response);
 	};
 
 	if (isEdit) {

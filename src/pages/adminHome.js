@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "../style/stylesheet.css";
 import employeeController from "../controllers/employeeController";
-import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
 import FlaggedDay from "../components/flaggedDay.js";
 import EmployeeHours from "../components/employeeHours";
@@ -9,34 +8,28 @@ import { Link } from "react-router-dom";
 import { flaggedDayData, empHoursData } from "../components/data";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
+/**
+ * AdminHome
+ * Purpose: the landing page for admin users; ideally this page will show vital information for the admin to see, such as users locked out,
+ * 	payrolls waiting to be completed, and quickly creating new users
+ * 
+ * Locally-Defined Functions and Variables
+ * Functions
+ * 	componentDidMount - runs on page load
+ */
 class AdminHome extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			employeeList: [],
-			employeesLoaded: false,
 		};
 	}
 
+	//??
 	componentDidMount() {
 		employeeController.getEmployees().then((employee) => {
 			console.log(<li key={employee.id}>{employee.data}</li>);
 		});
 	}
-
-	// renderEmployees = () => {
-	//     console.log("render Employees fired");
-	//     console.log(this.state.employeeList);
-	//     return this.state.employeeList.map(e => {
-
-	//         <EmployeeCard
-	//             key={e.id}
-	//             firstName={e.firstName}
-	//             lastName={e.lastName}
-	//             jobTitle={e.jobTitle}
-	//         />
-	//     })
-	// }
 
 	render() {
 		var monthName = [
@@ -71,7 +64,7 @@ class AdminHome extends Component {
 							<div className="col min-vh-100">
 								<div className="row mb-4">
 									<div className="employeeHeader p-4 pt-2 pb-2 text-center">
-										<h1 className="py-3">
+										<h1 className="mb-2">
 											Welcome, {this.props.currentUser.username}
 										</h1>
 									</div>
@@ -118,8 +111,6 @@ class AdminHome extends Component {
 						</div>
 					</div>
 				</div>
-
-				{/* {this.state.employeesLoaded ? this.renderEmployees() : <h3>Loading</h3>} */}
 			</div>
 		);
 	}

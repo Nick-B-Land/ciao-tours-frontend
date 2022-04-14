@@ -1,12 +1,22 @@
 import React, { Component, useState } from "react";
 import "../style/stylesheet.css";
-import TopNav from "../components/navs/topNav";
 import BottomAdminNav from "../components/navs/bottomAdminNav";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 import employeeController from "../controllers/employeeController";
 import EmployeeCard from "../components/adminEmployees/employeeCard";
-import BottomEmpNav from "../components/navs/bottomEmpNav";
 
+/**
+ * EmployeeInfoAdmin
+ * Purpose: the administrator page for viewing their own personal information 
+ * 
+ * Locally-Defined Functions and Variables
+ * Variables
+ * 	employeeObject - current logged in users employee information, grabbed from controller
+ * 
+ * Functions
+ * 	componentDidMount - loads the employee information
+ * 	loadEmployeeInfo - uses id to load the current users personal information
+ */
 class EmployeeInfoAdmin extends Component {
 	constructor(props) {
 		super(props);
@@ -15,11 +25,17 @@ class EmployeeInfoAdmin extends Component {
 		};
 	}
 
+	/**
+	 * runs on page load, calls loadEmployeeInfo
+	 */
 	componentDidMount = () => {
 		console.log(this.props.currentUser)
 		this.loadEmployeeInfo();
 	}
 
+	/**
+	 * loads employee personal information for the current system user by calling controller
+	 */
 	loadEmployeeInfo = async () => {
 		let employee = await employeeController.getEmployeeByID(this.props.currentUser.eID);
 		console.log(employee)
@@ -39,7 +55,7 @@ class EmployeeInfoAdmin extends Component {
 					<div className="col-8 min-vh-100 innerAdmin">
 						<div className="row">
 							<div className="employeeHeader p-4 pt-2 pb-2 text-center">
-								<h1 className="py-3">My Information</h1>
+								<h1 className="mb-2">My Information</h1>
 							</div>
 						</div>
 						<div className="row">

@@ -8,8 +8,22 @@ import EmployeePayrollButtons from "../components/employeePayroll/employeePayrol
 import EmployeePayrollCalender from "../components/employeePayroll/employeePayrollCalendar";
 import EmployeePayrollForm from "../components/employeePayroll/employeePayrollForm";
 
-/*
-Locally-Defined Functions/Variables
+/**
+ * EmployeePayroll
+ * Purpose: employee page for viewing their calendar of working events and forms for adding those events
+ * 
+ * Locally-Defined Functions/Variables
+ * Variables
+ * 	selectedMonth - state of current selected month
+	selectedYear - state of current selected year
+	selectedPayrollID - current payroll ID for selected month/year
+	selectedDay - selected day on the calendar
+	selectedEvents - list of events for selected day
+	payrollData - list of current payroll events for month
+	selectedForm - currently selected form
+	reloadEvents - true if events need to be reloaded 
+
+ * Functions
 	handleSelectedEvents - controls state of selected Events from a day
 		called in: payrollCalendarDay(handleDayClick)
 	loadPayrollData - loads PayrollData objects for the selected month and year's payroll
@@ -40,7 +54,7 @@ Locally-Defined Functions/Variables
 
 Props
 	CurrentUser - the employee that is currently on the system
-*/
+ */
 
 class EmployeePayroll extends Component {
 	constructor(props) {
@@ -57,17 +71,23 @@ class EmployeePayroll extends Component {
 		};
 	}
 
-	// handles the state of Events from a day, runs every time a day is clicked in the calendar
+	/**
+	 * handles the state of Events from a day, runs every time a day is clicked in the calendar
+	 */
 	handleSelectedEvents = (events) => {
 		this.setState({ selectedEvents: events });
 	};
 
+	/**
+	 * handles the state of reloadEvents 
+	 */
 	handleReloadEvents = () => {
-		this.setState({ reloadEvents: !this.state.reloadEvents }, () =>
-			console.log("HANDLE RELOAD EVENTS FIRED: " + this.state.selectedEvents)
-		);
+		this.setState({ reloadEvents: !this.state.reloadEvents });
 	};
 
+	/**
+	 * runs on page load, collects the current year and month for selected
+	 */
 	componentDidMount = () => {
 		console.log(this.props.currentUser);
 		this.setState({
@@ -76,6 +96,11 @@ class EmployeePayroll extends Component {
 		});
 	};
 
+	/**
+	 * runs if the state objects are updated
+	 * @param {*} prevProps 
+	 * @param {*} prevState 
+	 */
 	componentDidUpdate(prevProps, prevState) {
 		console.log("componentDidUpdate Fired");
 		if (this.state.selectedMonth !== prevState.selectedMonth) {
@@ -93,21 +118,23 @@ class EmployeePayroll extends Component {
 		}
 	}
 
-	//loads payrollData objects for the selected months payroll
+	
+	/**
+	 * loads payrollData objects for the selected months payroll
+	 */
 	loadPayrollData = async () => {
 		let payrollDataResponse =
 			await payrollDataController.getPayrollDataByPayrollID(
 				this.state.selectedPayrollID
 			);
-
-		console.log(payrollDataResponse);
-
 		this.setState({ payrollData: payrollDataResponse.data });
-
-		console.log("LOAD PAYROLL DATA " + this.state.payrollData);
 	};
 
-	//adds a daily assistance fee type payroll data object
+	/**
+	 * adds a daily assistance fee type payroll data object
+	 * @param {*} clientName user entered client name
+	 * @param {*} date user entered date
+	 */
 	addDailyAssistanceFee = async (clientName, date) => {
 		let dataDay = new Date(date);
 		const DAILY_ASSISTANCE_FEE_PER_DAY_IN_EUROS = 9;
@@ -142,12 +169,16 @@ class EmployeePayroll extends Component {
 			newPayrollData
 		);
 
-		console.log(response);
-
 		this.loadPayrollData();
 	};
 
-	// adds a tour booking type payroll data object
+	/**
+	 * adds a tour booking type payroll data object
+	 * @param {*} bookingInfoDesc user entered booking desc
+	 * @param {*} numHours user entered hours
+	 * @param {*} clientName user entered client name
+	 * @param {*} date user entered date
+	 */
 	addTourBooking = async (bookingInfoDesc, numHours, clientName, date) => {
 		let dataDay = new Date(date);
 
@@ -181,12 +212,14 @@ class EmployeePayroll extends Component {
 			newPayrollData
 		);
 
-		console.log(response);
-
 		this.loadPayrollData();
 	};
 
-	// adds a work day type payroll data object
+	/**
+	 * adds a work day type payroll data object
+	 * @param {*} numHours user entered hours
+	 * @param {*} date user entered date
+	 */
 	addWorkDay = async (numHours, date) => {
 		let dataDay = new Date(date);
 
@@ -213,17 +246,17 @@ class EmployeePayroll extends Component {
 			expenseAmount: null,
 			expenseDate: null,
 		};
-
 		let response = await payrollDataController.createPayrollData(
 			newPayrollData
 		);
-
-		console.log(response);
-
 		this.loadPayrollData();
 	};
 
-	// adds time off type Payroll Data object
+	/**
+	 * adds time off type Payroll Data object
+	 * @param {*} numHours user entered hours
+	 * @param {*} date user entered date
+	 */
 	addTimeOff = async (numHours, date) => {
 		let dataDay = new Date(date);
 
@@ -255,12 +288,15 @@ class EmployeePayroll extends Component {
 			newPayrollData
 		);
 
-		console.log(response);
-
 		this.loadPayrollData();
 	};
 
-	//adds an expense type payroll data object
+	/**
+	 * adds an expense type payroll data object
+	 * @param {*} expenseDesc user entered desc
+	 * @param {*} expenseAmount user entered amount
+	 * @param {*} date user entered date
+	 */
 	addExpense = async (expenseDesc, expenseAmount, date) => {
 		let dataDay = new Date(date);
 
@@ -292,18 +328,16 @@ class EmployeePayroll extends Component {
 			newPayrollData
 		);
 
-		console.log(response);
-
 		this.loadPayrollData();
 	};
 
-	//function for handling loading and creating payroll objects for the selected month
+	/**
+	 * function for handling loading and creating payroll objects for the selected month
+	 */
 	handlePayrollObject = async () => {
 		let response = await payrollController.getPayrollByEID(
 			this.props.currentUser.eID
 		);
-
-		console.log(response);
 		//if no payrolls found belonging to employee, create one for current month
 		if (response.data.length === 0) {
 			console.log("no payroll");
@@ -327,18 +361,6 @@ class EmployeePayroll extends Component {
 
 			for (let i = 0; i < payrolls.length; ++i) {
 				let date = new Date(payrolls[i].dateOfPayroll);
-				// console.log(
-				// 	"Payroll Month: " +
-				// 		date.getMonth() +
-				// 		"| State Month: " +
-				// 		this.state.selectedMonth
-				// );
-				// console.log(
-				// 	"Payroll Year: " +
-				// 		date.getFullYear() +
-				// 		"| State Year: " +
-				// 		this.state.selectedYear
-				// );
 
 				//using strict equality was causing this check to fail on updates even when there was a match
 				//something to do with types? Will need more investigation later, for now loose equality will work
@@ -374,12 +396,18 @@ class EmployeePayroll extends Component {
 		}
 	};
 
-	// handles the state of the selected day
+	/**
+	 * handles the state of the selected day
+	 * @param {*} day user selected day
+	 */
 	handleSelectedDay = (day) => {
 		this.setState({ selectedDay: day });
 	};
 
-	// handles the state of the selected form
+	/**
+	 * handles the state of the selected form
+	 * @param {*} formType entered form type
+	 */
 	handleSelectedForm = (formType) => {
 		if (this.state.selectedForm === formType) {
 			this.setState({ selectedForm: 0 });
@@ -388,12 +416,18 @@ class EmployeePayroll extends Component {
 		}
 	};
 
-	// handles the state of the selected month
+	/**
+	 * handles the state of the selected month
+	 * @param {*} e month
+	 */
 	handleMonthChange = (e) => {
 		this.setState({ selectedMonth: e.target.value });
 	};
 
-	// handles the state of the selected year
+	/**
+	 * handles the state of the selected year
+	 * @param {*} e year
+	 */
 	handleYearChange = (e) => {
 		this.setState({ selectedYear: e.target.value });
 	};

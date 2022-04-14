@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import employeeController from "../../controllers/employeeController";
 import "../../style/employeeCalendarCSS.css";
 
-/*
-props
+/**
+ * EmployeePayrollButtons
+ * Purpose: loads the buttons to employeePayroll page based on the type of user that is logged in
+ * 
+ * Props
 	handleSelectedForm - changes the state of the currently selected form
-		located: employeePayroll
-*/
+ */
 
-// a component for the form buttons at the top of the calendar page
 class EmployeePayrollButtons extends Component {
 	constructor(props) {
 		super(props);
@@ -21,7 +22,7 @@ class EmployeePayrollButtons extends Component {
 		let empResponse = await employeeController.getEmployeeByID(
 			this.props.employeeId
 		);
-
+		console.log(empResponse);
 		this.setState({ employeeType: empResponse.data[0].employeeType });
 	};
 

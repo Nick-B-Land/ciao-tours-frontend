@@ -5,6 +5,16 @@ import Paystub from "../components/paystub";
 import paystubController from "../controllers/paystubController";
 import TopNavWrapper from "../functionalComponents/topNavWrapper";
 
+/**
+ * EmployeePaystubs
+ * Purpose: employee page to see paystubs from any of their working months
+ * 
+ * Locally-Defined Functions and Variables
+ * Variables
+ * 	year - current year
+ * 	month - current month
+ * 	paystubPeriods - list of 
+ */
 class EmployeePaystubs extends Component {
 	constructor(props) {
 		super(props);
@@ -14,26 +24,22 @@ class EmployeePaystubs extends Component {
 			paystubsToDisplay: [],
 			employeeSearchValue: "",
 		};
-	}
-
-	componentDidMount = () => {
-		console.log(this.props.currentUser);
-		this.setState({
-			selectedMonth: new Date().getMonth(),
-			selectedYear: new Date().getFullYear(),
-		});
-	}
-
-	componentDidUpdate = (prevProps, prevState) => {
-		if (this.state.selectedMonth !== prevState.selectedMonth) {
-			this.loadPaystub();
-		} else if (this.state.selectedYear !== prevState.selectedYear) {
-			this.loadPaystub();
-		}
 	};
 
-	loadPaystub = async () => {
-		let paystub = await paystubController.getPaystubByEID(this.props.currentUser.eID);
+	/**
+	 * updates state of selected year
+	 * @param {*} e selected year
+	 */
+	updateYear = (e) => {
+		this.setState({ year: e.target.value });
+	};
+
+	/**
+	 * loads current paystub
+	 * @param {'*'} e selected month
+	 */
+	loadPaystub = (e) => {
+		this.setState({ month: e.target.value });
 
 		let filteredPeriods = paystub.data.filter(
 					(e) =>
@@ -46,12 +52,11 @@ class EmployeePaystubs extends Component {
 							new Date(this.state.selectedYear, this.state.selectedMonth).getMonth()
 				);
 
-				console.log(filteredPeriods);
-				this.setState({ paystubsToDisplay: filteredPeriods });
-	};
-
-	handleMonthChange = (e) => {
-		this.setState({ selectedMonth: e.target.value });
+		// try making a call using paystub id
+		// put '-' if value is 0
+		let paystubData = paystubController.getPaystubByEID(
+			this.props.currentUser.eID
+		);
 	};
 
 	handleYearChange = (e) => {
@@ -70,6 +75,10 @@ class EmployeePaystubs extends Component {
 		return workDaysHoursTotal;
 	};
 
+	/**
+	 * yearly total example
+	 * @returns work days total
+	 */
 	calculateWorkDaysYear = () => {
 		let workDaysYear = 0;
 		this.state.paystubsToDisplay.forEach((e) => {
@@ -86,6 +95,10 @@ class EmployeePaystubs extends Component {
 		return timeOffHoursTotal;
 	};
 
+	/**
+	 * daily assistance total
+	 * @returns assistance total
+	 */
 	calculateDailyAssistanceYear = () => {
 		let dailyAssistanceYear = 0;
 		this.state.paystubsToDisplay.forEach((e) => {
@@ -94,6 +107,10 @@ class EmployeePaystubs extends Component {
 		return dailyAssistanceYear;
 	};
 
+	/**
+	 * tour booking total
+	 * @returns total bookings for year
+	 */
 	calculateTourBookingYear = () => {
 		let tourBookingYear = 0;
 		this.state.paystubsToDisplay.forEach((e) => {
@@ -102,22 +119,11 @@ class EmployeePaystubs extends Component {
 		return tourBookingYear;
 	};
 
-	calculateStatHours = () => {
-		let statHoursTotal = 0;
-		this.state.paystubsToDisplay.forEach((e) => {
-			statHoursTotal += e.statHours;
-		});
-		return statHoursTotal;
 	};
-
-	calculateExpenseYear = () => {
-		let expenseYear = 0;
-		this.state.paystubsToDisplay.forEach((e) => {
-			expenseYear += e.expenseAmount;
-		});
-		return expenseYear;
-	};
-
+	/**
+	 * calculates cpp deductions
+	 * @returns cpp total
+	 */
 	calculateCppYear = () => {
 		let cppYear = 0;
 		this.state.paystubsToDisplay.forEach((e) => {
@@ -126,6 +132,9 @@ class EmployeePaystubs extends Component {
 		return cppYear;
 	};
 
+	/**
+	 * calculates ei deductions
+	 */
 	calculateEiYear = () => {
 		let eiYear = 0;
 		this.state.paystubsToDisplay.forEach((e) => {
@@ -134,6 +143,11 @@ class EmployeePaystubs extends Component {
 		return eiYear;
 	};
 
+	// income tax total
+	/**
+	 * 
+	 * @returns 
+	 */
 	calculateIncomeYear = () => {
 		let incomeYear = 0;
 		this.state.paystubsToDisplay.forEach((e) => {
@@ -142,6 +156,10 @@ class EmployeePaystubs extends Component {
 		return incomeYear;
 	};
 
+	/**
+	 * calculates gross year total
+	 * @returns gross total
+	 */
 	calculateGrossYear = () => {
 		let yearGross = 0;
 		this.state.paystubsToDisplay.forEach((e) => {
@@ -150,6 +168,10 @@ class EmployeePaystubs extends Component {
 		return yearGross;
 	};
 
+	/**
+	 * calculates total deductions
+	 * @returns total deductions
+	 */
 	calculateDeductionsYear = () => {
 		let yearDeductions = 0;
 		this.state.paystubsToDisplay.forEach((e) => {
@@ -158,6 +180,10 @@ class EmployeePaystubs extends Component {
 		return yearDeductions;
 	};
 
+	/**
+	 * net pay total
+	 * @returns net yearly pay
+	 */
 	calculateNetTotal = () => {
 		let yearNet = 0;
 		this.state.paystubsToDisplay.forEach((e) => {
@@ -167,7 +193,6 @@ class EmployeePaystubs extends Component {
 	};
 
 	renderPaystubTotals = () => {
-		console.log(this.state.paystubsToDisplay.length);
 		return (
 			<>
 				<h5>WorkDaysHours: {this.calculateWorkDaysHours()}</h5>
@@ -185,7 +210,7 @@ class EmployeePaystubs extends Component {
 				<h5>NetTotal: {this.calculateNetTotal()}</h5>
 			</>
 		);
-	}
+	};
 
 	filterPaystubsBySearchValue = () => {
 		let filteredPaystubs = [];
@@ -218,7 +243,7 @@ class EmployeePaystubs extends Component {
 			return this.state.paystubsToDisplay.map((paystub) => (
 				<Paystub key={paystub.paystubId} {...paystub} />
 			));
-		}
+		};
 	};
 
 	render() {
